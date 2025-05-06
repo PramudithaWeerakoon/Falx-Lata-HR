@@ -32,7 +32,7 @@ function HeroSection() {
         </div>
 
         {/* Main curved shape overlay - similar to the pink line */}
-        <div className="absolute inset-0 z-2 pointer-events-none">
+        <div className="absolute inset-0 z-2 pointer-events-none hidden md:block">
           <svg
             width="100%"
             height="100%"
@@ -54,7 +54,7 @@ function HeroSection() {
         </div>
 
         {/* Bottom-left corner shape */}
-        <div className="absolute bottom-0 left-0 w-1/3">
+        <div className="absolute bottom-0 left-0 w-1/3 hidden md:block">
           <svg
             width="100%"
             height="300"
@@ -71,7 +71,7 @@ function HeroSection() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-16 relative z-10">
+      <div className="container mx-auto px-4 py-16 pt-28 md:pt-36 relative z-10">
         <motion.div
           initial="hidden"
           animate="visible"

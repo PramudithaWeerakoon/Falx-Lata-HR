@@ -14,56 +14,56 @@ function JobCard({job, onApplyClick}) {
             whileInView={{opacity: 1, y: 0}}
             transition={{duration: 0.4}}
             viewport={{once: true}}
-            whileHover={{y: -5}}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8 border border-gray-100 relative overflow-hidden"
+            whileHover={{y: -3}}
+            className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6 md:mb-8 border border-gray-100 relative"
         >
             {/* Decorative elements */}
             <motion.div
                 initial={{scale: 0.8, opacity: 0}}
-                whileInView={{scale: 1, opacity: 0.1}}
+                whileInView={{scale: 1, opacity: 0.07}}
                 transition={{duration: 0.6, delay: 0.2}}
-                className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"
+                className="absolute -right-10 md:-right-20 -top-10 md:-top-20 w-40 md:w-64 h-40 md:h-64 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"
             />
 
-            <div className="p-8 relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+            <div className="p-5 md:p-8 relative z-10">
+                <div className="flex flex-col md:flex-row justify-between items-start gap-4 md:gap-6">
                     <div className="flex-1">
                         <motion.h3
-                            whileHover={{x: 5}}
-                            className="text-2xl font-bold text-gray-900 mb-3"
+                            whileHover={{x: 3}}
+                            className="text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3"
                         >
                             {job.title}
                         </motion.h3>
 
-                        <div className="flex flex-wrap gap-2 mb-4">
+                        <div className="flex flex-wrap gap-2 mb-3 md:mb-4">
                             <motion.span
                                 whileHover={{scale: 1.05}}
-                                className="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full"
+                                className="bg-blue-100 text-blue-600 text-xs font-medium px-2 py-1 rounded-full"
                             >
                                 {job.location}
                             </motion.span>
                             <motion.span
                                 whileHover={{scale: 1.05}}
-                                className="bg-green-100 text-green-600 text-xs font-medium px-3 py-1 rounded-full"
+                                className="bg-green-100 text-green-600 text-xs font-medium px-2 py-1 rounded-full"
                             >
                                 {job.type}
                             </motion.span>
                             <motion.span
                                 whileHover={{scale: 1.05}}
-                                className="bg-purple-100 text-purple-600 text-xs font-medium px-3 py-1 rounded-full"
+                                className="bg-purple-100 text-purple-600 text-xs font-medium px-2 py-1 rounded-full"
                             >
                                 {job.department}
                             </motion.span>
                         </div>
 
-                        <p className="text-gray-600 mb-6">{job.shortDescription}</p>
+                        <p className="text-gray-600 text-sm md:text-base mb-5 md:mb-6">{job.shortDescription}</p>
                     </div>
 
                     <motion.button
-                        whileHover={{scale: 1.05}}
-                        whileTap={{scale: 0.95}}
+                        whileHover={{scale: 1.03}}
+                        whileTap={{scale: 0.97}}
                         onClick={() => onApplyClick(job)}
-                        className="relative bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg"
+                        className="relative bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg text-sm md:text-base"
                     >
                         Apply Now
                         <motion.span
@@ -76,9 +76,9 @@ function JobCard({job, onApplyClick}) {
                     </motion.button>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-500 gap-4 mb-6">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center text-xs md:text-sm text-gray-500 gap-3 md:gap-4 my-4 md:my-6">
                     <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-500" fill="none"
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 md:mr-2 text-blue-500" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -86,7 +86,7 @@ function JobCard({job, onApplyClick}) {
                         <span>Posted {job.postedDate}</span>
                     </div>
                     <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-purple-500" fill="none"
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 md:mr-2 text-purple-500" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -96,15 +96,15 @@ function JobCard({job, onApplyClick}) {
                 </div>
 
                 <motion.button
-                    whileHover={{scale: 1.02}}
+                    whileHover={{scale: 1.01}}
                     onClick={() => setIsExpanded(!isExpanded)}
-                    className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center focus:outline-none transition-colors duration-300 group"
+                    className="text-blue-600 hover:text-blue-800 text-xs md:text-sm font-medium flex items-center focus:outline-none transition-colors duration-300 group"
                 >
                     {isExpanded ? 'Show Less' : 'Show More'}
                     <motion.svg
                         animate={{rotate: isExpanded ? 180 : 0}}
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 ml-2 transition-all duration-300 group-hover:translate-y-0.5"
+                        className="h-4 w-4 ml-1 md:ml-2 transition-all duration-300 group-hover:translate-y-0.5"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -119,10 +119,10 @@ function JobCard({job, onApplyClick}) {
                         animate={{opacity: 1, height: 'auto'}}
                         exit={{opacity: 0, height: 0}}
                         transition={{duration: 0.4, ease: 'easeInOut'}}
-                        className="mt-6 overflow-hidden"
+                        className="mt-4 md:mt-6 overflow-hidden text-sm md:text-base"
                     >
-                        <div className="mb-8">
-                            <h4 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                        <div className="mb-6 md:mb-8">
+                            <h4 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
                                 <motion.span
                                     animate={{rotate: [0, 10, -10, 0]}}
                                     transition={{duration: 2, repeat: Infinity}}
@@ -132,11 +132,11 @@ function JobCard({job, onApplyClick}) {
                                 </motion.span>
                                 Job Description
                             </h4>
-                            <p className="text-gray-600 mb-6 pl-8">{job.fullDescription}</p>
+                            <p className="text-gray-600 mb-5 md:mb-6 pl-6 md:pl-8">{job.fullDescription}</p>
                         </div>
 
-                        <div className="mb-8">
-                            <h4 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                        <div className="mb-6 md:mb-8">
+                            <h4 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
                                 <motion.span
                                     animate={{scale: [1, 1.1, 1]}}
                                     transition={{duration: 1.5, repeat: Infinity}}
@@ -146,13 +146,13 @@ function JobCard({job, onApplyClick}) {
                                 </motion.span>
                                 Requirements
                             </h4>
-                            <ul className="list-disc list-inside text-gray-600 space-y-2 pl-8">
+                            <ul className="list-disc list-inside text-gray-600 space-y-1 md:space-y-2 pl-6 md:pl-8">
                                 {job.requirements.map((req, index) => (
                                     <motion.li
                                         key={index}
-                                        initial={{x: -20, opacity: 0}}
+                                        initial={{x: -10, opacity: 0}}
                                         animate={{x: 0, opacity: 1}}
-                                        transition={{delay: index * 0.1}}
+                                        transition={{delay: index * 0.07}}
                                         className="flex items-start"
                                     >
                                         <span className="mr-2">•</span> {req}
@@ -162,7 +162,7 @@ function JobCard({job, onApplyClick}) {
                         </div>
 
                         <div>
-                            <h4 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                            <h4 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
                                 <motion.span
                                     animate={{y: [0, -3, 0]}}
                                     transition={{duration: 2, repeat: Infinity}}
@@ -172,13 +172,13 @@ function JobCard({job, onApplyClick}) {
                                 </motion.span>
                                 Responsibilities
                             </h4>
-                            <ul className="list-disc list-inside text-gray-600 space-y-2 pl-8">
+                            <ul className="list-disc list-inside text-gray-600 space-y-1 md:space-y-2 pl-6 md:pl-8">
                                 {job.responsibilities.map((resp, index) => (
                                     <motion.li
                                         key={index}
-                                        initial={{x: -20, opacity: 0}}
+                                        initial={{x: -10, opacity: 0}}
                                         animate={{x: 0, opacity: 1}}
-                                        transition={{delay: index * 0.1}}
+                                        transition={{delay: index * 0.07}}
                                         className="flex items-start"
                                     >
                                         <span className="mr-2">•</span> {resp}

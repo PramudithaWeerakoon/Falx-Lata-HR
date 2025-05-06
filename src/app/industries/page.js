@@ -282,23 +282,76 @@ export default function IndustriesSection() {
 
                     <div className="container mx-auto px-4 relative z-10">
                         <div className="text-center text-white">
+                            <motion.span
+                                initial={{opacity: 0, y: -15}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.4}}
+                                className="inline-block text-sm font-semibold bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full mb-2"
+                            >
+                                INDUSTRIES WE SERVE
+                            </motion.span>
                             <motion.h1
                                 initial={{opacity: 0, y: -20}}
                                 animate={{opacity: 1, y: 0}}
-                                transition={{duration: 0.5}}
-                                className="text-4xl md:text-5xl font-bold mb-6"
+                                transition={{duration: 0.5, delay: 0.1}}
+                                className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-white to-indigo-100 bg-clip-text text-transparent"
                             >
-                                Industries We Serve
+                                Specialized HR Solutions Across Industries
                             </motion.h1>
+                            <motion.div
+                                initial={{width: 0}}
+                                animate={{width: "120px"}}
+                                transition={{duration: 0.8, delay: 0.3}}
+                                className="h-1 bg-gradient-to-r from-purple-300 to-blue-300 mx-auto mb-6"
+                            />
                             <motion.p
                                 initial={{opacity: 0}}
                                 animate={{opacity: 1}}
                                 transition={{duration: 0.5, delay: 0.2}}
-                                className="text-xl md:text-2xl text-indigo-100 max-w-3xl mx-auto"
+                                className="text-lg md:text-xl text-indigo-100 max-w-3xl mx-auto mb-10"
                             >
-                                Specialized HR solutions across multiple industries, understanding the unique challenges
-                                and requirements of each sector
+                                InTalent Asia provides specialized HR solutions across multiple industries, understanding the unique challenges and requirements of each sector.
                             </motion.p>
+                            
+                            <motion.div 
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.6, delay: 0.4}}
+                                className="flex flex-wrap justify-center gap-4 md:gap-6"
+                            >
+                                {[
+                                    { name: "IT & Software", icon: IndustryIcons.IT, color: "from-blue-400 to-indigo-600" },
+                                    { name: "Insurance", icon: IndustryIcons.Insurance, color: "from-purple-400 to-pink-600" },
+                                    { name: "Banking & Finance", icon: IndustryIcons.Banking, color: "from-emerald-400 to-green-600" },
+                                    { name: "BPO/KPO", icon: IndustryIcons.BPO, color: "from-orange-400 to-red-600" },
+                                    { name: "Engineering", icon: IndustryIcons.Engineering, color: "from-blue-400 to-cyan-600" },
+                                    { name: "Auto Mobile", icon: IndustryIcons.Automotive, color: "from-gray-400 to-gray-700" },
+                                    { name: "Construction", icon: IndustryIcons.Construction, color: "from-amber-400 to-yellow-600" },
+                                    { name: "Education", icon: IndustryIcons.Education, color: "from-rose-400 to-red-600" },
+                                    { name: "Health & Care", icon: IndustryIcons.Healthcare, color: "from-teal-400 to-teal-600" },
+                                    { name: "Printing", icon: IndustryIcons.Printing, color: "from-indigo-400 to-violet-600" }
+                                ].map((industry, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                                        whileHover={{ 
+                                            scale: 1.05, 
+                                            boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                                        }}
+                                        className={`bg-white/15 backdrop-blur-lg border border-white/20 px-5 py-3 rounded-xl flex items-center gap-3 cursor-pointer transition-all duration-300 group`}
+                                    >
+                                        <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${industry.color} text-white flex items-center justify-center`}>
+                                            {industry.icon}
+                                        </div>
+                                        <span className="text-white font-medium group-hover:text-white/90">{industry.name}</span>
+                                        <motion.div 
+                                            className={`absolute inset-0 bg-gradient-to-r ${industry.color} rounded-xl opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+                                        />
+                                    </motion.div>
+                                ))}
+                            </motion.div>
                         </div>
                     </div>
                 </section>
