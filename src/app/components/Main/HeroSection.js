@@ -1,8 +1,38 @@
 'use client'
 
 import Link from "next/link";
+import { useEffect } from "react";
 
 function HeroSection() {
+  useEffect(() => {
+    // This ensures the animations are properly applied after component mount
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(0, -15px); }
+      }
+      
+      @keyframes floatReverse {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(0, 15px); }
+      }
+      
+      .floating-animation {
+        animation: float 6s ease-in-out infinite;
+      }
+      
+      .floating-animation-reverse {
+        animation: floatReverse 6s ease-in-out infinite;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   return (
     <div className="relative overflow-visible min-h-screen flex items-center justify-center">
       {/* Hero background with photo */}
@@ -27,28 +57,28 @@ function HeroSection() {
       </div>
 
       {/* Floating images in corners - only visible on PC */}
-      <div className="absolute top-0 right-0 w-[33rem] h-[33rem] pointer-events-none hidden md:block floating-animation">
+      <div className="absolute top-0 right-0 w-[33rem] h-[33rem] pointer-events-none hidden md:block" style={{ animation: 'float 6s ease-in-out infinite' }}>
         <img 
           src="/images/floating_image_01.png" 
           alt="Floating decoration" 
           className="w-full h-full object-contain transform translate-x-1/4 -translate-y-1/4" 
         />
       </div>
-      <div className="absolute top-0 left-0 w-[28rem] h-[28rem] pointer-events-none hidden md:block floating-animation-reverse">
+      <div className="absolute top-0 left-0 w-[28rem] h-[28rem] pointer-events-none hidden md:block" style={{ animation: 'floatReverse 6s ease-in-out infinite' }}>
         <img 
           src="/images/floating_image_02.png" 
           alt="Floating decoration" 
           className="w-full h-full object-contain transform -translate-x-1/4 -translate-y-1/4" 
         />
       </div>
-      <div className="absolute bottom-0 right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-20 translate-y-[15%] floating-animation">
+      <div className="absolute bottom-0 right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-20 translate-y-[15%]" style={{ animation: 'float 6s ease-in-out infinite' }}>
         <img 
           src="/images/floating_image_03-1.png" 
           alt="Floating decoration" 
           className="w-full h-full object-contain transform translate-x-1/5 translate-y-1/5" 
         />
       </div>
-      <div className="absolute bottom-0 left-0 w-[31rem] h-[31rem] pointer-events-none hidden md:block z-20 translate-y-[15%] floating-animation-reverse">
+      <div className="absolute bottom-0 left-0 w-[31rem] h-[31rem] pointer-events-none hidden md:block z-20 translate-y-[15%]" style={{ animation: 'floatReverse 6s ease-in-out infinite' }}>
         <img 
           src="/images/floating_image_04-1.png" 
           alt="Floating decoration" 
@@ -86,23 +116,3 @@ function HeroSection() {
 }
 
 export default HeroSection;
-
-<style jsx>{`
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-  }
-
-  @keyframes floatReverse {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(15px); }
-  }
-
-  .floating-animation {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .floating-animation-reverse {
-    animation: floatReverse 6s ease-in-out infinite;
-  }
-`}</style>

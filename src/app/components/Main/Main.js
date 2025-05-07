@@ -398,7 +398,7 @@ function ServicesSection() {
     ];
 
     return (
-        <div className="py-16 bg-gray-50 relative overflow-hidden">
+        <div className="pt-20 pb-67 bg-gray-50 relative overflow-hidden">
             {/* Background shapes */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
@@ -629,7 +629,7 @@ function IndustriesSection() {
     ]);
 
     return (
-        <div className="bg-white py-16 relative overflow-hidden">
+        <div className="bg-white pt-32 pb-16 relative overflow-hidden">
             {/* Animated background shapes */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
