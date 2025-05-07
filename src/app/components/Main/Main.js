@@ -866,6 +866,7 @@ export function ContactCTASection() {
                     className="absolute -bottom-20 -right-20 w-64 h-64 bg-purple-400 rounded-full opacity-20 blur-2xl"
                 />
 
+               
                 <motion.div
                     initial={{opacity: 0, y: -20}}
                     whileInView={{opacity: 1, y: 0}}
@@ -953,10 +954,82 @@ export default function HomePage() {
                 <IndustriesSection/>
                 <StatisticsSection/>
                 <WhyUsSectionV2/>
-                <ContactCTASection/>
-            </main>
+                
+                
+                {/* Floating blob images with animations */}
+                                <div className="relative py-20">
+                                    {/* Left blob image with animation */}
+                                    <motion.div 
+                                        className="absolute left-20 top-0 transform -translate-y-1/2 -translate-x-1/2 z-10"
+                                        animate={{
+                                            y: [0, -20, 0],
+                                            x: [0, 15, 0],
+                                            rotate: [0, 5, 0]
+                                        }}
+                                        transition={{
+                                            duration: 8,
+                                            repeat: Infinity,
+                                            ease: "easeInOut"
+                                        }}
+                                    >
+                                        <img 
+                                            src="/images/floating_image_01.png" 
+                                            alt="Green blob" 
+                                            className="w-[33rem] h-[33rem] hidden md:block"
+                                        />
+                                    </motion.div>
 
-            {/* Footer would go here */}
+                                    {/* Right blob image with animation */}
+                                    <motion.div 
+                                        className="absolute right-30 bottom-30 transform -translate-y-1/2 translate-x-1/2 z-10"
+                                        animate={{
+                                            y: [0, 20, 0],
+                                            x: [0, -15, 0],
+                                            rotate: [0, -5, 0]
+                                        }}
+                                        transition={{
+                                            duration: 10,
+                                            repeat: Infinity,
+                                            ease: "easeInOut", 
+                                            delay: 1.5
+                                        }}
+                                    >
+                                        <img 
+                                            src="/images/floating_image_03-1.png" 
+                                            alt="Red blob" 
+                                            className="w-[33rem] h-[33rem] hidden md:block"
+                                        />
+                                    </motion.div>
+                                </div>
+                                <ContactCTASection/>
+                                <div className="relative py-20">
+                                    
+
+                                    {/* Right blob image with animation */}
+                                    <motion.div 
+                                        className="absolute right-30 bottom-30 transform -translate-y-1/2 translate-x-1/2 z-10"
+                                        animate={{
+                                            y: [0, 20, 0],
+                                            x: [0, -15, 0],
+                                            rotate: [0, -5, 0]
+                                        }}
+                                        transition={{
+                                            duration: 10,
+                                            repeat: Infinity,
+                                            ease: "easeInOut", 
+                                            delay: 1.5
+                                        }}
+                                    >
+                                        <img 
+                                            src="/images/floating_image_05.png" 
+                                            alt="Red blob" 
+                                            className="w-[33rem] h-[33rem] hidden md:block"
+                                        />
+                                    </motion.div>
+                                </div>
+                            </main>
+
+                            {/* Footer would go here */}
         </div>
     );
 }
