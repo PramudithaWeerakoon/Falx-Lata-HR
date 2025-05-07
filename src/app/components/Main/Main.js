@@ -3,9 +3,11 @@
 import {useState, useEffect, useRef} from 'react';
 import {motion, useScroll, useTransform} from 'framer-motion';
 import Link from 'next/link';
-import HeroSection from './HeroSection';
 import React from 'react';
 import AnimatedDividerSection from "./_/AnimatedDividerSection";
+import dynamic from 'next/dynamic';
+
+const HeroSection = dynamic(() => import('./HeroSection'), { ssr: false });
 
 const animationStyles = `
   @keyframes fadeIn {
@@ -62,7 +64,7 @@ const WhyUsSectionV2 = () => {
         {
             title: "End-to-End Support",
             description: "Comprehensive HR services from recruitment to payroll management.",
-            icon: "M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z",
+            icon: "M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504-1.125-1.125-1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z",
             color: "bg-gradient-to-r from-blue-500 to-purple-500 text-white"
         }
     ];
@@ -744,7 +746,7 @@ function WhyChooseUsSection() {
         {
             title: "End-to-End Support",
             description: "Comprehensive HR services from recruitment to payroll management.",
-            icon: "M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z",
+            icon: "M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504-1.125-1.125-1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z",
             color: "from-blue-500 to-purple-500"
         }
     ];
@@ -907,26 +909,38 @@ export default function HomePage() {
         // Mark as loaded after component mounts
         setIsLoaded(true);
 
-        // Add Font Awesome from CDN if not already present
-        if (!document.getElementById('font-awesome-cdn')) {
-            const fontAwesomeLink = document.createElement('link');
-            fontAwesomeLink.id = 'font-awesome-cdn';
-            fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
-            fontAwesomeLink.rel = 'stylesheet';
-            document.head.appendChild(fontAwesomeLink);
-        }
+        // Ensure document-specific code only runs on the client
+        if (typeof window !== 'undefined') {
+            // Add Font Awesome from CDN if not already present
+            if (!document.getElementById('font-awesome-cdn')) {
+                const fontAwesomeLink = document.createElement('link');
+                fontAwesomeLink.id = 'font-awesome-cdn';
+                fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+                fontAwesomeLink.rel = 'stylesheet';
+                document.head.appendChild(fontAwesomeLink);
+            }
 
-        // Add animation styles
-        if (!document.getElementById('animation-styles')) {
-            const styleElement = document.createElement('style');
-            styleElement.id = 'animation-styles';
-            styleElement.innerHTML = animationStyles;
-            document.head.appendChild(styleElement);
+            // Add animation styles
+            if (!document.getElementById('animation-styles')) {
+                const styleElement = document.createElement('style');
+                styleElement.id = 'animation-styles';
+                styleElement.innerHTML = animationStyles;
+                document.head.appendChild(styleElement);
+            }
         }
     }, []);
 
-    if (!isLoaded) {
-        return null; // Prevent flash of unstyled content
+    if (!isLoaded && typeof window === 'undefined') {
+        // During SSR, if not yet "loaded" (which is a client-side concept here),
+        // return null or a basic placeholder to avoid running further client-side specific logic
+        // or trying to render components that might also have client-side dependencies not yet handled.
+        // This helps prevent errors during the build when `document` is not available.
+        return null; 
+    }
+    
+    if (!isLoaded && typeof window !== 'undefined') {
+        // On the client, if still loading, return null to prevent flash of unstyled content
+        return null;
     }
 
     return (
