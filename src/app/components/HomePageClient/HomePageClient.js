@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import HomePageContent from '@/app/components/Main/Main';
+import ScrollTriggeredMenu from '../NavBar/ScrollTriggeredMenu';
 
 // Loading component
 const LoadingScreen = () => (
@@ -50,19 +51,22 @@ export default function HomePageClient() {
   }, []);
 
   return (
-    <AnimatePresence mode="wait">
-      {isLoading ? (
-        <LoadingScreen key="loader" />
-      ) : (
-        <motion.div
-          key="content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <HomePageContent />
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <>
+      <ScrollTriggeredMenu />
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <LoadingScreen key="loader" />
+        ) : (
+          <motion.div
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <HomePageContent />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
