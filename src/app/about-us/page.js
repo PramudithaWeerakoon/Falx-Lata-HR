@@ -356,7 +356,18 @@ export default function AboutSection() {
                 </div>
 
                 <section className="bg-gradient-to-r from-blue-600 to-purple-700 py-29 relative">
-                    <div className="container mx-auto px-4">
+                    {/* Hero Background Image */}
+                    <div className="absolute inset-0 z-0">
+                        <img 
+                            src="/images/hero_about_us.jpg" 
+                            alt="Falx Lata About Us" 
+                            className="w-full h-full object-cover"
+                        />
+                        {/* Dark overlay with reduced opacity */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/50 to-purple-700/50"></div>
+                    </div>
+                    
+                    <div className="container mx-auto px-4 relative z-10">
                         <div className="text-center text-white">
                             <motion.h1
                                 initial={{opacity: 0, y: -20}}

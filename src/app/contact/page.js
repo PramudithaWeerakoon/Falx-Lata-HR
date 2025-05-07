@@ -138,7 +138,7 @@ export default function HeroSection() {
                                             </div>
                                             <div className="z-10">
                                                 <p className="text-sm text-gray-500">Email us at</p>
-                                                <p className="text-gray-900 font-medium">hello@intalent.asia</p>
+                                                <p className="text-gray-900 font-medium">info@falxlata.com</p>
                                             </div>
                                         </div>
 
@@ -155,7 +155,7 @@ export default function HeroSection() {
                                             </div>
                                             <div className="z-10">
                                                 <p className="text-sm text-gray-500">Call/WhatsApp</p>
-                                                <p className="text-gray-900 font-medium">+94-70-760-0007</p>
+                                                <p className="text-gray-900 font-medium">+94 777 937 691</p>
                                             </div>
                                         </div>
                                     </div>

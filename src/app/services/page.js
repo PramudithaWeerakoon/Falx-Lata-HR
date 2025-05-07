@@ -1,6 +1,6 @@
 'use client'
 
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import Navbar from '../components/NavBar/ScrollTriggeredMenu';
 
@@ -82,6 +82,12 @@ function ServiceCard({service, index}) {
 
 // Main Services Section Component
 export default function ServicesSection() {
+    const [isMounted, setIsMounted] = useState(false);
+    
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+    
     const services = [
         {
             title: "Recruitment, Head Hunting & Executive Search",
@@ -253,15 +259,26 @@ export default function ServicesSection() {
                     <div className="bubble bubble-8"></div>
                 </div>
 
-                {/* Hero Section */}
-                <section className="bg-gradient-to-r from-blue-600 to-purple-700 py-27 mb-16 relative">
-                    <div className="container mx-auto px-9">
+                {/* Hero Section with Image */}
+                <section className="relative h-[500px] md:h-[700px] mb-16">
+                    {/* Hero Background Image */}
+                    <div className="absolute inset-0 z-0">
+                        <img 
+                            src="/images/services/hr-services-hero.jpg" 
+                            alt="Falx Lata Services" 
+                            className="w-full h-full object-cover object-[center_0%]"
+                        />
+                        {/* No overlay to show natural image colors */}
+                    </div>
+                  
+                    {/* Hero Content */}
+                    <div className="container mx-auto px-4 h-full relative z-10 flex flex-col items-center justify-center">
                         <div className="text-center text-white">
                             <motion.h1
                                 initial={{opacity: 0, y: -20}}
                                 animate={{opacity: 1, y: 0}}
                                 transition={{duration: 0.5}}
-                                className="text-4xl md:text-5xl font-bold mb-6"
+                                className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg"
                             >
                                 Our Services
                             </motion.h1>
@@ -269,12 +286,47 @@ export default function ServicesSection() {
                                 initial={{opacity: 0}}
                                 animate={{opacity: 1}}
                                 transition={{duration: 0.5, delay: 0.2}}
-                                className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto"
+                                className="text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto drop-shadow-lg"
                             >
                                 Optimize your business operations with our comprehensive, one-stop HR solutions tailored
                                 to your company's unique needs
                             </motion.p>
                         </div>
+                    </div>
+                    
+                    {/* Floating decorations positioned below header but above other content */}
+                    <div className="absolute top-[270px] right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'float 6s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_03-1.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform translate-x-1/5" 
+                        />
+                    </div>
+                    <div className="absolute left-0 top-[0px] left-0 w-[21rem] h-[31rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'floatReverse 6s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_02.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform -translate-x-1/5" 
+                        />
+                    </div>
+                    <div className="absolute top-[520px] left-0 w-[31rem] h-[31rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'floatReverse 6s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_04-1.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform -translate-x-1/5" 
+                        />
+                    </div>
+                    
+                    {/* Wave Bottom Shape */}
+                    <div className="absolute bottom-0 top-101 left-0 right-0 z-20 w-full">
+                        <img 
+                            src="/images/Wave_White_bottom_left_shape_01.png" 
+                            alt="Wave Shape" 
+                            className="w-full"
+                        />
                     </div>
                 </section>
 
@@ -421,6 +473,21 @@ export default function ServicesSection() {
                         }
                         75% {
                             transform: translate(10px, -10px) rotate(3deg);
+                        }
+                    }
+                    
+                    @keyframes floatReverse {
+                        0%, 100% {
+                            transform: translate(0, 0) rotate(0deg);
+                        }
+                        25% {
+                            transform: translate(-15px, 15px) rotate(-3deg);
+                        }
+                        50% {
+                            transform: translate(15px, -15px) rotate(3deg);
+                        }
+                        75% {
+                            transform: translate(-10px, 10px) rotate(-2deg);
                         }
                     }
                 `}</style>

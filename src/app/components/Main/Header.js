@@ -35,11 +35,11 @@ function Header() {
         <div className="bg-[#111] transition-all duration-300">
           <div className="container mx-auto flex justify-between items-center px-4 md:px-12 py-2">
             <div className="hidden md:flex items-center gap-5">
-              <a href="mailto:hello@intalent.asia" className="text-white no-underline flex items-center gap-1 text-sm">
-                <i className="far fa-envelope"></i> hello@intalent.asia
+              <a href="mailto:info@falxlata.com" className="text-white no-underline flex items-center gap-1 text-sm">
+                <i className="far fa-envelope"></i> info@falxlata.com
               </a>
-              <a href="tel:+94-70-760-0007" className="text-white no-underline flex items-center gap-1 text-sm">
-                <i className="fas fa-phone"></i> +94-70-760-0007
+              <a href="tel:+94 777 937 691" className="text-white no-underline flex items-center gap-1 text-sm">
+                <i className="fas fa-phone"></i> +94 777 937 691
               </a>
             </div>
 
@@ -81,12 +81,12 @@ function Header() {
       {/* Main navigation - Changes style on scroll */}
       <nav className={`transition-all duration-300 ${
         scrolled 
-          ? 'py-2 bg-[#111]/95' 
-          : 'py-3 bg-[#111]/80'
+          ? 'py-2 bg-white shadow-md border-b border-gray-200' 
+          : 'py-3 bg-transparent'
       }`}>
         <div className="container mx-auto flex justify-between items-center px-4 md:px-12">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 md:gap-3 text-xl md:text-2xl font-bold text-white no-underline">
+          <Link href="/" className={`flex items-center gap-2 md:gap-3 text-xl md:text-2xl font-bold ${scrolled ? 'text-gray-900' : 'text-white'} no-underline`}>
             <img
               src="https://media.licdn.com/dms/image/v2/D560BAQG7k5OHifw4wA/company-logo_200_200/company-logo_200_200/0/1683994128523/falx_lata_logo?e=2147483647&v=beta&t=H_feU7_TuKwnkGeqf8CdxmyADKIqvlmjbsQu7tXeC0U"
               alt="Falx Lata Logo"
@@ -99,35 +99,32 @@ function Header() {
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex gap-5 md:gap-8">
-            <Link href="/" className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+            <Link href="/" className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300`}>
               Home
             </Link>
-            <Link href="/about-us" className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+            <Link href="/about-us" className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300`}>
               About Us
             </Link>
-            <Link href="/services" className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+            <Link href="/services" className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300`}>
               Our Services
             </Link>
-            <Link href="/industries" className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+            <Link href="/industries" className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300`}>
               Industries We Serve
             </Link>
-            <Link href="/vacancies" className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+            <Link href="/vacancies" className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300`}>
               Vacancies
             </Link>
-            <Link href="/news-events" className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+            <Link href="/news-events" className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300`}>
               News & Events
             </Link>
-            <Link href="/contact" className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+            <Link href="/contact" className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300`}>
               Contact
             </Link>
           </div>
 
-          {/* Search icon and mobile menu toggle */}
+          {/* Mobile menu toggle - search icon removed */}
           <div className="flex items-center gap-3">
-            <button className="text-white text-xl">
-              <i className="fas fa-search"></i>
-            </button>
-            <button className="md:hidden text-white text-xl">
+            <button className={`md:hidden ${scrolled ? 'text-gray-800' : 'text-white'} text-xl`}>
               <i className="fas fa-bars"></i>
             </button>
           </div>
@@ -154,8 +151,8 @@ function Header() {
 
           <div className="py-3 border-b border-gray-200 mb-3">
             <p className="mb-1 text-sm">You can also reach us anytime at:</p>
-            <p className="mb-1 text-sm">Email: hello@intalent.asia</p>
-            <p className="mb-1 text-sm">Call/WhatsApp: +94-70-760-0007</p>
+            <p className="mb-1 text-sm">Email: info@falxlata.com</p>
+            <p className="mb-1 text-sm">Call/WhatsApp: +94 777 937 691</p>
           </div>
 
           <a href="#" className="block w-full p-3 mb-3 rounded border border-gray-300 bg-gray-50 text-center text-gray-800 no-underline transition-all duration-300 hover:bg-gray-200">

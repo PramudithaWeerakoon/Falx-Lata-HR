@@ -216,8 +216,8 @@ const IntegratedPage = () => {
 
                     <div className="py-3 border-b border-gray-200 mb-3">
                         <p className="mb-1 text-sm">You can also reach us anytime at:</p>
-                        <p className="mb-1 text-sm">Email: hello@intalent.asia</p>
-                        <p className="mb-1 text-sm">Call/WhatsApp: +94-70-760-0007</p>
+                        <p className="mb-1 text-sm">Email: info@falxlata.com</p>
+                        <p className="mb-1 text-sm">Call/WhatsApp: +94 777 937 691</p>
                     </div>
 
                     <a href="#"

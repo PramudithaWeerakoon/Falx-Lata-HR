@@ -29,13 +29,13 @@ const ScrollTriggeredMenu = () => {
             {!scrolled && (<div className="bg-[#111] transition-all duration-300">
                 <div className="container mx-auto flex justify-between items-center px-4 md:px-12 py-2">
                     <div className="hidden md:flex items-center gap-5">
-                        <a href="mailto:hello@intalent.asia"
+                        <a href="mailto:info@falxlata.com"
                            className="text-white no-underline flex items-center gap-1 text-sm">
-                            <i className="far fa-envelope"></i> hello@intalent.asia
+                            <i className="far fa-envelope"></i> info@falxlata.com
                         </a>
-                        <a href="tel:+94-70-760-0007"
+                        <a href="tel:+94 777 937 691"
                            className="text-white no-underline flex items-center gap-1 text-sm">
-                            <i className="fas fa-phone"></i> +94-70-760-0007
+                            <i className="fas fa-phone"></i> +94 777 937 691
                         </a>
                     </div>
 
@@ -75,11 +75,11 @@ const ScrollTriggeredMenu = () => {
             </div>)}
 
 
-            {!scrolled && (<nav className="py-3 bg-white/90 border-b border-white/10">
+            {!scrolled && (<nav className="py-3 bg-transparent border-b border-white/10">
                 <div className="container mx-auto flex justify-between items-center px-4 md:px-12">
                     {/* Logo */}
                     <a href="/"
-                       className="flex items-center gap-2 md:gap-3 text-xl md:text-2xl font-bold text-gray-800 no-underline">
+                       className="flex items-center gap-2 md:gap-3 text-xl md:text-2xl font-bold text-white no-underline">
                         <img
                             src="https://media.licdn.com/dms/image/v2/D560BAQG7k5OHifw4wA/company-logo_200_200/company-logo_200_200/0/1683994128523/falx_lata_logo?e=2147483647&v=beta&t=H_feU7_TuKwnkGeqf8CdxmyADKIqvlmjbsQu7tXeC0U"
                             alt="Falx Lata Logo"
@@ -93,37 +93,34 @@ const ScrollTriggeredMenu = () => {
                     {/* Desktop Navigation Links */}
                     <div className="hidden md:flex gap-5 md:gap-8">
                         <a href="/"
-                           className="text-gray-800 no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+                           className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
                             Home
                         </a>
                         <a href="/about-us"
-                           className="text-gray-800 no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+                           className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
                             About Us
                         </a>
                         <a href="/services"
-                           className="text-gray-800 no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+                           className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
                             Our Services
                         </a>
                         <a href="/industries"
-                           className="text-gray-800 no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+                           className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
                             Industries We Serve
                         </a>
                         <a href="/careers"
-                           className="text-gray-800 no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+                           className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
                             Vacancies
                         </a>
                         <a href="/contact"
-                           className="text-gray-800 no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
+                           className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
                             Contact
                         </a>
                     </div>
 
-                    {/* Search icon and mobile menu toggle */}
+                    {/* Mobile menu toggle - search icon removed */}
                     <div className="flex items-center gap-3">
-                        <button className="text-gray-800 text-xl">
-                            <i className="fas fa-search"></i>
-                        </button>
-                        <button className="md:hidden text-gray-800 text-xl">
+                        <button className="md:hidden text-white text-xl">
                             <i className="fas fa-bars"></i>
                         </button>
                     </div>
