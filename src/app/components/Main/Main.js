@@ -328,7 +328,7 @@ function ServicesSection() {
                 </svg>
             ),
             bgColor: "from-blue-500 to-blue-700",
-            bgImage: "/images/services/recruitment.jpg"
+            bgImage: "/images/Recruitment & Headhunting.png"
         },
         {
             title: "HR Process Outsourcing",
@@ -341,7 +341,7 @@ function ServicesSection() {
                 </svg>
             ),
             bgColor: "from-purple-500 to-purple-700",
-            bgImage: "/images/services/outsourcing.jpg"
+            bgImage: "/images/HR Process Outsourcing.png"
         },
         {
             title: "HR Function Setup",
@@ -354,7 +354,7 @@ function ServicesSection() {
                 </svg>
             ),
             bgColor: "from-indigo-500 to-indigo-700",
-            bgImage: "/images/services/hr-setup.jpg"
+            bgImage: "/images/HR Function Setup.png"
         },
         {
             title: "Policies & Procedure Setup",
@@ -367,7 +367,7 @@ function ServicesSection() {
                 </svg>
             ),
             bgColor: "from-rose-500 to-rose-700",
-            bgImage: "/images/services/policies.jpg"
+            bgImage: "/images/Policies & Procedure Setup.png"
         },
         {
             title: "Payroll Outsourcing",
@@ -380,7 +380,7 @@ function ServicesSection() {
                 </svg>
             ),
             bgColor: "from-emerald-500 to-emerald-700",
-            bgImage: "/images/services/payroll.jpg"
+            bgImage: "/images/Payroll Outsourcing.jpg"
         },
         {
             title: "Performance Management",
@@ -393,7 +393,7 @@ function ServicesSection() {
                 </svg>
             ),
             bgColor: "from-blue-500 to-indigo-700",
-            bgImage: "/images/services/performance.jpg"
+            bgImage: "/images/Performance-Management.jpg"
         },
     ];
 
