@@ -14,8 +14,17 @@ function ServiceCard({service, index}) {
             whileInView={{opacity: 1, y: 0}}
             transition={{duration: 0.4, delay: index * 0.1}}
             viewport={{once: true}}
-            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+            whileHover={{y: -3}}
+            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 relative"
         >
+            {/* Decorative elements */}
+            <motion.div
+                initial={{scale: 0.8, opacity: 0}}
+                whileInView={{scale: 1, opacity: 0.07}}
+                transition={{duration: 0.6, delay: 0.2}}
+                className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"
+            />
+            
             <div className="p-6">
                 <div className="flex items-start mb-4">
                     <div
@@ -23,28 +32,34 @@ function ServiceCard({service, index}) {
                         {service.icon}
                     </div>
                     <div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">{service.title}</h3>
+                        <motion.h3 
+                            whileHover={{x: 3}}
+                            className="text-xl font-bold text-gray-900 mb-2"
+                        >
+                            {service.title}
+                        </motion.h3>
                         <p className="text-gray-600">{service.shortDescription}</p>
                     </div>
                 </div>
 
                 {service.features && service.features.length > 0 && (
-                    <button
+                    <motion.button
+                        whileHover={{scale: 1.01}}
                         onClick={() => setIsExpanded(!isExpanded)}
-                        className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-800 hover:to-purple-800 font-medium flex items-center mt-4"
+                        className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center focus:outline-none transition-colors duration-300 group"
                     >
-                        {isExpanded ? 'Show Less' : 'Learn More'}
-                        <svg
+                        {isExpanded ? 'Show Less' : 'Show More'}
+                        <motion.svg
+                            animate={{rotate: isExpanded ? 180 : 0}}
                             xmlns="http://www.w3.org/2000/svg"
-                            className={`h-5 w-5 ml-1 transform transition-transform ${isExpanded ? 'rotate-180' : ''} text-blue-600`}
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
+                            className="h-4 w-4 ml-2 transition-all duration-300 group-hover:translate-y-0.5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
                         >
-                            <path fillRule="evenodd"
-                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                  clipRule="evenodd"/>
-                        </svg>
-                    </button>
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
+                        </motion.svg>
+                    </motion.button>
                 )}
 
                 {isExpanded && service.features && (
@@ -55,10 +70,25 @@ function ServiceCard({service, index}) {
                         transition={{duration: 0.3}}
                         className="mt-4 border-t pt-4"
                     >
-                        <h4 className="font-semibold text-gray-900 mb-3">Key Features:</h4>
+                        <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
+                            <motion.span
+                                animate={{scale: [1, 1.1, 1]}}
+                                transition={{duration: 1.5, repeat: Infinity}}
+                                className="mr-2"
+                            >
+                                ✅
+                            </motion.span>
+                            Key Features:
+                        </h4>
                         <ul className="space-y-2">
                             {service.features.map((feature, idx) => (
-                                <li key={idx} className="flex items-start">
+                                <motion.li 
+                                    key={idx} 
+                                    initial={{x: -10, opacity: 0}}
+                                    animate={{x: 0, opacity: 1}}
+                                    transition={{delay: idx * 0.07}}
+                                    className="flex items-start"
+                                >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         className="h-5 w-5 text-green-500 mr-2 mt-0.5"
@@ -70,7 +100,7 @@ function ServiceCard({service, index}) {
                                               clipRule="evenodd"/>
                                     </svg>
                                     <span className="text-gray-600">{feature}</span>
-                                </li>
+                                </motion.li>
                             ))}
                         </ul>
                     </motion.div>
@@ -83,9 +113,19 @@ function ServiceCard({service, index}) {
 // Main Services Section Component
 export default function ServicesSection() {
     const [isMounted, setIsMounted] = useState(false);
+    const [activeTestimonial, setActiveTestimonial] = useState(0);
     
     useEffect(() => {
         setIsMounted(true);
+        
+        // Auto-rotate testimonials
+        const interval = setInterval(() => {
+            setActiveTestimonial(prev => 
+                prev === testimonials.length - 1 ? 0 : prev + 1
+            );
+        }, 8000);
+        
+        return () => clearInterval(interval);
     }, []);
     
     const services = [
@@ -242,6 +282,65 @@ export default function ServicesSection() {
             ]
         }
     ];
+    
+    // Service showcases with images
+    const serviceShowcases = [
+        {
+            title: "Recruitment & Headhunting",
+            description: "Our specialized recruitment services help you find the perfect talent for your organization, from entry-level positions to executive roles.",
+            image: "/images/Recruitment & Headhunting.png",
+            highlights: [
+                "Specialized industry recruitment",
+                "Executive search services",
+                "Comprehensive candidate screening",
+                "Cultural fit assessment"
+            ]
+        },
+        {
+            title: "HR Process Outsourcing",
+            description: "Focus on your core business while we handle your HR operations with efficiency and expertise.",
+            image: "/images/HR Process Outsourcing.png",
+            highlights: [
+                "Complete HR administration",
+                "Performance management",
+                "Employee relations",
+                "Regulatory compliance"
+            ]
+        },
+        {
+            title: "Payroll Management",
+            description: "Accurate and timely payroll processing with full compliance to local regulations and tax requirements.",
+            image: "/images/Payroll Outsourcing.jpg",
+            highlights: [
+                "Salary processing",
+                "Tax calculations",
+                "Statutory compliance",
+                "Custom reporting"
+            ]
+        }
+    ];
+    
+    // Client testimonials
+    const testimonials = [
+        {
+            quote: "Falx Lata transformed our HR processes completely. Their team's expertise helped us build an efficient HR department from scratch.",
+            name: "Sarah Johnson",
+            position: "CEO, TechStart Solutions",
+            company: "TechStart Solutions"
+        },
+        {
+            quote: "The recruitment services provided by Falx Lata were exceptional. They understood our requirements perfectly and found candidates who were not just qualified but also perfect cultural fits.",
+            name: "Michael Chen",
+            position: "HR Director",
+            company: "Global Finance Corp"
+        },
+        {
+            quote: "Outsourcing our payroll to Falx Lata was one of the best business decisions we've made. Their attention to detail and commitment to compliance is impressive.",
+            name: "Priya Sharma",
+            position: "Operations Manager",
+            company: "Innovate Manufacturing"
+        }
+    ];
 
     return (
         <>
@@ -348,8 +447,91 @@ export default function ServicesSection() {
                     </div>
                 </section>
 
+                {/* Services Showcase */}
+                <section className="container mx-auto px-4 mb-20 relative z-10">
+                    <div className="max-w-6xl mx-auto">
+                        {serviceShowcases.map((showcase, index) => (
+                            <motion.div 
+                                key={index}
+                                initial={{opacity: 0, y: 30}}
+                                whileInView={{opacity: 1, y: 0}}
+                                transition={{duration: 0.6}}
+                                viewport={{once: true}}
+                                className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 mb-16 items-center`}
+                            >
+                                {/* Image */}
+                                <div className="w-full lg:w-1/2 relative">
+                                    <div className="relative overflow-hidden rounded-xl shadow-lg">
+                                        <img 
+                                            src={showcase.image} 
+                                            alt={showcase.title} 
+                                            className="w-full h-auto object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 hover:opacity-20 transition-opacity duration-300"></div>
+                                    </div>
+                                </div>
+                                
+                                {/* Content */}
+                                <div className="w-full lg:w-1/2">
+                                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">{showcase.title}</h3>
+                                    <p className="text-gray-600 mb-6">{showcase.description}</p>
+                                    <ul className="space-y-3">
+                                        {showcase.highlights.map((highlight, idx) => (
+                                            <motion.li 
+                                                key={idx}
+                                                initial={{opacity: 0, x: -10}}
+                                                whileInView={{opacity: 1, x: 0}}
+                                                transition={{delay: 0.1 * idx}}
+                                                viewport={{once: true}}
+                                                className="flex items-center"
+                                            >
+                                                <span className="h-6 w-6 flex-shrink-0 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                                    <svg className="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                </span>
+                                                <span className="text-gray-700">{highlight}</span>
+                                            </motion.li>
+                                        ))}
+                                    </ul>
+                                    <motion.div 
+                                        className="mt-8"
+                                        initial={{opacity: 0}}
+                                        whileInView={{opacity: 1}}
+                                        transition={{delay: 0.4}}
+                                        viewport={{once: true}}
+                                    >
+                                        <a 
+                                            href="/contact" 
+                                            className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800 transition-colors duration-300"
+                                        >
+                                            Learn more about this service
+                                            <svg className="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                            </svg>
+                                        </a>
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
+
                 {/* Services Grid */}
                 <section className="container mx-auto px-4 relative z-10">
+                    <motion.div
+                        initial={{opacity: 0, y: 20}}
+                        whileInView={{opacity: 1, y: 0}}
+                        transition={{duration: 0.5}}
+                        viewport={{once: true}}
+                        className="text-center mb-12"
+                    >
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Complete Service Offering</h2>
+                        <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"></div>
+                        <p className="text-gray-600 max-w-3xl mx-auto">
+                            Explore our full range of HR services designed to meet all your business needs
+                        </p>
+                    </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {services.map((service, index) => (
                             <ServiceCard key={index} service={service} index={index}/>
@@ -357,37 +539,173 @@ export default function ServicesSection() {
                     </div>
                 </section>
 
-                {/* Call to Action */}
-                <section className="container mx-auto px-4 mt-16 relative z-10">
-                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center">
-                        <h2 className="text-3xl font-bold text-white mb-4">
-                            Ready to Transform Your HR Operations?
-                        </h2>
-                        <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-                            Let's discuss how our comprehensive HR solutions can help your business grow and succeed.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a
-                                href="/contact"
-                                className="bg-white hover:bg-gray-100 text-blue-600 font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
-                            >
-                                Contact Us
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-blue-600" viewBox="0 0 20 20"
-                                     fill="currentColor">
-                                    <path fillRule="evenodd"
-                                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                          clipRule="evenodd"/>
-                                </svg>
-                            </a>
-                            <a
-                                href="/about"
-                                className="bg-transparent hover:bg-blue-700 hover:bg-opacity-40 text-white border-2 border-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
-                            >
-                                Learn About Us
-                            </a>
+                {/* Testimonials Section */}
+                <section className="py-16 relative z-10">
+                    <div className="container mx-auto px-4">
+                        <motion.div
+                            initial={{opacity: 0, y: 20}}
+                            whileInView={{opacity: 1, y: 0}}
+                            transition={{duration: 0.5}}
+                            viewport={{once: true}}
+                            className="text-center mb-12"
+                        >
+                            <h2 className="text-3xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"></div>
+                            <p className="text-gray-600 max-w-3xl mx-auto">
+                                We take pride in delivering exceptional HR services that make a difference for our clients
+                            </p>
+                        </motion.div>
+                        
+                        <div className="max-w-4xl mx-auto relative">
+                            {/* Testimonial Cards */}
+                            <div className="overflow-hidden">
+                                <div className="testimonial-container relative" style={{ height: '250px' }}>
+                                    {testimonials.map((testimonial, index) => (
+                                        <motion.div
+                                            key={index}
+                                            initial={{opacity: 0, x: 100}}
+                                            animate={{
+                                                opacity: activeTestimonial === index ? 1 : 0,
+                                                x: activeTestimonial === index ? 0 : 100,
+                                                position: activeTestimonial === index ? 'relative' : 'absolute'
+                                            }}
+                                            transition={{duration: 0.7, ease: "easeInOut"}}
+                                            className="bg-white rounded-xl shadow-lg p-8 md:p-10 w-full"
+                                            style={{
+                                                top: 0,
+                                                left: 0,
+                                                right: 0,
+                                                display: activeTestimonial === index ? 'block' : 'none'
+                                            }}
+                                        >
+                                            <div className="flex flex-col items-center text-center">
+                                                <div className="mb-6">
+                                                    <svg className="h-12 w-12 text-gray-300" fill="currentColor" viewBox="0 0 32 32">
+                                                        <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+                                                    </svg>
+                                                </div>
+                                                <p className="text-gray-700 mb-6 text-lg italic">{testimonial.quote}</p>
+                                                <div>
+                                                    <h4 className="font-semibold text-lg text-gray-900">{testimonial.name}</h4>
+                                                    <p className="text-gray-600">{testimonial.position}, {testimonial.company}</p>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </div>
+                            
+                            {/* Testimonial Navigation */}
+                            <div className="flex justify-center mt-8">
+                                {testimonials.map((_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setActiveTestimonial(index)}
+                                        className={`h-3 w-3 mx-1 rounded-full ${
+                                            activeTestimonial === index 
+                                            ? 'bg-blue-600' 
+                                            : 'bg-gray-300 hover:bg-gray-400'
+                                        } transition-colors duration-300`}
+                                        aria-label={`Go to testimonial ${index + 1}`}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </section>
+
+                
+
+                {/* Call to Action */}
+                <div className="container mx-auto px-4 mb-16 relative z-10">
+                    {/* Image with wave decorations */}
+                    <div className="relative">
+                        {/* Top Wave Decoration - positioned at the top of the image */}
+                        <div className="absolute top-0 left-0 right-0 z-10 w-full">
+                            <img 
+                                src="/images/top_wave_01.png" 
+                                alt="Top wave decoration" 
+                                className="w-full"
+                            />
+                        </div>
+                        
+                        {/* Main Image */}
+                        <div className="mt-6">
+                            <img 
+                                src="/images/hrsev.jpg" 
+                                alt="Professional HR Team" 
+                                className="w-full"
+                            />
+                        </div>
+                        
+                        {/* Bottom Wave Decoration - positioned at the bottom of the image */}
+                        <div className="absolute bottom-0 left-0 right-0 z-10 w-full">
+                            <img 
+                                src="/images/bottom_wave_02_gray.png" 
+                                alt="Bottom wave decoration" 
+                                className="w-full"
+                            />
+                        </div>
+                         {/* Floating decorations positioned below header but above other content */}
+                    <div className="absolute top-[270px] right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'float 10s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_03-1.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform translate-x-1/5" 
+                        />
+                    </div>
+                    <div className="absolute left-0 top-[0px] left-0 w-[21rem] h-[31rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'floatReverse 10s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_02.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform -translate-x-1/5" 
+                        />
+                    </div>
+                    <div className="absolute top-[520px] left-0 w-[31rem] h-[31rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'floatReverse 10s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_04-1.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform -translate-x-1/5" 
+                        />
+                    </div>
+                    </div>
+                    
+                    <div className="max-w-4xl mx-auto">
+                        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center mt-10">
+                            <h2 className="text-3xl font-bold text-white mb-4">
+                                Don't See the Right Fit?
+                            </h2>
+                            <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
+                                We're always looking for talented individuals to join our team. Send us your resume and we'll keep
+                                you in mind for future opportunities.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <a
+                                    href="/contact"
+                                    className="bg-white hover:bg-gray-100 text-blue-600 font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
+                                >
+                                    Submit Your Resume
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-blue-600" viewBox="0 0 20 20"
+                                         fill="currentColor">
+                                        <path fillRule="evenodd"
+                                              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414z"
+                                              clipRule="evenodd"/>
+                                    </svg>
+                                </a>
+                                <a
+                                    href="/about"
+                                    className="bg-transparent hover:bg-blue-700 hover:bg-opacity-40 text-white border-2 border-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
+                                >
+                                    Learn About Us
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <style jsx global>{`
                     .bubble {
@@ -489,6 +807,10 @@ export default function ServicesSection() {
                         75% {
                             transform: translate(-10px, 10px) rotate(-2deg);
                         }
+                    }
+                    
+                    .testimonial-container > div {
+                        transition: all 0.7s ease-in-out;
                     }
                 `}</style>
             </div>

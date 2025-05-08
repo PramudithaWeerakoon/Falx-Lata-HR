@@ -21,7 +21,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-2 mb-6">
               <img
-                src="https://media.licdn.com/dms/image/v2/D560BAQG7k5OHifw4wA/company-logo_200_200/company-logo_200_200/0/1683994128523/falx_lata_logo?e=2147483647&v=beta&t=H_feU7_TuKwnkGeqf8CdxmyADKIqvlmjbsQu7tXeC0U"
+                src="/images/services/Falx Lata -Logo - Jpg.jpg"
                 alt="Falx Lata Logo"
                 className="h-10"
               />

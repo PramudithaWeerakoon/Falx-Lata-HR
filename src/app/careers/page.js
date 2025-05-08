@@ -1,6 +1,6 @@
 'use client'
 
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import Navbar from '../components/NavBar/ScrollTriggeredMenu';
 
@@ -562,6 +562,11 @@ export default function CareersSection() {
     const [selectedJob, setSelectedJob] = useState(null);
     const [showApplicationForm, setShowApplicationForm] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [isMounted, setIsMounted] = useState(false);
+    
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     // Sample job data
     const jobListings = [
@@ -743,235 +748,402 @@ export default function CareersSection() {
 
     // Filter jobs based on search and filters
     const filteredJobs = jobListings.filter(job => {
-        const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            job.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
+        // Filter by search query
+        if (searchQuery && !job.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+            !job.shortDescription.toLowerCase().includes(searchQuery.toLowerCase())) {
+            return false;
+        }
 
-        const matchesLocation = filters.location === '' || job.location === filters.location;
-        const matchesDepartment = filters.department === '' || job.department === filters.department;
-        const matchesType = filters.type === '' || job.type === filters.type;
+        // Filter by location
+        if (filters.location && job.location !== filters.location) {
+            return false;
+        }
 
-        return matchesSearch && matchesLocation && matchesDepartment && matchesType;
+        // Filter by department
+        if (filters.department && job.department !== filters.department) {
+            return false;
+        }
+
+        // Filter by type
+        if (filters.type && job.type !== filters.type) {
+            return false;
+        }
+
+        return true;
     });
 
     return (
         <>
+            <Navbar />
+            <div className="py-13 bg-gray-50 relative overflow-hidden">
+                {/* Animated Bubbles Background */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div className="bubble bubble-1"></div>
+                    <div className="bubble bubble-2"></div>
+                    <div className="bubble bubble-3"></div>
+                    <div className="bubble bubble-4"></div>
+                    <div className="bubble bubble-5"></div>
+                    <div className="bubble bubble-6"></div>
+                    <div className="bubble bubble-7"></div>
+                    <div className="bubble bubble-8"></div>
+                </div>
 
-            <Navbar/>
-
-            <div
-                className="relative bg-gradient-to-br from-gray-50 to-gray-100 pt-40 pb-20 min-h-screen">        {/* Animated background elements */}
-                <motion.div
-                    initial={{opacity: 0}}
-                    animate={{opacity: 1}}
-                    transition={{duration: 1}}
-                    className="absolute inset-0 overflow-hidden"
-                >
-                    {/* Floating bubble animation */}
-                    {[...Array(8)].map((_, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{
-                                y: Math.random() * 100 + 50,
-                                x: Math.random() * 100 - 50,
-                                opacity: 0
-                            }}
-                            animate={{
-                                y: [0, Math.random() * 100 - 50],
-                                x: [0, Math.random() * 100 - 50],
-                                opacity: [0.2, 0.4, 0.2],
-                            }}
-                            transition={{
-                                duration: Math.random() * 10 + 10,
-                                repeat: Infinity,
-                                repeatType: "reverse",
-                                ease: "easeInOut",
-                                delay: Math.random() * 3
-                            }}
-                            className={`absolute rounded-full ${i % 3 === 0 ? 'bg-blue-200' : i % 2 === 0 ? 'bg-purple-200' : 'bg-teal-200'}`}
-                            style={{
-                                width: Math.random() * 200 + 100,
-                                height: Math.random() * 200 + 100,
-                                left: `${Math.random() * 100}%`,
-                                top: `${Math.random() * 100}%`,
-                                filter: 'blur(40px)',
-                            }}
+                {/* Hero Section with Image */}
+                <section className="relative h-[500px] md:h-[700px] mb-16">
+                    /* Hero Background Image */
+                    <div className="absolute inset-0 z-0">
+                        <img 
+                            src="/images/team.jpg" 
+                            alt="Careers at Falx Lata" 
+                            className="w-full h-full object-cover object-center"
                         />
-                    ))}
-                </motion.div>
-
-                <div className="container mx-auto px-4 relative z-10">
-                    <motion.div
-                        initial={{opacity: 0, y: 20}}
-                        whileInView={{opacity: 1, y: 0}}
-                        transition={{duration: 0.6}}
-                        viewport={{once: true}}
-                        className="text-center mb-16"
-                    >
-                        <motion.span
-                            whileHover={{scale: 1.05}}
-                            className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium px-6 py-2 rounded-full text-sm mb-6 shadow-md"
-                        >
-                            Join Our Team
-                        </motion.span>
-                        <motion.h2
-                            whileHover={{x: 5}}
-                            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
-                        >
-                            Explore <span
-                            className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Career Opportunities</span>
-                        </motion.h2>
-                        <motion.div
-                            initial={{width: 0}}
-                            whileInView={{width: 120}}
-                            transition={{duration: 0.8}}
-                            viewport={{once: true}}
-                            className="h-1 bg-gradient-to-r from-blue-500 to-purple-500 mb-8 mx-auto"
+                        {/* Removed the color overlay div */}
+                    </div>
+                                      
+                    {/* Hero Content */}
+                    <div className="container mx-auto px-4 h-full relative z-10 flex flex-col items-center justify-center">
+                        <div className="text-center text-white">
+                            <motion.h1
+                                initial={{opacity: 0, y: -20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.5}}
+                                className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg"
+                            >
+                                Join Our Team
+                            </motion.h1>
+                            <motion.p
+                                initial={{opacity: 0}}
+                                animate={{opacity: 1}}
+                                transition={{duration: 0.5, delay: 0.2}}
+                                className="text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto drop-shadow-lg"
+                            >
+                                Discover exciting career opportunities and be part of our mission to transform HR solutions
+                            </motion.p>
+                        </div>
+                    </div>
+                                        
+                    {/* Floating decorations positioned below header but above other content */}
+                    <div className="absolute top-[270px] right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'float 6s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_03-1.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform translate-x-1/5" 
                         />
-                        <motion.p
-                            whileHover={{y: 2}}
-                            className="text-xl text-gray-600 max-w-3xl mx-auto"
-                        >
-                            Discover exciting job opportunities at Falx Lata. Join our team of HR professionals and make
-                            a difference in organizations around the world.
-                        </motion.p>
-                    </motion.div>
+                    </div>
+                    <div className="absolute left-0 top-[0px] left-0 w-[21rem] h-[31rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'floatReverse 6s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_02.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform -translate-x-1/5" 
+                        />
+                    </div>
+                    <div className="absolute top-[520px] left-0 w-[31rem] h-[31rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'floatReverse 6s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_04-1.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform -translate-x-1/5" 
+                        />
+                    </div>
+                    
+                    {/* Wave Bottom Shape */}
+                    <div className="absolute bottom-0 top-128 left-0 right-0 z-20 w-full">
+                        <img 
+                            src="/images/bottom_wave_02_gray.png" 
+                            alt="Wave Shape" 
+                            className="w-full"
+                        />
+                    </div>
+                </section>
 
-                    {/* Search Bar */}
-                    <motion.div
-                        initial={{opacity: 0, y: 20}}
-                        whileInView={{opacity: 1, y: 0}}
-                        transition={{duration: 0.6, delay: 0.2}}
-                        viewport={{once: true}}
-                        className="mb-12 max-w-3xl mx-auto"
-                    >
+                {/* Careers Introduction */}
+                <section className="container mx-auto px-4 mb-16 relative z-10">
+                    <div className="max-w-4xl mx-auto text-center">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                            Grow Your Career With Falx Lata
+                        </h2>
+                        <p className="text-gray-600 text-lg mb-8">
+                            At Falx Lata, we're building a team of passionate HR professionals who are dedicated to transforming how organizations
+                            manage their human resources. Join us to work with diverse clients across industries and make a meaningful impact.
+                        </p>
+                        <p className="text-gray-600 text-lg">
+                            We value innovation, excellence, and continuous learning. Our team members enjoy competitive benefits,
+                            flexible work arrangements, and numerous opportunities for professional growth.
+                        </p>
+                    </div>
+                </section>
+
+                {/* Search Bar */}
+                <div className="container mx-auto px-4 mb-10 relative z-10">
+                    <div className="max-w-4xl mx-auto">
                         <div className="relative">
                             <input
                                 type="text"
                                 placeholder="Search for jobs..."
                                 value={searchQuery}
                                 onChange={handleSearchChange}
-                                className="w-full px-6 py-4 pr-12 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-300 hover:border-gray-400 shadow-sm"
+                                className="w-full px-5 py-4 pr-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm"
                             />
-                            <motion.div
-                                whileHover={{scale: 1.1}}
-                                className="absolute right-4 top-4 text-gray-400 hover:text-blue-600"
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6 absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                                     viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                                </svg>
-                            </motion.div>
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
                         </div>
-                    </motion.div>
-
-                    {/* Filters */}
-                    <JobFilters filters={filters} onFilterChange={handleFilterChange}/>
-
-                    {/* Job Listings */}
-                    <motion.div
-                        initial={{opacity: 0}}
-                        whileInView={{opacity: 1}}
-                        transition={{duration: 0.6, delay: 0.4}}
-                        viewport={{once: true}}
-                    >
-                        {filteredJobs.length > 0 ? (
-                            <div className="space-y-8">
-                                {filteredJobs.map(job => (
-                                    <JobCard
-                                        key={job.id}
-                                        job={job}
-                                        onApplyClick={handleApplyClick}
-                                    />
-                                ))}
-                            </div>
-                        ) : (
-                            <motion.div
-                                initial={{scale: 0.9, opacity: 0}}
-                                whileInView={{scale: 1, opacity: 1}}
-                                transition={{duration: 0.6}}
-                                viewport={{once: true}}
-                                className="text-center py-16 bg-white rounded-2xl shadow-lg"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-gray-400 mb-6"
-                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                          d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-3">No jobs found</h3>
-                                <p className="text-gray-600 max-w-md mx-auto">
-                                    Try adjusting your search or filter criteria to find what you're looking for.
-                                </p>
-                                <motion.button
-                                    whileHover={{scale: 1.05}}
-                                    whileTap={{scale: 0.95}}
-                                    onClick={() => {
-                                        setFilters({location: '', department: '', type: ''});
-                                        setSearchQuery('');
-                                    }}
-                                    className="mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-300"
-                                >
-                                    Reset Filters
-                                </motion.button>
-                            </motion.div>
-                        )}
-                    </motion.div>
-
-                    {/* Job Alert Subscription */}
-                    <motion.div
-                        initial={{opacity: 0, y: 20}}
-                        whileInView={{opacity: 1, y: 0}}
-                        transition={{duration: 0.6, delay: 0.2}}
-                        viewport={{once: true}}
-                        className="mt-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-10 text-center relative overflow-hidden"
-                    >
-                        {/* Decorative elements */}
-                        <motion.div
-                            animate={{rotate: 360}}
-                            transition={{duration: 20, repeat: Infinity, ease: "linear"}}
-                            className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-white opacity-5"
-                        />
-                        <motion.div
-                            animate={{rotate: -360}}
-                            transition={{duration: 25, repeat: Infinity, ease: "linear"}}
-                            className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full bg-white opacity-5"
-                        />
-
-                        <div className="relative z-10">
-                            <h3 className="text-3xl font-bold text-white mb-4">
-                                Never Miss a Job Opportunity
-                            </h3>
-                            <p className="text-white/90 mb-8 max-w-2xl mx-auto text-lg">
-                                Subscribe to our job alerts and be the first to know about new career opportunities at
-                                Falx Lata.
-                            </p>
-                            <div className="max-w-xl mx-auto">
-                                <div className="flex flex-col sm:flex-row gap-4">
-                                    <input
-                                        type="email"
-                                        placeholder="Enter your email address"
-                                        className="flex-1 px-6 py-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/60 focus:ring-2 focus:ring-white/30 focus:border-white/30 outline-none transition-all duration-300"
-                                    />
-                                    <motion.button
-                                        whileHover={{scale: 1.05}}
-                                        whileTap={{scale: 0.95}}
-                                        className="bg-white hover:bg-white/90 text-blue-600 font-medium px-8 py-4 rounded-full transition-all duration-300 shadow-md whitespace-nowrap"
-                                    >
-                                        Subscribe
-                                    </motion.button>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
+                    </div>
                 </div>
 
-                {/* Job Application Form Modal */}
+                {/* Job Filters */}
+                <div className="container mx-auto px-4 relative z-10">
+                    <div className="max-w-4xl mx-auto">
+                        <JobFilters filters={filters} onFilterChange={handleFilterChange}/>
+                    </div>
+                </div>
+
+                {/* Job Listings */}
+                <div className="container mx-auto px-4 mb-16 relative z-10">
+                    <div className="max-w-4xl mx-auto">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
+                            <motion.span
+                                animate={{scale: [1, 1.1, 1]}}
+                                transition={{duration: 2, repeat: Infinity}}
+                                className="mr-3"
+                            >
+                                💼
+                            </motion.span>
+                            Available Positions
+                            <span className="ml-3 text-lg font-medium text-gray-500">({filteredJobs.length} jobs)</span>
+                        </h2>
+
+                        {filteredJobs.length > 0 ? (
+                            filteredJobs.map(job => (
+                                <JobCard key={job.id} job={job} onApplyClick={handleApplyClick}/>
+                            ))
+                        ) : (
+                            <div className="bg-white rounded-2xl shadow-md p-8 text-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-16 w-16 mx-auto text-gray-400 mb-4"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                                          d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <h3 className="text-xl font-semibold text-gray-700 mb-2">No jobs found</h3>
+                                <p className="text-gray-500">
+                                    Try adjusting your search filters or check back later for new opportunities.
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Call to Action */}
+                <div className="container mx-auto px-4 mb-16 relative z-10">
+                    {/* Image with wave decorations */}
+                    <div className="relative">
+                        {/* Top Wave Decoration - positioned at the top of the image */}
+                        <div className="absolute top-0 left-0 right-0 z-10 w-full">
+                            <img 
+                                src="/images/top_wave_01.png" 
+                                alt="Top wave decoration" 
+                                className="w-full"
+                            />
+                        </div>
+                        
+                        {/* Main Image */}
+                        <div className="mt-6">
+                            <img 
+                                src="/images/cop-image.jpg" 
+                                alt="Professional HR Team" 
+                                className="w-full"
+                            />
+                        </div>
+                        
+                        {/* Bottom Wave Decoration - positioned at the bottom of the image */}
+                        <div className="absolute bottom-0 left-0 right-0 z-10 w-full">
+                            <img 
+                                src="/images/bottom_wave_02_gray.png" 
+                                alt="Bottom wave decoration" 
+                                className="w-full"
+                            />
+                        </div>
+                         {/* Floating decorations positioned below header but above other content */}
+                    <div className="absolute top-[270px] right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'float 10s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_03-1.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform translate-x-1/5" 
+                        />
+                    </div>
+                    <div className="absolute left-0 top-[0px] left-0 w-[21rem] h-[31rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'floatReverse 10s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_02.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform -translate-x-1/5" 
+                        />
+                    </div>
+                    <div className="absolute top-[520px] left-0 w-[31rem] h-[31rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'floatReverse 10s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_04-1.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform -translate-x-1/5" 
+                        />
+                    </div>
+                    </div>
+                    
+                    <div className="max-w-4xl mx-auto">
+                        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center mt-10">
+                            <h2 className="text-3xl font-bold text-white mb-4">
+                                Don't See the Right Fit?
+                            </h2>
+                            <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
+                                We're always looking for talented individuals to join our team. Send us your resume and we'll keep
+                                you in mind for future opportunities.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <a
+                                    href="/contact"
+                                    className="bg-white hover:bg-gray-100 text-blue-600 font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
+                                >
+                                    Submit Your Resume
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-blue-600" viewBox="0 0 20 20"
+                                         fill="currentColor">
+                                        <path fillRule="evenodd"
+                                              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414z"
+                                              clipRule="evenodd"/>
+                                    </svg>
+                                </a>
+                                <a
+                                    href="/about"
+                                    className="bg-transparent hover:bg-blue-700 hover:bg-opacity-40 text-white border-2 border-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
+                                >
+                                    Learn About Us
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Show application form if a job is selected */}
                 {showApplicationForm && selectedJob && (
-                    <JobApplicationForm
-                        job={selectedJob}
-                        onClose={() => setShowApplicationForm(false)}
-                    />
+                    <JobApplicationForm job={selectedJob} onClose={() => setShowApplicationForm(false)}/>
                 )}
+
+                <style jsx global>{`
+                    .bubble {
+                        position: absolute;
+                        background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+                        border-radius: 50%;
+                        animation: float 15s infinite ease-in-out;
+                    }
+                    
+                    .bubble-1 {
+                        width: 100px;
+                        height: 100px;
+                        left: 10%;
+                        top: 20%;
+                        animation-delay: 0s;
+                    }
+                    
+                    .bubble-2 {
+                        width: 60px;
+                        height: 60px;
+                        left: 80%;
+                        top: 50%;
+                        animation-delay: 2s;
+                    }
+                    
+                    .bubble-3 {
+                        width: 120px;
+                        height: 120px;
+                        left: 30%;
+                        top: 70%;
+                        animation-delay: 4s;
+                    }
+                    
+                    .bubble-4 {
+                        width: 80px;
+                        height: 80px;
+                        left: 70%;
+                        top: 10%;
+                        animation-delay: 6s;
+                    }
+                    
+                    .bubble-5 {
+                        width: 50px;
+                        height: 50px;
+                        left: 50%;
+                        top: 85%;
+                        animation-delay: 8s;
+                    }
+                    
+                    .bubble-6 {
+                        width: 90px;
+                        height: 90px;
+                        left: 20%;
+                        top: 50%;
+                        animation-delay: 10s;
+                    }
+                    
+                    .bubble-7 {
+                        width: 70px;
+                        height: 70px;
+                        left: 90%;
+                        top: 30%;
+                        animation-delay: 12s;
+                    }
+                    
+                    .bubble-8 {
+                        width: 110px;
+                        height: 110px;
+                        left: 60%;
+                        top: 60%;
+                        animation-delay: 14s;
+                    }
+                    
+                    @keyframes float {
+                        0%, 100% {
+                            transform: translate(0, 0) rotate(0deg);
+                        }
+                        25% {
+                            transform: translate(20px, -20px) rotate(5deg);
+                        }
+                        50% {
+                            transform: translate(-20px, 20px) rotate(-5deg);
+                        }
+                        75% {
+                            transform: translate(10px, -10px) rotate(3deg);
+                        }
+                    }
+                    
+                    @keyframes floatReverse {
+                        0%, 100% {
+                            transform: translate(0, 0) rotate(0deg);
+                        }
+                        25% {
+                            transform: translate(-15px, 15px) rotate(-3deg);
+                        }
+                        50% {
+                            transform: translate(15px, -15px) rotate(3deg);
+                        }
+                        75% {
+                            transform: translate(-10px, 10px) rotate(-2deg);
+                        }
+                    }
+                `}</style>
             </div>
         </>
     );
