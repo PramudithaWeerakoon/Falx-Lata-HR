@@ -203,10 +203,6 @@ const ScrollTriggeredMenu = () => {
                                    className="text-gray-800 hover:text-[#3a79ff] no-underline text-sm font-medium transition-colors">
                                     Vacancies
                                 </a>
-                                <a href="/news-events"
-                                   className="text-gray-800 hover:text-[#3a79ff] no-underline text-sm font-medium transition-colors">
-                                    News
-                                </a>
                                 <a href="/contact"
                                    className="text-gray-800 hover:text-[#3a79ff] no-underline text-sm font-medium transition-colors">
                                     Contact

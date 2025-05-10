@@ -114,9 +114,6 @@ function Header() {
             <Link href="/vacancies" className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300`}>
               Vacancies
             </Link>
-            <Link href="/news-events" className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300`}>
-              News & Events
-            </Link>
             <Link href="/contact" className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300`}>
               Contact
             </Link>

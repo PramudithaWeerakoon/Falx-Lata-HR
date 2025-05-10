@@ -538,7 +538,7 @@ export default function AboutSection() {
                     </div>
                     
                     {/* Wave Bottom Shape */}
-                    <div className="absolute bottom-0 top-101 left-0 right-0 z-20 w-full">
+                    <div className="absolute bottom-0 md:bottom-0 -bottom-10 left-0 right-0 z-20 w-full">
                         <img 
                             src="/images/Wave_White_bottom_left_shape_01.png" 
                             alt="Wave Shape" 
