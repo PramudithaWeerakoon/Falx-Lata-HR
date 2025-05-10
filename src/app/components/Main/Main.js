@@ -4,7 +4,7 @@ import {useState, useEffect, useRef} from 'react';
 import {motion, useScroll, useTransform} from 'framer-motion';
 import Link from 'next/link';
 import React from 'react';
-import AnimatedDividerSection from "./_/AnimatedDividerSection";
+import AnimatedDividerSection from "./AnimatedDividerSection";
 import dynamic from 'next/dynamic';
 
 const HeroSection = dynamic(() => import('./HeroSection'), { ssr: false });
