@@ -81,7 +81,7 @@ const WhyUsSectionV2 = () => {
                     >
                         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Why Us?</h2>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                            Unleashing the power of talent, with InTalent Asia
+                            Unleashing the power of talent, with In Falx Lata
                         </p>
                     </motion.div>
                     <div className="h-1 w-24 bg-gradient-to-r from-teal-500 to-blue-500 mx-auto"></div>
@@ -239,7 +239,7 @@ export function AboutSection() {
                     className="md:w-1/2"
                 >
                     <p className="text-gray-600 text-lg mb-8">
-                        InTalent Asia has been transforming HR solutions since 2015, with a dedicated team of
+                        In Falx Lata has been transforming HR solutions since 2015, with a dedicated team of
                         professionals
                         committed to delivering exceptional talent acquisition and management services across multiple
                         industries.

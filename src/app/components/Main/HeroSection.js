@@ -36,7 +36,7 @@ function HeroSection() {
           <img
             src="./images/young-students-learning-together-group-study.jpg"
             alt="HR Management background"
-            className="w-full h-full object-cover filter blur-[2px]"
+            className="w-full h-full object-cover filter brightness-80"
           />
         </div>
         

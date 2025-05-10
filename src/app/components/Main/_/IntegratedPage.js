@@ -121,7 +121,7 @@ const IntegratedPage = () => {
                                         <div className="h-1 w-20 bg-gradient-to-r from-teal-500 to-blue-500 mb-8"></div>
 
                                         <p className="text-gray-700 text-lg mb-8">
-                                            InTalent Asia has been transforming HR solutions since 2015, with a
+                                            In Falx Lata has been transforming HR solutions since 2015, with a
                                             dedicated team of professionals
                                             committed to delivering exceptional talent acquisition and management
                                             services across multiple industries.

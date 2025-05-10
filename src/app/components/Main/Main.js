@@ -93,7 +93,7 @@ const WhyUsSectionV2 = () => {
                     >
                         <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">Why Us?</h2>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                            Unleashing the power of talent, with InTalent Asia
+                            Unleashing the power of talent, with In Falx Lata
                         </p>
                     </motion.div>
                     <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
@@ -253,7 +253,7 @@ export function AboutSection() {
                     className="md:w-1/2"
                 >
                     <p className="text-gray-600 text-lg mb-8">
-                        InTalent Asia has been transforming HR solutions since 2015, with a dedicated team of
+                        In Falx Lata has been transforming HR solutions since 2015, with a dedicated team of
                         professionals
                         committed to delivering exceptional talent acquisition and management services across multiple
                         industries.
@@ -517,7 +517,7 @@ function IndustriesSection() {
                         Industries</h2>
                     <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-6"></div>
                     <p className="text-gray-600 max-w-2xl mx-auto">
-                        InTalent Asia provides specialized HR solutions across multiple industries,
+                        In Falx Lata provides specialized HR solutions across multiple industries,
                         understanding the unique challenges and requirements of each sector.
                     </p>
                 </div>
@@ -635,7 +635,7 @@ function WhyChooseUsSection() {
                         Competitive Advantages</h2>
                     <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-6"></div>
                     <p className="text-gray-600 max-w-2xl mx-auto">
-                        At InTalent Asia, we're committed to providing exceptional HR solutions that empower your
+                        At In Falx Lata, we're committed to providing exceptional HR solutions that empower your
                         business
                         growth.
                     </p>

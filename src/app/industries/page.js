@@ -310,7 +310,7 @@ export default function IndustriesSection() {
                                 transition={{duration: 0.5, delay: 0.2}}
                                 className="text-lg md:text-xl text-indigo-100 max-w-3xl mx-auto mb-10"
                             >
-                                InTalent Asia provides specialized HR solutions across multiple industries, understanding the unique challenges and requirements of each sector.
+                                In Falx Lata provides specialized HR solutions across multiple industries, understanding the unique challenges and requirements of each sector.
                             </motion.p>
                             
                             <motion.div 
