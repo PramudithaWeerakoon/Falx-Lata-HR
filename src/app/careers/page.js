@@ -846,9 +846,8 @@ export default function CareersSection() {
                           alt="Floating decoration" 
                           className="w-full h-full object-contain transform -translate-x-1/5" 
                         />                    </div>
-                    
-                    {/* Wave Bottom Shape */}
-                    <div className="absolute bottom-0 md:bottom-0 bottom-0 left-0 right-0 z-20 w-full">
+                      {/* Wave Bottom Shape */}
+                    <div className="absolute bottom-0 md:bottom-0 top-114 md:top-128 left-0 right-0 z-20 w-full">
                         <img 
                             src="/images/bottom_wave_02_gray.png" 
                             alt="Wave Shape" 
@@ -965,10 +964,9 @@ export default function CareersSection() {
                                 src="/images/cop-image.jpg" 
                                 alt="Professional HR Team" 
                                 className="w-full"
-                            />
-                        </div>
+                            />                        </div>
                           {/* Bottom Wave Decoration - positioned at the bottom of the image */}
-                        <div className="absolute bottom-0 md:bottom-0 bottom-10 left-0 right-0 z-10 w-full">
+                        <div className="absolute top-203 md:bottom-0 left-0 right-0 z-10 w-full">
                             <img 
                                 src="/images/bottom_wave_02_gray.png" 
                                 alt="Bottom wave decoration" 

@@ -45,49 +45,6 @@ function AnimatedShape({className}) {
     );
 }
 
-function IndustryCard({industry, icon, description, index}) {
-    const [isHovered, setIsHovered] = useState(false);
-
-    return (
-        <motion.div
-            initial={{opacity: 0, y: 20}}
-            whileInView={{opacity: 1, y: 0}}
-            transition={{duration: 0.4, delay: index * 0.1}}
-            viewport={{once: true}}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 relative overflow-hidden"
-        >
-            {/* Decorative background shapes */}
-            <div className="absolute inset-0 overflow-hidden opacity-20">
-                <AnimatedShape className="w-24 h-24 -top-4 -left-4"/>
-                <AnimatedShape className="w-16 h-16 bottom-12 right-4"/>
-            </div>
-
-            <motion.div
-                animate={{scale: isHovered ? 1.1 : 1}}
-                transition={{duration: 0.3}}
-                className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center mb-4 mx-auto relative z-10"
-            >
-                <div className="text-indigo-600">
-                    {icon}
-                </div>
-            </motion.div>
-
-            <h3 className="text-xl font-bold text-gray-900 text-center mb-3 relative z-10">{industry}</h3>
-            <p className="text-gray-600 text-center relative z-10">{description}</p>
-
-            {/* Bottom gradient bar */}
-            <motion.div
-                className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600"
-                initial={{scaleX: 0}}
-                animate={{scaleX: isHovered ? 1 : 0}}
-                transition={{duration: 0.3}}
-            />
-        </motion.div>
-    );
-}
-
 // Icons for industries (unchanged)
 const IndustryIcons = {
     IT: (
@@ -166,6 +123,13 @@ const IndustryIcons = {
 
 // Main Industries Component
 export default function IndustriesSection() {
+    const [activeTab, setActiveTab] = useState('overview');
+    const [isMounted, setIsMounted] = useState(false);
+    
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+    
     const industries = [
         {
             name: "Information Technology (IT) & Software",
@@ -232,6 +196,43 @@ export default function IndustriesSection() {
         "EngiTech"
     ];
 
+    // Content for tabs
+    const tabContent = {
+        overview: {
+            title: 'Industry Overview',
+            description: 'At Falx Lata, we understand that different industries have unique HR challenges and requirements. Our industry-specific expertise enables us to provide tailored solutions that address the distinct needs of each sector, helping our clients successfully navigate their human resource challenges.',
+            icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-white" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                          d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            ),
+        },
+        approach: {
+            title: 'Our Approach',
+            description: 'We employ a sector-specific approach to recruitment and HR services, drawing on our deep understanding of industry dynamics, talent landscapes, and regulatory requirements. This enables us to deliver precise solutions that align with the strategic goals and operational needs of businesses across various industries.',
+            icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-white" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+            ),
+        },
+        expertise: {
+            title: 'Our Expertise',
+            description: 'Our team brings specialized knowledge in each industry we serve, allowing us to understand the nuanced skills, qualifications, and cultural fit required for roles within specific sectors. This expertise translates into more effective recruitment, higher quality placements, and tailored HR solutions that drive organizational success.',
+            icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-white" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+            ),
+        },
+    };
+
     // Background shapes for sections with white background
     const BackgroundShapes = () => (
         <>
@@ -245,42 +246,33 @@ export default function IndustriesSection() {
         <>
             <Navbar/>
             <div className="py-13 bg-gray-50 relative overflow-hidden">
-                {/* Hero Section */}
-                <section
-                    className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-700 py-20 mb-16 relative overflow-hidden py-27">
-                    {/* Hero background animated shapes */}
-                    <div className="absolute inset-0 overflow-hidden">
-                        <motion.div
-                            className="absolute w-96 h-96 rounded-full bg-purple-500 opacity-20"
-                            animate={{
-                                x: [0, 30, 0],
-                                y: [0, -30, 0],
-                                scale: [1, 1.1, 1],
-                            }}
-                            transition={{
-                                duration: 15,
-                                repeat: Infinity,
-                                repeatType: "reverse"
-                            }}
-                            style={{top: '-10%', left: '10%'}}
-                        />
-                        <motion.div
-                            className="absolute w-64 h-64 rounded-full bg-indigo-500 opacity-20"
-                            animate={{
-                                x: [0, -20, 0],
-                                y: [0, 20, 0],
-                                scale: [1, 0.9, 1],
-                            }}
-                            transition={{
-                                duration: 12,
-                                repeat: Infinity,
-                                repeatType: "reverse"
-                            }}
-                            style={{bottom: '-5%', right: '15%'}}
-                        />
-                    </div>
+                {/* Animated Bubbles Background */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div className="bubble bubble-1"></div>
+                    <div className="bubble bubble-2"></div>
+                    <div className="bubble bubble-3"></div>
+                    <div className="bubble bubble-4"></div>
+                    <div className="bubble bubble-5"></div>
+                    <div className="bubble bubble-6"></div>
+                    <div className="bubble bubble-7"></div>
+                    <div className="bubble bubble-8"></div>
+                </div>
 
-                    <div className="container mx-auto px-4 relative z-10">
+                {/* Hero Section with Image */}
+                <section className="relative h-[500px] md:h-[700px] mb-16">
+                    {/* Hero Background Image */}
+                    <div className="absolute inset-0 z-0">
+                        <img 
+                            src="/images/industries-banner.jpg" 
+                            alt="Falx Lata Industries" 
+                            className="w-full h-full object-cover object-center"
+                        />
+                        {/* Dark overlay with reduced opacity */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/70 to-blue-900/70"></div>
+                    </div>
+                  
+                    {/* Hero Content */}
+                    <div className="container mx-auto px-4 h-full relative z-10 flex flex-col items-center justify-center">
                         <div className="text-center text-white">
                             <motion.span
                                 initial={{opacity: 0, y: -15}}
@@ -294,107 +286,197 @@ export default function IndustriesSection() {
                                 initial={{opacity: 0, y: -20}}
                                 animate={{opacity: 1, y: 0}}
                                 transition={{duration: 0.5, delay: 0.1}}
-                                className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-white to-indigo-100 bg-clip-text text-transparent"
+                                className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg"
                             >
                                 Specialized HR Solutions Across Industries
                             </motion.h1>
-                            <motion.div
-                                initial={{width: 0}}
+                            <motion.div                                initial={{width: 0}}
                                 animate={{width: "120px"}}
                                 transition={{duration: 0.8, delay: 0.3}}
-                                className="h-1 bg-gradient-to-r from-purple-300 to-blue-300 mx-auto mb-6"
+                                className="w-32 h-1 bg-gradient-to-r from-blue-300 to-purple-300 mx-auto mb-6"
                             />
                             <motion.p
                                 initial={{opacity: 0}}
                                 animate={{opacity: 1}}
                                 transition={{duration: 0.5, delay: 0.2}}
-                                className="text-lg md:text-xl text-indigo-100 max-w-3xl mx-auto mb-10"
+                                className="text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto drop-shadow-lg mb-8"
                             >
-                                In Falx Lata provides specialized HR solutions across multiple industries, understanding the unique challenges and requirements of each sector.
+                                Understanding the unique challenges and requirements of each sector
                             </motion.p>
-                            
-                            <motion.div 
-                                initial={{opacity: 0, y: 20}}
-                                animate={{opacity: 1, y: 0}}
-                                transition={{duration: 0.6, delay: 0.4}}
-                                className="flex flex-wrap justify-center gap-4 md:gap-6"
-                            >
-                                {[
-                                    { name: "IT & Software", icon: IndustryIcons.IT, color: "from-blue-400 to-indigo-600" },
-                                    { name: "Insurance", icon: IndustryIcons.Insurance, color: "from-purple-400 to-pink-600" },
-                                    { name: "Banking & Finance", icon: IndustryIcons.Banking, color: "from-emerald-400 to-green-600" },
-                                    { name: "BPO/KPO", icon: IndustryIcons.BPO, color: "from-orange-400 to-red-600" },
-                                    { name: "Engineering", icon: IndustryIcons.Engineering, color: "from-blue-400 to-cyan-600" },
-                                    { name: "Auto Mobile", icon: IndustryIcons.Automotive, color: "from-gray-400 to-gray-700" },
-                                    { name: "Construction", icon: IndustryIcons.Construction, color: "from-amber-400 to-yellow-600" },
-                                    { name: "Education", icon: IndustryIcons.Education, color: "from-rose-400 to-red-600" },
-                                    { name: "Health & Care", icon: IndustryIcons.Healthcare, color: "from-teal-400 to-teal-600" },
-                                    { name: "Printing", icon: IndustryIcons.Printing, color: "from-indigo-400 to-violet-600" }
-                                ].map((industry, index) => (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ duration: 0.3, delay: index * 0.05 }}
-                                        whileHover={{ 
-                                            scale: 1.05, 
-                                            boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-                                        }}
-                                        className={`bg-white/15 backdrop-blur-lg border border-white/20 px-5 py-3 rounded-xl flex items-center gap-3 cursor-pointer transition-all duration-300 group`}
-                                    >
-                                        <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${industry.color} text-white flex items-center justify-center`}>
-                                            {industry.icon}
-                                        </div>
-                                        <span className="text-white font-medium group-hover:text-white/90">{industry.name}</span>
-                                        <motion.div 
-                                            className={`absolute inset-0 bg-gradient-to-r ${industry.color} rounded-xl opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
-                                        />
-                                    </motion.div>
-                                ))}
-                            </motion.div>
                         </div>
+                    </div>
+                    
+                    {/* Floating decorations */}
+                    <div className="absolute top-[270px] right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'float 6s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_05.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform translate-x-1/5" 
+                        />
+                    </div>
+                    <div className="absolute left-0 top-[0px] w-[21rem] h-[31rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'floatReverse 6s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_04-1.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform -translate-x-1/5 opacity-60" 
+                        />
+                    </div>
+                    
+                    {/* Wave Bottom Shape */}
+                    <div className="absolute bottom-0 md:bottom-0 -bottom-10 left-0 right-0 z-20 w-full">
+                        <img 
+                            src="/images/Wave_White_bottom_left_shape_01.png" 
+                            alt="Wave Shape" 
+                            className="w-full"
+                        />
                     </div>
                 </section>
 
-                {/* Introduction */}
-                <section className="container mx-auto px-4 mb-16 relative">
-                    <div className="absolute inset-0 overflow-hidden">
-                        <BackgroundShapes/>
-                    </div>
-                    <div className="max-w-4xl mx-auto text-center relative z-10">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                {/* Industry Overview */}
+                <section className="container mx-auto px-4 mb-16 relative z-10">
+                    <div className="max-w-4xl mx-auto text-center">
+                        <motion.h2 
+                            initial={{opacity: 0, y: 20}}
+                            whileInView={{opacity: 1, y: 0}}
+                            transition={{duration: 0.5}}
+                            viewport={{once: true}}
+                            className="text-3xl font-bold text-gray-900 mb-4"
+                        >
                             Diverse Industry Expertise
-                        </h2>
-                        <p className="text-gray-600 text-lg mb-8">
+                        </motion.h2>
+                        <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"></div>
+                        <motion.p 
+                            initial={{opacity: 0, y: 20}}
+                            whileInView={{opacity: 1, y: 0}}
+                            transition={{duration: 0.5, delay: 0.1}}
+                            viewport={{once: true}}
+                            className="text-gray-600 text-lg mb-8"
+                        >
                             Falx Lata has extensive experience providing HR solutions across various industries.
                             Our deep understanding of sector-specific requirements enables us to deliver targeted
                             recruitment and HR services that meet the unique needs of each industry.
-                        </p>
+                        </motion.p>
                     </div>
                 </section>
 
-                {/* Industries Grid */}
+                {/* Tab Navigation Like About-Us Page */}
+                <section className="py-20 bg-gray-50 relative overflow-hidden mb-16">
+                    {/* Decorative elements */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-b from-blue-100 to-purple-100 rounded-full opacity-50 blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+                    <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-t from-blue-100 to-purple-100 rounded-full opacity-50 blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+                    
+                    <div className="container mx-auto px-4 relative z-10">
+                        <motion.div 
+                            initial={{opacity: 0, y: 20}}
+                            whileInView={{opacity: 1, y: 0}}
+                            transition={{duration: 0.5}}
+                            viewport={{once: true}}
+                            className="text-center mb-16"
+                        >
+                            <h2 className="text-4xl font-bold text-gray-900 mb-4">Industry Solutions</h2>
+                            <div className="w-32 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8"></div>
+                            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                                Our tailored approach to industry-specific HR challenges
+                            </p>
+                        </motion.div>
+
+                        {/* Tab Navigation */}
+                        <div className="flex flex-wrap justify-center mb-12">
+                            <div className="inline-flex rounded-xl bg-white p-2 shadow-lg">
+                                {Object.keys(tabContent).map((tab) => (
+                                    <button
+                                        key={tab}
+                                        onClick={() => setActiveTab(tab)}
+                                        className={`px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 ${
+                                            activeTab === tab 
+                                            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md transform scale-105' 
+                                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                                        }`}
+                                    >
+                                        {tabContent[tab].title}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Content Section */}
+                        <motion.div
+                            key={activeTab}
+                            initial={{opacity: 0, y: 20}}
+                            animate={{opacity: 1, y: 0}}
+                            transition={{duration: 0.5}}
+                            className="max-w-5xl mx-auto"
+                        >
+                            <div className="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+                                <div className="md:w-1/3 bg-gradient-to-r from-blue-600 to-purple-600 p-8 flex items-center justify-center">
+                                    <div className="bg-white/20 rounded-full p-6 backdrop-blur-sm">
+                                        {tabContent[activeTab].icon}
+                                    </div>
+                                </div>
+                                <div className="md:w-2/3 p-8">
+                                    <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-6">{tabContent[activeTab].title}</h3>
+                                    <div className="h-1 w-20 bg-gradient-to-r from-blue-600 to-purple-600 mb-6"></div>
+                                    <p className="text-gray-700 text-lg leading-relaxed">
+                                        {tabContent[activeTab].description}
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </section>                {/* Industries Grid */}
                 <section className="container mx-auto px-4 mb-16 relative">
+                    <div className="text-center mb-12">
+                        <motion.h2 
+                            initial={{opacity: 0, y: 20}}
+                            whileInView={{opacity: 1, y: 0}}
+                            transition={{duration: 0.5}}
+                            viewport={{once: true}}
+                            className="text-3xl font-bold text-gray-900 mb-4"
+                        >
+                            Industries We Serve
+                        </motion.h2>
+                        <div className="w-32 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"></div>
+                    </div>
+                    
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {industries.map((industry, index) => (
-                            <IndustryCard
+                            <motion.div
                                 key={index}
-                                industry={industry.name}
-                                icon={industry.icon}
-                                description={industry.description}
-                                index={index}
-                            />
+                                initial={{opacity: 0, y: 20}}
+                                whileInView={{opacity: 1, y: 0}}
+                                transition={{duration: 0.4, delay: index * 0.1}}
+                                viewport={{once: true}}
+                                className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
+                            >
+                                {/* Decorative background shapes */}
+                                <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                                    <AnimatedShape className="w-24 h-24 -top-4 -left-4"/>
+                                    <AnimatedShape className="w-16 h-16 bottom-12 right-4"/>
+                                </div>
+
+                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center mb-4 mx-auto relative z-10 group-hover:scale-110 transition-transform duration-300">
+                                    <div className="text-indigo-600">
+                                        {industry.icon}
+                                    </div>
+                                </div>
+
+                                <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 text-center mb-3 relative z-10">{industry.name}</h3>
+                                <p className="text-gray-600 text-center relative z-10">{industry.description}</p>
+
+                                {/* Bottom gradient bar */}
+                                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                            </motion.div>
                         ))}
                     </div>
                 </section>
 
                 {/* Client Logos Section */}
-                <section className="container mx-auto px-4 relative">
-                    <div className="absolute inset-0 overflow-hidden">
-                        <BackgroundShapes/>
-                    </div>
+                <section className="container mx-auto px-4 relative mb-16">
                     <div className="text-center mb-12 relative z-10">
                         <h2 className="text-3xl font-bold text-gray-900 mb-4">Trusted By Leading Companies</h2>
+                        <div className="w-32 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-4"></div>
                         <p className="text-gray-600 max-w-2xl mx-auto">
                             Over 500+ companies across various industries trust Falx Lata for their HR needs
                         </p>
@@ -413,8 +495,7 @@ export default function IndustriesSection() {
                                     className="w-32 h-20 md:w-40 md:h-24 bg-white rounded-lg shadow-md flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all duration-300 relative overflow-hidden"
                                 >
                                     {/* Add gradient border on hover */}
-                                    <div
-                                        className="absolute inset-0 bg-gradient-to-br from-purple-500 via-indigo-500 to-blue-500 opacity-0 hover:opacity-20 transition-opacity duration-300"/>
+                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-purple-500 opacity-0 hover:opacity-20 transition-opacity duration-300"/>
                                     <span className="text-gray-600 font-semibold relative z-10">{client}</span>
                                 </motion.div>
                             ))}
@@ -423,7 +504,7 @@ export default function IndustriesSection() {
                 </section>
 
                 {/* Statistics Section */}
-                <section className="container mx-auto px-4 mt-16 relative">
+                <section className="container mx-auto px-4 mt-16 relative mb-16">
                     <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 relative overflow-hidden">
                         {/* Add animated shapes inside the white box */}
                         <div className="absolute inset-0 overflow-hidden">
@@ -433,19 +514,19 @@ export default function IndustriesSection() {
 
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
                             <div className="text-center">
-                                <h3 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">10+</h3>
+                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">10+</h3>
                                 <p className="text-gray-600">Industries Served</p>
                             </div>
                             <div className="text-center">
-                                <h3 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">500+</h3>
+                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">500+</h3>
                                 <p className="text-gray-600">Client Companies</p>
                             </div>
                             <div className="text-center">
-                                <h3 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">3000+</h3>
+                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">3000+</h3>
                                 <p className="text-gray-600">Successful Placements</p>
                             </div>
                             <div className="text-center">
-                                <h3 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">95%</h3>
+                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">95%</h3>
                                 <p className="text-gray-600">Client Satisfaction</p>
                             </div>
                         </div>
@@ -453,74 +534,141 @@ export default function IndustriesSection() {
                 </section>
 
                 {/* Call to Action */}
-                <section className="container mx-auto px-4 mt-16">
-                    <div
-                        className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
-                        {/* Add animated shapes inside the gradient box */}
-                        <div className="absolute inset-0 overflow-hidden">
-                            <motion.div
-                                className="absolute w-64 h-64 rounded-full bg-white opacity-10"
-                                animate={{
-                                    x: [0, 40, 0],
-                                    y: [0, -20, 0],
-                                    scale: [1, 1.2, 1],
-                                }}
-                                transition={{
-                                    duration: 10,
-                                    repeat: Infinity,
-                                    repeatType: "reverse"
-                                }}
-                                style={{top: '-20%', right: '10%'}}
-                            />
-                            <motion.div
-                                className="absolute w-48 h-48 rounded-full bg-white opacity-10"
-                                animate={{
-                                    x: [0, -30, 0],
-                                    y: [0, 30, 0],
-                                    scale: [1, 0.8, 1],
-                                }}
-                                transition={{
-                                    duration: 13,
-                                    repeat: Infinity,
-                                    repeatType: "reverse"
-                                }}
-                                style={{bottom: '-10%', left: '15%'}}
-                            />
-                        </div>
-
-                        <div className="relative z-10">
-                            <h2 className="text-3xl font-bold text-white mb-4">
-                                Looking for Industry-Specific HR Solutions?
-                            </h2>
-                            <p className="text-indigo-100 mb-8 max-w-2xl mx-auto">
-                                Let us leverage our industry expertise to help you find the right talent and optimize
-                                your
-                                HR operations.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <a
-                                    href="/#contact"
-                                    className="bg-white hover:bg-gray-100 text-blue-600 font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
-                                >
-                                    Contact Us Today
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-indigo-600"
-                                         viewBox="0 0 20 20"
-                                         fill="currentColor">
-                                        <path fillRule="evenodd"
-                                              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                              clipRule="evenodd"/>
-                                    </svg>
-                                </a>
-                                <a
-                                    href="/#services"
-                                    className="bg-transparent hover:bg-indigo-700 text-white border-2 border-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
-                                >
-                                    View Our Services
-                                </a>
-                            </div>
+                <section className="container mx-auto px-4 mt-16 relative z-10 mb-16">
+                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center">
+                        <h2 className="text-3xl font-bold text-white mb-4">
+                            Looking for Industry-Specific HR Solutions?
+                        </h2>
+                        <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
+                            Let us leverage our industry expertise to help you find the right talent and optimize
+                            your HR operations.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a
+                                href="/contact"
+                                className="bg-white hover:bg-gray-100 text-blue-600 font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
+                            >
+                                Contact Us Today
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-blue-600"
+                                     viewBox="0 0 20 20"
+                                     fill="currentColor">
+                                    <path fillRule="evenodd"
+                                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                          clipRule="evenodd"/>
+                                </svg>
+                            </a>
+                            <a
+                                href="/services"
+                                className="bg-transparent hover:bg-blue-700 hover:bg-opacity-40 text-white border-2 border-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
+                            >
+                                Explore Our Services
+                            </a>
                         </div>
                     </div>
                 </section>
+
+                <style jsx global>{`
+                    .bubble {
+                        position: absolute;
+                        background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+                        border-radius: 50%;
+                        animation: float 15s infinite ease-in-out;
+                    }
+                    
+                    .bubble-1 {
+                        width: 100px;
+                        height: 100px;
+                        left: 10%;
+                        top: 20%;
+                        animation-delay: 0s;
+                    }
+                    
+                    .bubble-2 {
+                        width: 60px;
+                        height: 60px;
+                        left: 80%;
+                        top: 50%;
+                        animation-delay: 2s;
+                    }
+                    
+                    .bubble-3 {
+                        width: 120px;
+                        height: 120px;
+                        left: 30%;
+                        top: 70%;
+                        animation-delay: 4s;
+                    }
+                    
+                    .bubble-4 {
+                        width: 80px;
+                        height: 80px;
+                        left: 70%;
+                        top: 10%;
+                        animation-delay: 6s;
+                    }
+                    
+                    .bubble-5 {
+                        width: 50px;
+                        height: 50px;
+                        left: 50%;
+                        top: 85%;
+                        animation-delay: 8s;
+                    }
+                    
+                    .bubble-6 {
+                        width: 90px;
+                        height: 90px;
+                        left: 20%;
+                        top: 50%;
+                        animation-delay: 10s;
+                    }
+                    
+                    .bubble-7 {
+                        width: 70px;
+                        height: 70px;
+                        left: 90%;
+                        top: 30%;
+                        animation-delay: 12s;
+                    }
+                    
+                    .bubble-8 {
+                        width: 110px;
+                        height: 110px;
+                        left: 60%;
+                        top: 60%;
+                        animation-delay: 14s;
+                    }
+                    
+                    @keyframes float {
+                        0%, 100% {
+                            transform: translate(0, 0) rotate(0deg);
+                        }
+                        25% {
+                            transform: translate(20px, -20px) rotate(5deg);
+                        }
+                        50% {
+                            transform: translate(-20px, 20px) rotate(-5deg);
+                        }
+                        75% {
+                            transform: translate(10px, -10px) rotate(3deg);
+                        }
+                    }
+                    
+                    @keyframes floatReverse {
+                        0%, 100% {
+                            transform: translate(0, 0) rotate(0deg);
+                        }
+                        25% {
+                            transform: translate(-15px, 15px) rotate(-3deg);
+                        }
+                        50% {
+                            transform: translate(15px, -15px) rotate(3deg);
+                        }
+                        75% {
+                            transform: translate(-10px, 10px) rotate(-2deg);
+                        }
+                    }
+                `}</style>
             </div>
         </>
     );
