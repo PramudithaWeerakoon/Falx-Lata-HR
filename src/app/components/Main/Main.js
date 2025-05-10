@@ -538,9 +538,9 @@ function IndustriesSection() {
 
 export function StatisticsSection() {
     const stats = [
-        {value: "500+", label: "Happy Clients"},
-        {value: "4000+", label: "Successful Placements"},
-        {value: "6+", label: "Years of Experience"},
+        {value: "50+", label: "Happy Clients"},
+        {value: "40+", label: "Successful Placements"},
+        {value: "3+", label: "Years of Experience"},
         {value: "35", label: "Dedicated Professionals"}
     ];
 
