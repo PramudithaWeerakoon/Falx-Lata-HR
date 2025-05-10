@@ -66,7 +66,7 @@ export default function ServicesSection() {    // Service offerings with images
         {
             title: "Payroll Outsourcing",
             description: "Efficient and accurate payroll management services including EPF/ETF registration",
-            image: "/images/Payroll.jpg",
+            image: "/images/payroll.jpg",
         }
     ];
 
