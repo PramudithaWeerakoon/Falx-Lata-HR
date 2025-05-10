@@ -1,6 +1,7 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Main/Footer";
+import ConditionalWhatsAppButton from "./components/Main/ConditionalWhatsAppButton";
 
 const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700'],
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
       >
         {children}
         <Footer />
+        <ConditionalWhatsAppButton phoneNumber="+94777937691" />
       </body>
     </html>
   );

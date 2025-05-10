@@ -316,141 +316,8 @@ export function AboutSection() {
     );
 }
 
-function ServicesSection() {
-    // Service card data with background images
-    const services = [
-        {
-            title: "Recruitment & Headhunting",
-            description: "Executive Search & C-Suite Recruitment Services to find top talent for your organization.",
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                     stroke="currentColor" className="w-8 h-8">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
-                </svg>
-            ),
-            bgColor: "from-blue-500 to-blue-700",
-            bgImage: "/images/Recruitment & Headhunting.png"
-        },
-        {
-            title: "HR Process Outsourcing",
-            description: "Streamline your HR operations by outsourcing processes to our experienced team.",
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                     stroke="currentColor" className="w-8 h-8">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75a2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"/>
-                </svg>
-            ),
-            bgColor: "from-purple-500 to-purple-700",
-            bgImage: "/images/HR Process Outsourcing.png"
-        },
-        {
-            title: "HR Function Setup",
-            description: "Build HR for startups or reshape your existing HR department with best practices.",
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                     stroke="currentColor" className="w-8 h-8">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605"/>
-                </svg>
-            ),
-            bgColor: "from-indigo-500 to-indigo-700",
-            bgImage: "/images/HR Function Setup.png"
-        },
-        {
-            title: "Policies & Procedure Setup",
-            description: "Develop comprehensive HR policies and procedures aligned with your business goals.",
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                     stroke="currentColor" className="w-8 h-8">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
-                </svg>
-            ),
-            bgColor: "from-rose-500 to-rose-700",
-            bgImage: "/images/Policies & Procedure Setup.png"
-        },
-        {
-            title: "Payroll Outsourcing",
-            description: "Efficient and accurate payroll management services to ensure timely payments.",
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                     stroke="currentColor" className="w-8 h-8">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"/>
-                </svg>
-            ),
-            bgColor: "from-emerald-500 to-emerald-700",
-            bgImage: "/images/Payroll Outsourcing.jpg"
-        },
-        {
-            title: "Performance Management",
-            description: "Design and implement performance management processes for small companies.",
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                     stroke="currentColor" className="w-8 h-8">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/>
-                </svg>
-            ),
-            bgColor: "from-blue-500 to-indigo-700",
-            bgImage: "/images/Performance-Management.jpg"
-        },
-    ];
-
-    return (
-        <div className="pt-20 pb-67 bg-gray-50 relative overflow-hidden">
-            {/* Background shapes */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    animate={{
-                        rotate: [0, 360],
-                        scale: [1, 1.1, 1],
-                    }}
-                    transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "linear"
-                    }}
-                    className="absolute -top-20 -right-20 w-96 h-96 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-3xl"
-                />
-                <motion.div
-                    animate={{
-                        rotate: [360, 0],
-                        scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        ease: "linear"
-                    }}
-                    className="absolute -bottom-20 -left-20 w-96 h-96 bg-gradient-to-tr from-purple-200/30 to-indigo-200/30 rounded-full blur-3xl"
-                />
-            </div>
-
-            <div className="container mx-auto px-4 relative z-10">
-                <div className="text-center mb-12">
-                    <span
-                        className="inline-block text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">OUR SERVICES</span>
-                    <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">Comprehensive
-                        HR Solutions</h2>
-                    <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-6"></div>
-                    <p className="text-gray-600 max-w-3xl mx-auto">
-                        Optimize your business operations with our comprehensive, one-stop HR solutions
-                        tailored to your company's unique needs.
-                    </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {services.map((service, index) => (
-                        <ServiceCard key={index} service={service} index={index} />
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-}
+// Import the updated ServicesSection component
+import ServicesSection from './ServicesSection';
 
 // New Service Card component with background images
 function ServiceCard({ service, index }) {
@@ -511,29 +378,8 @@ function ServiceCard({ service, index }) {
     );
 }
 
-function IndustryCard({industry, icon}) {
-    return (
-        <motion.div
-            initial={{opacity: 0, y: 20}}
-            whileInView={{opacity: 1, y: 0}}
-            transition={{duration: 0.4, delay: Math.random() * 0.3}}
-            viewport={{once: true}}
-            className="text-center p-6 rounded-xl border border-gray-200 hover:border-transparent hover:shadow-lg transition-all duration-300 bg-white group hover:-translate-y-2 relative overflow-hidden"
-        >
-            <div
-                className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative z-10">
-                <div
-                    className="w-16 h-16 mx-auto rounded-full bg-gradient-to-r from-blue-100 to-purple-100 flex items-center justify-center mb-4 group-hover:from-blue-500 group-hover:to-purple-500 transition-all duration-300">
-                    <div className="text-blue-600 group-hover:text-white transition-colors duration-300">
-                        {icon}
-                    </div>
-                </div>
-                <h3 className="font-medium text-gray-900 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">{industry}</h3>
-            </div>
-        </motion.div>
-    );
-}
+// Import the updated IndustryCard component
+import IndustryCard from './IndustryCard';
 
 function IndustriesSection() {
     const [industries] = useState([

@@ -4,7 +4,10 @@ import {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import Navbar from '../components/NavBar/ScrollTriggeredMenu';
 
-// Service Card Component
+// Import the styled ServiceCard component
+import ServicesSection from '../components/Main/ServicesSection';
+
+// Service Card Component for detailed service pages
 function ServiceCard({service, index}) {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -22,13 +25,13 @@ function ServiceCard({service, index}) {
                 initial={{scale: 0.8, opacity: 0}}
                 whileInView={{scale: 1, opacity: 0.07}}
                 transition={{duration: 0.6, delay: 0.2}}
-                className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"
+                className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-gradient-to-r from-teal-400 to-blue-500"
             />
             
             <div className="p-6">
                 <div className="flex items-start mb-4">
                     <div
-                        className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 flex items-center justify-center mr-4 flex-shrink-0">
+                        className="w-12 h-12 rounded-full bg-gradient-to-r from-teal-100 to-blue-100 flex items-center justify-center mr-4 flex-shrink-0">
                         {service.icon}
                     </div>
                     <div>
@@ -46,7 +49,7 @@ function ServiceCard({service, index}) {
                     <motion.button
                         whileHover={{scale: 1.01}}
                         onClick={() => setIsExpanded(!isExpanded)}
-                        className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center focus:outline-none transition-colors duration-300 group"
+                        className="text-teal-600 hover:text-teal-800 text-sm font-medium flex items-center focus:outline-none transition-colors duration-300 group"
                     >
                         {isExpanded ? 'Show Less' : 'Show More'}
                         <motion.svg
@@ -91,7 +94,7 @@ function ServiceCard({service, index}) {
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="h-5 w-5 text-green-500 mr-2 mt-0.5"
+                                        className="h-5 w-5 text-teal-500 mr-2 mt-0.5"
                                         viewBox="0 0 20 20"
                                         fill="currentColor"
                                     >
@@ -110,8 +113,8 @@ function ServiceCard({service, index}) {
     );
 }
 
-// Main Services Section Component
-export default function ServicesSection() {
+// Main Services Page Component
+export default function ServicesPage() {
     const [isMounted, setIsMounted] = useState(false);
     const [activeTestimonial, setActiveTestimonial] = useState(0);
     
