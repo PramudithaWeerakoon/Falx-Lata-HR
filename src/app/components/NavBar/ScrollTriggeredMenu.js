@@ -5,8 +5,17 @@ import {motion, AnimatePresence} from 'framer-motion';
 
 const ScrollTriggeredMenu = () => {
     const [scrolled, setScrolled] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    // Handle scroll effect
+    // Function to toggle mobile menu
+    const toggleMobileMenu = () => {
+        setMobileMenuOpen(!mobileMenuOpen);
+    };
+
+    // Close mobile menu when clicking a link
+    const closeMobileMenu = () => {
+        setMobileMenuOpen(false);
+    };    // Handle scroll effect
     useEffect(() => {
         const handleScroll = () => {
             // Show second menu bar when scrolled past a certain point (e.g., 100px)
@@ -17,11 +26,32 @@ const ScrollTriggeredMenu = () => {
             }
         };
 
+        // Close mobile menu when window is resized to desktop size
+        const handleResize = () => {
+            if (window.innerWidth >= 768) {
+                setMobileMenuOpen(false);
+            }
+        };
+
+        // Add event listeners
         window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleResize);
+        
+        // Close mobile menu when clicking outside
+        const handleClickOutside = (e) => {
+            if (mobileMenuOpen && !e.target.closest('.mobile-menu-container') && !e.target.closest('button[aria-label="Toggle navigation menu"]')) {
+                setMobileMenuOpen(false);
+            }
+        };
+        document.addEventListener('click', handleClickOutside);
+
+        // Cleanup
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleResize);
+            document.removeEventListener('click', handleClickOutside);
         };
-    }, []);
+    }, [mobileMenuOpen]);
 
     return (
         <header className="fixed w-full z-50">
@@ -116,12 +146,14 @@ const ScrollTriggeredMenu = () => {
                            className="text-white no-underline relative py-1 hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#3a79ff] after:transition-all after:duration-300">
                             Contact
                         </a>
-                    </div>
-
-                    {/* Mobile menu toggle - search icon removed */}
+                    </div>                    {/* Mobile menu toggle - search icon removed */}
                     <div className="flex items-center gap-3">
-                        <button className="md:hidden text-white text-xl">
-                            <i className="fas fa-bars"></i>
+                        <button 
+                            onClick={toggleMobileMenu} 
+                            className="md:hidden text-white text-xl" 
+                            aria-label="Toggle navigation menu"
+                        >
+                            <i className={`fas ${mobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
                         </button>
                     </div>
                 </div>
@@ -182,17 +214,98 @@ const ScrollTriggeredMenu = () => {
                             </div>
 
                             {/* Quick Action Button */}
-                            <div className="flex items-center gap-3">
-                                <button
+                            <div className="flex items-center gap-3">                                <button
                                     className="bg-[#3a79ff] text-white border-none px-4 py-1 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#2a69ff] transition-all">
                                     Hire Talent
                                 </button>
-                                <button className="md:hidden text-gray-800 text-lg">
-                                    <i className="fas fa-bars"></i>
+                                <button 
+                                    onClick={toggleMobileMenu} 
+                                    className="md:hidden text-gray-800 text-lg"
+                                    aria-label="Toggle navigation menu"
+                                >
+                                    <i className={`fas ${mobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
                                 </button>
                             </div>
                         </div>
                     </motion.nav>
+                )}            </AnimatePresence>
+            
+            {/* Mobile Menu */}
+            <AnimatePresence>
+                {mobileMenuOpen && (                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className={`w-full mobile-menu-container ${scrolled ? 'bg-white text-gray-800' : 'bg-[#111] text-white'} overflow-hidden shadow-lg md:hidden z-50`}
+                    >
+                        <div className="container mx-auto px-4 py-4">
+                            <div className="flex flex-col space-y-4">
+                                <a href="/" onClick={closeMobileMenu}
+                                   className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline text-lg font-medium`}>
+                                    Home
+                                </a>
+                                <a href="/about-us" onClick={closeMobileMenu}
+                                   className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline text-lg font-medium`}>
+                                    About Us
+                                </a>
+                                <a href="/services" onClick={closeMobileMenu}
+                                   className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline text-lg font-medium`}>
+                                    Our Services
+                                </a>
+                                <a href="/industries" onClick={closeMobileMenu}
+                                   className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline text-lg font-medium`}>
+                                    Industries We Serve
+                                </a>
+                                <a href="/careers" onClick={closeMobileMenu}
+                                   className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline text-lg font-medium`}>
+                                    Vacancies
+                                </a>
+                                <a href="/contact" onClick={closeMobileMenu}
+                                   className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline text-lg font-medium`}>
+                                    Contact
+                                </a>
+                                
+                                {/* Mobile contact info */}
+                                <div className="pt-4 border-t border-gray-700">
+                                    <a href="mailto:info@falxlata.com"
+                                       className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline flex items-center gap-2 text-base mb-2`}>
+                                        <i className="far fa-envelope"></i> info@falxlata.com
+                                    </a>
+                                    <a href="tel:+94 777 937 691"
+                                       className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline flex items-center gap-2 text-base`}>
+                                        <i className="fas fa-phone"></i> +94 777 937 691
+                                    </a>
+                                </div>
+                                
+                                {/* Social icons - mobile view */}                                <div className="flex items-center gap-5 pt-4">
+                                    <a href="#" className={`${scrolled ? 'text-gray-800' : 'text-white'} text-base no-underline`}>
+                                        <i className="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#" className={`${scrolled ? 'text-gray-800' : 'text-white'} text-base no-underline`}>
+                                        <i className="fab fa-linkedin-in"></i>
+                                    </a>
+                                    <a href="#" className={`${scrolled ? 'text-gray-800' : 'text-white'} text-base no-underline`}>
+                                        <i className="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="#" className={`${scrolled ? 'text-gray-800' : 'text-white'} text-base no-underline`}>
+                                        <i className="fab fa-youtube"></i>
+                                    </a>
+                                    <a href="#" className={`${scrolled ? 'text-gray-800' : 'text-white'} text-base no-underline`}>
+                                        <i className="fab fa-tiktok"></i>
+                                    </a>
+                                </div>
+                                
+                                {/* Mobile CTA Button */}
+                                <div className="pt-4">
+                                    <a href="/contact"
+                                       className="w-full block text-center bg-gradient-to-r from-[#5C5EFF] to-[#8B5EFF] text-white border-none px-5 py-3 rounded-md text-base font-bold cursor-pointer hover:opacity-90 transition-all">
+                                        Connect With Us
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </header>
