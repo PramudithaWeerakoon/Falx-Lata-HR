@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 function HeroSection() {
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
+  const [isMounted, setIsMounted] = useState(false);  useEffect(() => {
     setIsMounted(true);
     if (typeof window !== 'undefined') {
       const style = document.createElement('style');
@@ -18,6 +17,7 @@ function HeroSection() {
           0%, 100% { transform: translate(0, 0); }
           50% { transform: translate(0, 15px); }
         }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
       `;
       document.head.appendChild(style);
       return () => {
@@ -30,14 +30,13 @@ function HeroSection() {
 
   return (
     <div className="relative overflow-visible min-h-screen flex items-center justify-center">
-      {/* Hero background with photo */}
-      <div className="absolute inset-0 z-0">
+      {/* Hero background with photo */}      <div className="absolute inset-0 z-0">
         {/* Main background image with overlay */}
-        <div className="absolute inset-0 bg-black/50">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/50 backdrop-blur-sm">
           <img
             src="./images/young-students-learning-together-group-study.jpg"
             alt="HR Management background"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover filter blur-[2px]"
           />
         </div>
         
@@ -83,27 +82,21 @@ function HeroSection() {
           alt="Floating decoration" 
           className="w-full h-full object-contain transform -translate-x-1/5 translate-y-1/5" 
         />
-      </div>
-
-      <div className="container mx-auto px-4 py-16 pt-28 md:pt-36 relative z-10">
-        <div className="flex flex-col items-center text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
-            <span className="block">We Empower to </span>
-            <span className="block bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
-              Elevating the Business
+      </div>      <div className="container mx-auto px-4 py-16 pt-28 md:pt-36 relative z-10">
+        <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[74px] font-extrabold mb-8 leading-tight text-white font-['Poppins',sans-serif] tracking-tight">
+            <span className="block mb-2">We Empower to<span className="text-white">.</span></span>
+            <span className="block text-white">
+              Elevating the Business<span className="text-white">.</span>
             </span>
           </h1>
 
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto my-8" />
-
-          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl lg:text-[20px] mb-10 text-[#EDEDED] max-w-2xl mx-auto font-normal font-['Poppins',sans-serif] leading-relaxed">
             Work with the right team which provides, HR solutions for your Business Growth
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-10">
+          </p>          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+              className="inline-flex items-center justify-center bg-transparent border border-white text-white font-medium rounded-full transition-all duration-300 font-['Poppins',sans-serif] px-[32px] py-[16px] hover:bg-white hover:text-black"
             >
               Start connecting with us
             </Link>
