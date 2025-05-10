@@ -6,16 +6,21 @@ import Link from 'next/link';
 
 // Service Card Component with clean, minimal design
 function ServiceCard({ service, index }) {
-    return (        <motion.div
+    return (
+        <motion.div
             initial={{ opacity: 0, y: 20, rotate: index % 2 === 0 ? -1 : 1 }}
             whileInView={{ opacity: 1, y: 0, rotate: 0 }}
             transition={{ duration: 0.5, delay: index * 0.15 }}
             whileHover={{ y: -10, rotate: 0, scale: 1.02 }}
             viewport={{ once: true }}
-            className={`bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 h-full ${
-                index % 2 === 0 ? 'md:-mt-8' : 'md:mt-8'
-            } mt-0 hover:-translate-y-2`}
-        >            <div className="overflow-hidden rounded-t-xl relative h-48 md:h-64">
+            className={`bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 ${
+                index === 0 ? '-mt-10 md:-mt-16' : 
+                index === 1 ? 'mt-8 md:mt-11' : 
+                index === 2 ? '-mt-6 md:-mt-12' : 
+                'mt-12 md:mt-14'
+            } hover:-translate-y-2`}
+        >
+            <div className="overflow-hidden rounded-t-xl h-56 md:h-64 relative">
                 <div className={`absolute top-0 left-0 w-full h-full bg-gradient-to-tr ${
                     index === 0 ? 'from-teal-500/20' : 
                     index === 1 ? 'from-blue-500/20' : 
@@ -27,8 +32,10 @@ function ServiceCard({ service, index }) {
                     alt={service.title} 
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                 />
-            </div>              <div className="relative p-6 md:p-8 flex flex-col">
-                <h3 className="font-bold text-gray-800 text-xl md:text-2xl mb-4">{service.title}</h3>
+            </div>
+            
+            <div className="p-6 md:p-8 relative">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">{service.title}</h3>
                 <p className="text-gray-600 mb-5">{service.description}</p>
                 <div className={`absolute bottom-0 left-0 w-1/3 h-1 ${
                     index === 0 ? 'bg-teal-500' : 
@@ -36,11 +43,9 @@ function ServiceCard({ service, index }) {
                     index === 2 ? 'bg-emerald-500' : 
                     'bg-cyan-500'
                 } rounded-r-full`}></div>
-                <div className="mt-auto">
-                    <Link href="/services" className="inline-flex items-center font-medium text-teal-600 hover:text-teal-700 transition-colors duration-300 text-sm md:text-base">
-                        READ MORE →
-                    </Link>
-                </div>
+                <Link href="/services" className="inline-flex items-center text-sm md:text-base font-medium text-teal-600 hover:text-teal-700 transition-colors duration-300">
+                    READ MORE →
+                </Link>
             </div>
         </motion.div>
     );
@@ -262,9 +267,10 @@ export default function ServicesSection() {    // Service offerings with images
                             </div>
                         </motion.div>
                     </div>
-                      {/* RIGHT SIDE - Card Grid with staggered layout */}
+                    
+                    {/* RIGHT SIDE - Card Grid with staggered layout */}
                     <div className="w-full lg:w-3/5 lg:ml-16 xl:ml-24">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 min-h-[800px]">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
                             {serviceOfferings.map((service, index) => (
                                 <ServiceCard key={index} service={service} index={index} />
                             ))}
@@ -278,4 +284,3 @@ export default function ServicesSection() {    // Service offerings with images
         </div>
     );
 }
-
