@@ -400,7 +400,7 @@ function HiringProcess() {
         {
             number: '06',
             title: 'Job Offer',
-            description: 'Successful candidates receive an offer letter with details about-us the position.',
+            description: 'Successful candidates receive an offer letter with details about the position.',
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
@@ -412,40 +412,90 @@ function HiringProcess() {
     ];
 
     return (
-        <div className="py-16 bg-gray-50">
-            <div className="container mx-auto px-4">
-                <div className="text-center mb-12">
+        <div className="py-16 bg-gray-50 relative overflow-hidden">
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-b from-blue-50 to-purple-50 rounded-full opacity-30 blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
+            <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-t from-blue-50 to-purple-50 rounded-full opacity-30 blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
+            
+            <div className="container mx-auto px-4 relative z-10">
+                <motion.div 
+                    initial={{opacity: 0, y: 20}}
+                    whileInView={{opacity: 1, y: 0}}
+                    transition={{duration: 0.5}}
+                    viewport={{once: true}}
+                    className="text-center mb-12"
+                >
                     <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Hiring Process</h2>
                     <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"></div>
                     <p className="text-gray-600 max-w-3xl mx-auto">
                         Our structured hiring process ensures we find the best talent while providing a
                         positive experience for all candidates.
                     </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {steps.map((step, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{opacity: 0, y: 20}}
-                            whileInView={{opacity: 1, y: 0}}
-                            transition={{duration: 0.4, delay: index * 0.1}}
-                            viewport={{once: true}}
-                            className="relative bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
-                        >
-                            <div
-                                className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                                {step.number}
-                            </div>
-                            <div className="ml-4">
-                                <div className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-3">
-                                    {step.icon}
+                </motion.div>                {/* Ladder-style process */}                <div className="max-w-5xl mx-auto relative">
+                    {/* Step blocks */}
+                    <div className="space-y-20 md:space-y-28 relative">
+                        {/* Main vertical ladder line */}
+                        <div className="absolute left-1/2 transform -translate-x-1/2 top-4 bottom-4 w-3 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full hidden md:block"></div>
+                        
+                        {steps.map((step, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{opacity: 0}}
+                                whileInView={{opacity: 1}}
+                                transition={{duration: 0.5, delay: index * 0.1}}
+                                viewport={{once: true}}
+                                className="relative"
+                            >
+                                {/* Content layout with alternating sides */}
+                                <div className={`flex flex-col md:flex-row items-center ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
+                                    {/* Left or Right content based on index */}
+                                    <div className={`w-full md:w-[45%] mb-5 md:mb-0 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+                                        <motion.div
+                                            initial={{opacity: 0, x: index % 2 === 0 ? -20 : 20}}
+                                            whileInView={{opacity: 1, x: 0}}
+                                            transition={{duration: 0.5}}
+                                            viewport={{once: true}}
+                                            className={`bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 inline-block w-full max-w-md ${index % 2 === 0 ? 'md:mr-10' : 'md:ml-10'}`}
+                                        >
+                                            <div className={`flex items-start ${index % 2 === 0 ? 'md:flex-row-reverse text-left md:text-right' : ''}`}>
+                                                <div className={`bg-gradient-to-r from-blue-50 to-purple-50 rounded-full p-3 flex-shrink-0 ${index % 2 === 0 ? 'md:ml-4' : 'mr-4'}`}>
+                                                    <div className="text-blue-600">
+                                                        {step.icon}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-xl font-bold mb-2">
+                                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">{step.title}</span>
+                                                    </h3>
+                                                    <p className="text-gray-700">{step.description}</p>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    </div>
+                                    
+                                    {/* Center circle with number */}
+                                    <div className="w-16 md:w-[10%] flex items-center justify-center relative z-10">
+                                        <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-lg border-4 border-white">
+                                            <span className="text-white font-bold text-xl">{step.number}</span>
+                                        </div>
+                                        
+                                        {/* Horizontal connector lines */}
+                                        <div className={`hidden md:block absolute top-1/2 ${index % 2 === 0 ? 'right-full' : 'left-full'} w-10 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full`} style={{transform: 'translateY(-50%)'}}></div>
+                                    </div>
+                                    
+                                    {/* Spacer for opposite side */}
+                                    <div className="hidden md:block md:w-[45%]"></div>
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
-                                <p className="text-gray-600">{step.description}</p>
-                            </div>
-                        </motion.div>
-                    ))}
+                                
+                                {/* Mobile vertical connector */}
+                                <div className="md:hidden absolute h-14 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500 left-1/2 transform -translate-x-1/2 -bottom-14"></div>
+                            </motion.div>
+                        ))}
+                        
+                        {/* Top and bottom decorations */}
+                        <div className="absolute left-1/2 transform -translate-x-1/2 -top-6 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full hidden md:block shadow-lg"></div>
+                        <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-6 w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full hidden md:block shadow-lg"></div>
+                    </div>
                 </div>
             </div>
         </div>
