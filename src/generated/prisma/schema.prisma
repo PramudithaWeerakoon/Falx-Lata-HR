@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model with role-based authentication
+model User {
+  id          String    @id @default(cuid())
+  email       String    @unique
+  password    String
+  name        String?
+  fullName    String?
+  company     String?
+  phoneNumber String?
+  role        UserRole  @default(USER)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  vacancies   Vacancy[]
+}
+
+// Role enum for user permissions
+enum UserRole {
+  USER
+  ADMIN
+}
+
+// Vacancy model for job postings
+model Vacancy {
+  id               String    @id @default(cuid())
+  title            String
+  company          String?
+  location         String?
+  description      String
+  requirements     String?
+  responsibilities String?
+  salary           String?
+  applyLink        String?
+  active           Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  createdBy        User      @relation(fields: [userId], references: [id])
+  userId           String
+  category         Category? @relation(fields: [categoryId], references: [id])
+  categoryId       String?
+}
+
+// Category model for job categories
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String?
+  vacancies   Vacancy[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}

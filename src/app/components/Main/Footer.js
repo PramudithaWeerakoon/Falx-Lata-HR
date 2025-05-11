@@ -92,8 +92,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-6 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-0.5 after:bg-[#3a79ff]">
               Quick Links
-            </h3>
-            <ul className="space-y-3">
+            </h3>            <ul className="space-y-3">
               <li>
                 <Link href="/" className="text-gray-400 hover:text-white transition-colors">
                   Home
@@ -117,6 +116,11 @@ const Footer = () => {
               <li>
                 <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="/login" className="text-gray-400 hover:text-white transition-colors">
+                  Login / Sign Up
                 </Link>
               </li>
             </ul>

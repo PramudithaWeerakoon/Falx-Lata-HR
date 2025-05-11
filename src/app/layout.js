@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Main/Footer";
 import ConditionalWhatsAppButton from "./components/Main/ConditionalWhatsAppButton";
+import { AuthProvider } from "./context/AuthContext";
 
 const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700'],
@@ -31,9 +32,11 @@ export default function RootLayout({ children }) {
         className={`${poppins.variable} ${poppins.className} antialiased`}
         style={{ backgroundColor: "#f7f7f5" }}
       >
-        {children}
-        <Footer />
-        <ConditionalWhatsAppButton phoneNumber="+94777937691" />
+        <AuthProvider>
+          {children}
+          <Footer />
+          <ConditionalWhatsAppButton phoneNumber="+94777937691" />
+        </AuthProvider>
       </body>
     </html>
   );

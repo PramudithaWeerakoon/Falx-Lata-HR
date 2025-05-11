@@ -3,6 +3,8 @@
 import {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import Navbar from '../components/NavBar/ScrollTriggeredMenu';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '../context/AuthContext';
 
 // Job Card Component
 function JobCard({job, onApplyClick}) {
@@ -464,7 +466,7 @@ function JobApplicationForm({job, onClose}) {
 }
 
 // Job Filters
-function JobFilters({filters, onFilterChange}) {
+function JobFilters({filters, onFilterChange, locations, departments, types}) {
     return (
         <motion.div
             initial={{opacity: 0, y: 20}}
@@ -483,8 +485,7 @@ function JobFilters({filters, onFilterChange}) {
                 </motion.span>
                 Filter Jobs
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <motion.div
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">                <motion.div
                     whileHover={{y: -3}}
                 >
                     <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">
@@ -498,14 +499,11 @@ function JobFilters({filters, onFilterChange}) {
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-300 hover:border-gray-400"
                     >
                         <option value="">All Locations</option>
-                        <option value="New York">New York</option>
-                        <option value="Remote">Remote</option>
-                        <option value="London">London</option>
-                        <option value="Colombo">Colombo</option>
+                        {locations.map(location => (
+                            <option key={location} value={location}>{location}</option>
+                        ))}
                     </select>
-                </motion.div>
-
-                <motion.div
+                </motion.div>                <motion.div
                     whileHover={{y: -3}}
                 >
                     <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-2">
@@ -519,14 +517,11 @@ function JobFilters({filters, onFilterChange}) {
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-300 hover:border-gray-400"
                     >
                         <option value="">All Departments</option>
-                        <option value="HR">HR</option>
-                        <option value="IT">IT</option>
-                        <option value="Finance">Finance</option>
-                        <option value="Marketing">Marketing</option>
+                        {departments.map(department => (
+                            <option key={department} value={department}>{department}</option>
+                        ))}
                     </select>
-                </motion.div>
-
-                <motion.div
+                </motion.div>                <motion.div
                     whileHover={{y: -3}}
                 >
                     <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-2">
@@ -540,10 +535,9 @@ function JobFilters({filters, onFilterChange}) {
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-300 hover:border-gray-400"
                     >
                         <option value="">All Types</option>
-                        <option value="Full-time">Full-time</option>
-                        <option value="Part-time">Part-time</option>
-                        <option value="Contract">Contract</option>
-                        <option value="Internship">Internship</option>
+                        {types.map(type => (
+                            <option key={type} value={type}>{type}</option>
+                        ))}
                     </select>
                 </motion.div>
             </div>
@@ -553,6 +547,8 @@ function JobFilters({filters, onFilterChange}) {
 
 // Main Careers Component
 export default function CareersSection() {
+    const { isAdmin } = useAuth();
+    const router = useRouter();
     const [filters, setFilters] = useState({
         location: '',
         department: '',
@@ -563,12 +559,115 @@ export default function CareersSection() {
     const [showApplicationForm, setShowApplicationForm] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [isMounted, setIsMounted] = useState(false);
-    
-    useEffect(() => {
+    const [jobs, setJobs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+      useEffect(() => {
         setIsMounted(true);
+        
+        // Fetch vacancies from the API
+        const fetchVacancies = async () => {
+            try {
+                console.log('Fetching vacancies from API...');
+                const response = await fetch('/api/vacancies');
+                const data = await response.json();
+                
+                console.log('API response:', data);
+                
+                if (data.success && data.vacancies) {
+                    // Transform API data to match the expected format for display
+                    const formattedVacancies = data.vacancies.map(vacancy => ({
+                        id: vacancy.id,
+                        title: vacancy.title,
+                        location: vacancy.location,
+                        type: vacancy.type || 'Full-time', // Default value if not available in API
+                        department: vacancy.category?.name || 'General',
+                        postedDate: formatDate(vacancy.createdAt),
+                        applicationDeadline: `Deadline: ${formatDeadline(vacancy.createdAt)}`,
+                        shortDescription: vacancy.description.substring(0, 150) + '...',
+                        fullDescription: vacancy.description,
+                        requirements: vacancy.requirements ? vacancy.requirements.split('\n').filter(req => req.trim()) : [],
+                        responsibilities: vacancy.responsibilities ? vacancy.responsibilities.split('\n').filter(resp => resp.trim()) : []
+                    }));
+                    
+                    console.log('Formatted vacancies:', formattedVacancies);
+                    
+                    // Set state with formatted vacancies if there are any
+                    if (formattedVacancies.length > 0) {
+                        setJobs(formattedVacancies);
+                        setLoading(false);
+                    } else {
+                        // Fallback to hardcoded jobs if no vacancies in the database
+                        console.log('No vacancies found, using fallback data');
+                        setJobs(jobListings);
+                        setLoading(false);
+                    }
+                } else {
+                    // Fallback to hardcoded jobs if API fails
+                    console.log('API response unsuccessful, using fallback data');
+                    setJobs(jobListings);
+                    setLoading(false);
+                }
+            } catch (error) {
+                console.error('Error fetching vacancies:', error);
+                // Fallback to hardcoded jobs on error
+                setJobs(jobListings);
+                setLoading(false);
+            }
+        };
+        
+        fetchVacancies();
     }, []);
+    
+    // Helper function to format the posting date
+    const formatDate = (dateString) => {
+        if (!dateString) return '1 day ago';
+        
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffTime = Math.abs(now - date);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 1) return '1 day ago';
+        if (diffDays < 7) return `${diffDays} days ago`;
+        if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+        return `${Math.floor(diffDays / 30)} months ago`;
+    };
+    
+    // Helper function to generate a deadline 30 days from posting date
+    const formatDeadline = (dateString) => {
+        if (!dateString) {
+            // Default deadline if no date provided
+            const defaultDate = new Date();
+            defaultDate.setDate(defaultDate.getDate() + 30);
+            return defaultDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+        
+        const date = new Date(dateString);
+        date.setDate(date.getDate() + 30); // Set deadline 30 days from posting
+        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    };
 
-    // Sample job data
+    // Get unique values for filters
+    const getUniqueLocations = () => {
+        return [...new Set(jobs.map(job => job.location))]
+            .filter(location => location) // Filter out undefined/null
+            .sort();
+    };
+    
+    const getUniqueDepartments = () => {
+        return [...new Set(jobs.map(job => job.department))]
+            .filter(department => department) // Filter out undefined/null
+            .sort();
+    };
+    
+    const getUniqueTypes = () => {
+        return [...new Set(jobs.map(job => job.type))]
+            .filter(type => type) // Filter out undefined/null
+            .sort();
+    };
+
+    // Sample job data as fallback
     const jobListings = [
         {
             id: 1,
@@ -744,10 +843,8 @@ export default function CareersSection() {
     // Handle search input
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
-    };
-
-    // Filter jobs based on search and filters
-    const filteredJobs = jobListings.filter(job => {
+    };    // Filter jobs based on search and filters
+    const filteredJobs = jobs.filter(job => {
         // Filter by search query
         if (searchQuery && !job.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
             !job.shortDescription.toLowerCase().includes(searchQuery.toLowerCase())) {
@@ -896,12 +993,16 @@ export default function CareersSection() {
                             </svg>
                         </div>
                     </div>
-                </div>
-
-                {/* Job Filters */}
+                </div>                {/* Job Filters */}
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="max-w-4xl mx-auto">
-                        <JobFilters filters={filters} onFilterChange={handleFilterChange}/>
+                        <JobFilters 
+                            filters={filters} 
+                            onFilterChange={handleFilterChange} 
+                            locations={getUniqueLocations()} 
+                            departments={getUniqueDepartments()} 
+                            types={getUniqueTypes()}
+                        />
                     </div>
                 </div>
 
@@ -920,7 +1021,29 @@ export default function CareersSection() {
                             <span className="ml-3 text-lg font-medium text-gray-500">({filteredJobs.length} jobs)</span>
                         </h2>
 
-                        {filteredJobs.length > 0 ? (
+                        {loading ? (
+                            <div className="bg-white rounded-2xl shadow-md p-8 text-center">
+                                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                                <p className="text-gray-600">Loading job opportunities...</p>
+                            </div>
+                        ) : error ? (
+                            <div className="bg-white rounded-2xl shadow-md p-8 text-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-16 w-16 mx-auto text-red-400 mb-4"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                                          d="M12 9v2m0 4h.01M12 4a8 8 0 100 16 8 8 0 000-16z"/>
+                                </svg>
+                                <h3 className="text-xl font-semibold text-gray-700 mb-2">Error loading jobs</h3>
+                                <p className="text-gray-500">
+                                    {error}. Please try again later.
+                                </p>
+                            </div>
+                        ) : filteredJobs.length > 0 ? (
                             filteredJobs.map(job => (
                                 <JobCard key={job.id} job={job} onApplyClick={handleApplyClick}/>
                             ))

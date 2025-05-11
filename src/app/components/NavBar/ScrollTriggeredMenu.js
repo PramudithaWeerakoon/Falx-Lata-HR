@@ -2,10 +2,13 @@
 
 import {useState, useEffect} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
+import UserMenuButton from './UserMenuButton';
+import { useAuth } from '../../context/AuthContext';
 
 const ScrollTriggeredMenu = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const { isAuthenticated, logout } = useAuth();
 
     // Function to toggle mobile menu
     const toggleMobileMenu = () => {
@@ -148,7 +151,8 @@ const ScrollTriggeredMenu = () => {
                         </a>
                     </div>                    {/* Mobile menu toggle - search icon removed */}
                     <div className="flex items-center gap-3">
-                        <button 
+                        <UserMenuButton />
+                        <button
                             onClick={toggleMobileMenu} 
                             className="md:hidden text-white text-xl" 
                             aria-label="Toggle navigation menu"
@@ -207,10 +211,10 @@ const ScrollTriggeredMenu = () => {
                                    className="text-gray-800 hover:text-[#3a79ff] no-underline text-sm font-medium transition-colors">
                                     Contact
                                 </a>
-                            </div>
-
-                            {/* Quick Action Button */}
-                            <div className="flex items-center gap-3">                                <button
+                            </div>                            {/* Quick Action Button */}
+                            <div className="flex items-center gap-3">
+                                <UserMenuButton />
+                                <button
                                     className="bg-[#3a79ff] text-white border-none px-4 py-1 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#2a69ff] transition-all">
                                     Hire Talent
                                 </button>
@@ -256,11 +260,29 @@ const ScrollTriggeredMenu = () => {
                                 <a href="/careers" onClick={closeMobileMenu}
                                    className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline text-lg font-medium`}>
                                     Vacancies
-                                </a>
-                                <a href="/contact" onClick={closeMobileMenu}
+                                </a>                                <a href="/contact" onClick={closeMobileMenu}
                                    className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline text-lg font-medium`}>
                                     Contact
                                 </a>
+                                
+                                {/* Dashboard link - only shown when logged in */}
+                                {isAuthenticated && (
+                                  <a href="/admin/dashboard" onClick={closeMobileMenu}
+                                     className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline text-lg font-medium`}>
+                                    Dashboard
+                                  </a>
+                                )}
+                                
+                                {/* Logout link - only shown when logged in */}
+                                {isAuthenticated && (
+                                  <button onClick={() => {
+                                    logout();
+                                    closeMobileMenu();
+                                  }}
+                                    className={`${scrolled ? 'text-gray-800' : 'text-white'} text-left no-underline text-lg font-medium`}>
+                                    Logout
+                                  </button>
+                                )}
                                 
                                 {/* Mobile contact info */}
                                 <div className="pt-4 border-t border-gray-700">
