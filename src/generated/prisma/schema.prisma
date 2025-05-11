@@ -41,6 +41,7 @@ model Vacancy {
   title            String
   company          String?
   location         String?
+  type             String? // Added for job type (Full-time, Part-time, etc.)
   description      String
   requirements     String?
   responsibilities String?

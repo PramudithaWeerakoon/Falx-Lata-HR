@@ -166,7 +166,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\pramuditha.weerakoon\\Downloads\\Falx-Lata-HR\\src\\generated\\prisma",
+      "value": "/Users/manurasanjula/Vertex/Falx-Lata-HR/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -175,17 +175,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\pramuditha.weerakoon\\Downloads\\Falx-Lata-HR\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/manurasanjula/Vertex/Falx-Lata-HR/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.7.0",

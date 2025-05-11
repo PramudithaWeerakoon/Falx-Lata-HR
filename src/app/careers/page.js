@@ -3,10 +3,9 @@
 import {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import Navbar from '../components/NavBar/ScrollTriggeredMenu';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '../context/AuthContext';
+import {useRouter} from 'next/navigation';
+import {useAuth} from '../context/AuthContext';
 
-// Job Card Component
 function JobCard({job, onApplyClick}) {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -78,9 +77,11 @@ function JobCard({job, onApplyClick}) {
                     </motion.button>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-start sm:items-center text-xs md:text-sm text-gray-500 gap-3 md:gap-4 my-4 md:my-6">
+                <div
+                    className="flex flex-col sm:flex-row items-start sm:items-center text-xs md:text-sm text-gray-500 gap-3 md:gap-4 my-4 md:my-6">
                     <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 md:mr-2 text-blue-500" fill="none"
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 md:mr-2 text-blue-500"
+                             fill="none"
                              viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -88,7 +89,8 @@ function JobCard({job, onApplyClick}) {
                         <span>Posted {job.postedDate}</span>
                     </div>
                     <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 md:mr-2 text-purple-500" fill="none"
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 md:mr-2 text-purple-500"
+                             fill="none"
                              viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -195,8 +197,8 @@ function JobCard({job, onApplyClick}) {
     );
 }
 
-// Job Application Form
 function JobApplicationForm({job, onClose}) {
+
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -217,17 +219,37 @@ function JobApplicationForm({job, onClose}) {
         setFormData(prev => ({...prev, resume: e.target.files[0]}));
     };
 
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate form submission
+        const submitData = new FormData();
+        submitData.append('jobTitle', "Software Engineer");
+        submitData.append('fullName', formData.fullName);
+        submitData.append('email', formData.email);
+        submitData.append('phone', formData.phone);
+        submitData.append('coverLetter', formData.coverLetter);
+
+        if (formData.resume) {
+            submitData.append('resume', formData.resume);
+        }
+
+        const response = await fetch('/api/job-application', {
+            method: 'POST',
+            body: submitData,
+        });
+
+        const data = await response.json();
+        console.log('Response:', data);
+
         setTimeout(() => {
-            console.log('Form submitted:', formData);
             setIsSubmitting(false);
             setSubmitSuccess(true);
 
-            // Reset and close after success message
+            console.log('Form submitted:', formData);
+
+
             setTimeout(() => {
                 onClose();
             }, 3000);
@@ -465,7 +487,6 @@ function JobApplicationForm({job, onClose}) {
     );
 }
 
-// Job Filters
 function JobFilters({filters, onFilterChange, locations, departments, types}) {
     return (
         <motion.div
@@ -485,7 +506,8 @@ function JobFilters({filters, onFilterChange, locations, departments, types}) {
                 </motion.span>
                 Filter Jobs
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">                <motion.div
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <motion.div
                     whileHover={{y: -3}}
                 >
                     <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">
@@ -503,7 +525,8 @@ function JobFilters({filters, onFilterChange, locations, departments, types}) {
                             <option key={location} value={location}>{location}</option>
                         ))}
                     </select>
-                </motion.div>                <motion.div
+                </motion.div>
+                <motion.div
                     whileHover={{y: -3}}
                 >
                     <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-2">
@@ -521,7 +544,8 @@ function JobFilters({filters, onFilterChange, locations, departments, types}) {
                             <option key={department} value={department}>{department}</option>
                         ))}
                     </select>
-                </motion.div>                <motion.div
+                </motion.div>
+                <motion.div
                     whileHover={{y: -3}}
                 >
                     <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-2">
@@ -545,9 +569,8 @@ function JobFilters({filters, onFilterChange, locations, departments, types}) {
     );
 }
 
-// Main Careers Component
 export default function CareersSection() {
-    const { isAdmin } = useAuth();
+    const {isAdmin} = useAuth();
     const router = useRouter();
     const [filters, setFilters] = useState({
         location: '',
@@ -562,18 +585,18 @@ export default function CareersSection() {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-      useEffect(() => {
+    useEffect(() => {
         setIsMounted(true);
-        
+
         // Fetch vacancies from the API
         const fetchVacancies = async () => {
             try {
                 console.log('Fetching vacancies from API...');
                 const response = await fetch('/api/vacancies');
                 const data = await response.json();
-                
+
                 console.log('API response:', data);
-                
+
                 if (data.success && data.vacancies) {
                     // Transform API data to match the expected format for display
                     const formattedVacancies = data.vacancies.map(vacancy => ({
@@ -589,9 +612,9 @@ export default function CareersSection() {
                         requirements: vacancy.requirements ? vacancy.requirements.split('\n').filter(req => req.trim()) : [],
                         responsibilities: vacancy.responsibilities ? vacancy.responsibilities.split('\n').filter(resp => resp.trim()) : []
                     }));
-                    
+
                     console.log('Formatted vacancies:', formattedVacancies);
-                    
+
                     // Set state with formatted vacancies if there are any
                     if (formattedVacancies.length > 0) {
                         setJobs(formattedVacancies);
@@ -615,37 +638,37 @@ export default function CareersSection() {
                 setLoading(false);
             }
         };
-        
+
         fetchVacancies();
     }, []);
-    
+
     // Helper function to format the posting date
     const formatDate = (dateString) => {
         if (!dateString) return '1 day ago';
-        
+
         const date = new Date(dateString);
         const now = new Date();
         const diffTime = Math.abs(now - date);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        
+
         if (diffDays === 1) return '1 day ago';
         if (diffDays < 7) return `${diffDays} days ago`;
         if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
         return `${Math.floor(diffDays / 30)} months ago`;
     };
-    
+
     // Helper function to generate a deadline 30 days from posting date
     const formatDeadline = (dateString) => {
         if (!dateString) {
             // Default deadline if no date provided
             const defaultDate = new Date();
             defaultDate.setDate(defaultDate.getDate() + 30);
-            return defaultDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            return defaultDate.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
         }
-        
+
         const date = new Date(dateString);
         date.setDate(date.getDate() + 30); // Set deadline 30 days from posting
-        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        return date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
     };
 
     // Get unique values for filters
@@ -654,179 +677,18 @@ export default function CareersSection() {
             .filter(location => location) // Filter out undefined/null
             .sort();
     };
-    
+
     const getUniqueDepartments = () => {
         return [...new Set(jobs.map(job => job.department))]
             .filter(department => department) // Filter out undefined/null
             .sort();
     };
-    
+
     const getUniqueTypes = () => {
         return [...new Set(jobs.map(job => job.type))]
             .filter(type => type) // Filter out undefined/null
             .sort();
     };
-
-    // Sample job data as fallback
-    const jobListings = [
-        {
-            id: 1,
-            title: 'HR Recruitment Specialist',
-            location: 'Colombo',
-            type: 'Full-time',
-            department: 'HR',
-            postedDate: '2 days ago',
-            applicationDeadline: 'Deadline: May 30, 2025',
-            shortDescription: 'We are looking for an experienced HR Recruitment Specialist to join our growing team and help us find and hire top talent.',
-            fullDescription: 'As an HR Recruitment Specialist at Falx Lata, you will be responsible for the end-to-end recruitment process, from sourcing candidates to conducting interviews and making job offers. You will work closely with department managers to understand their hiring needs and find the best candidates for open positions.',
-            requirements: [
-                'Bachelor\'s degree in Human Resources, Business Administration, or related field',
-                '3+ years of experience in recruitment or talent acquisition',
-                'Strong knowledge of recruitment methods and best practices',
-                'Excellent communication and interpersonal skills',
-                'Experience with Applicant Tracking Systems (ATS)',
-            ],
-            responsibilities: [
-                'Develop and implement effective recruiting strategies',
-                'Source and attract candidates using various channels',
-                'Screen resumes and conduct preliminary interviews',
-                'Coordinate with department managers to identify hiring needs',
-                'Conduct job interviews and evaluate candidates',
-                'Prepare job offer letters and complete onboarding paperwork',
-            ],
-        },
-        {
-            id: 2,
-            title: 'Senior HR Consultant',
-            location: 'Remote',
-            type: 'Full-time',
-            department: 'HR',
-            postedDate: '1 week ago',
-            applicationDeadline: 'Deadline: June 15, 2025',
-            shortDescription: 'We are seeking a Senior HR Consultant to provide expert guidance on HR strategies, policies, and processes to our clients.',
-            fullDescription: 'As a Senior HR Consultant at Falx Lata, you will work with clients to assess their HR needs and develop customized solutions to address their challenges. You will provide expert advice on a wide range of HR matters, including talent management, performance management, and compliance with employment laws and regulations.',
-            requirements: [
-                'Bachelor\'s degree in Human Resources, Business Administration, or related field (Master\'s preferred)',
-                '7+ years of experience in HR consulting or senior HR positions',
-                'Strong knowledge of HR best practices and employment laws',
-                'Excellent analytical and problem-solving skills',
-                'Superior communication and presentation skills',
-            ],
-            responsibilities: [
-                'Conduct HR assessments and identify areas for improvement',
-                'Develop and implement HR strategies aligned with business objectives',
-                'Design and update HR policies and procedures',
-                'Provide guidance on complex HR issues',
-                'Lead HR transformation projects',
-                'Deliver training programs on HR topics',
-            ],
-        },
-        {
-            id: 3,
-            title: 'Payroll Specialist',
-            location: 'Colombo',
-            type: 'Full-time',
-            department: 'Finance',
-            postedDate: '3 days ago',
-            applicationDeadline: 'Deadline: May 25, 2025',
-            shortDescription: 'We are looking for a detail-oriented Payroll Specialist to manage payroll processing for our clients and ensure accurate and timely payments.',
-            fullDescription: 'As a Payroll Specialist at Falx Lata, you will be responsible for processing payroll for multiple clients, ensuring accuracy, compliance with tax regulations, and timely disbursement of payments. You will work closely with the HR and Finance teams to ensure seamless payroll operations.',
-            requirements: [
-                'Bachelor\'s degree in Finance, Accounting, or related field',
-                '3+ years of experience in payroll processing',
-                'Strong knowledge of payroll systems and tax regulations',
-                'Excellent attention to detail and accuracy',
-                'Proficiency in Microsoft Excel and payroll software',
-            ],
-            responsibilities: [
-                'Process bi-weekly and monthly payrolls for multiple clients',
-                'Calculate and verify employee wages, bonuses, and deductions',
-                'Prepare and file tax reports and returns',
-                'Resolve payroll discrepancies and address employee inquiries',
-                'Maintain payroll records and ensure data confidentiality',
-                'Stay updated on changes in tax laws and regulations',
-            ],
-        },
-        {
-            id: 4,
-            title: 'HR Systems Administrator',
-            location: 'New York',
-            type: 'Full-time',
-            department: 'IT',
-            postedDate: '5 days ago',
-            applicationDeadline: 'Deadline: June 5, 2025',
-            shortDescription: 'Join our team as an HR Systems Administrator to maintain and optimize our HR technology infrastructure and support digital HR initiatives.',
-            fullDescription: 'As an HR Systems Administrator at Falx Lata, you will be responsible for managing and maintaining HR information systems and applications. You will work on system configurations, upgrades, and integrations to ensure optimal performance and user experience. Your role will be critical in supporting our digital HR transformation efforts.',
-            requirements: [
-                'Bachelor\'s degree in Information Technology, Computer Science, or related field',
-                '4+ years of experience in HRIS administration',
-                'Strong knowledge of HR technologies and applications',
-                'Experience with system implementation and integration',
-                'Excellent analytical and problem-solving skills',
-            ],
-            responsibilities: [
-                'Administer and maintain HR information systems',
-                'Configure system settings and user permissions',
-                'Conduct system upgrades and implement new features',
-                'Provide technical support to HR users',
-                'Develop and maintain system documentation',
-                'Train users on HR applications and tools',
-            ],
-        },
-        {
-            id: 5,
-            title: 'HR Business Partner',
-            location: 'London',
-            type: 'Full-time',
-            department: 'HR',
-            postedDate: '1 week ago',
-            applicationDeadline: 'Deadline: June 10, 2025',
-            shortDescription: 'We are seeking an experienced HR Business Partner to work closely with business leaders and provide strategic HR guidance and support.',
-            fullDescription: 'As an HR Business Partner at Falx Lata, you will serve as a strategic partner to business leaders, aligning HR initiatives with business objectives and driving organizational effectiveness. You will provide guidance on a wide range of HR matters, including talent management, employee relations, and performance management, to support business growth and success.',
-            requirements: [
-                'Bachelor\'s degree in Human Resources, Business Administration, or related field',
-                '5+ years of experience in HR business partner or similar roles',
-                'Strong knowledge of HR best practices and employment laws',
-                'Excellent communication and interpersonal skills',
-                'Strategic thinking and problem-solving abilities',
-            ],
-            responsibilities: [
-                'Partner with business leaders to understand their needs and provide HR solutions',
-                'Develop and implement HR strategies aligned with business objectives',
-                'Provide guidance on employee relations issues and performance management',
-                'Support talent acquisition, development, and retention efforts',
-                'Drive employee engagement and organizational change initiatives',
-                'Analyze HR metrics and provide insights to business leaders',
-            ],
-        },
-        {
-            id: 6,
-            title: 'Talent Development Specialist',
-            location: 'Remote',
-            type: 'Part-time',
-            department: 'HR',
-            postedDate: '2 weeks ago',
-            applicationDeadline: 'Deadline: June 20, 2025',
-            shortDescription: 'Join our team as a Talent Development Specialist to design and deliver training programs that enhance employee skills and drive organizational performance.',
-            fullDescription: 'As a Talent Development Specialist at Falx Lata, you will be responsible for designing, developing, and delivering training programs that address the learning needs of our clients\' employees. You will work closely with HR and business leaders to identify skill gaps and create development initiatives that enhance employee capabilities and drive organizational performance.',
-            requirements: [
-                'Bachelor\'s degree in Human Resources, Education, or related field',
-                '3+ years of experience in talent development or training',
-                'Strong knowledge of adult learning principles and training methodologies',
-                'Excellent presentation and facilitation skills',
-                'Experience with learning management systems',
-                'Creativity and innovation in training design',
-            ],
-            responsibilities: [
-                'Assess training needs and identify skill gaps',
-                'Design and develop training programs and materials',
-                'Deliver workshops, webinars, and e-learning modules',
-                'Evaluate training effectiveness and make improvements',
-                'Coach and mentor employees on career development',
-                'Stay updated on learning and development trends',
-            ],
-        },
-    ];
 
     // Handle filter change
     const handleFilterChange = (e) => {
@@ -871,7 +733,7 @@ export default function CareersSection() {
 
     return (
         <>
-            <Navbar />
+            <Navbar/>
             <div className="py-13 bg-gray-50 relative overflow-hidden">
                 {/* Animated Bubbles Background */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -889,16 +751,17 @@ export default function CareersSection() {
                 <section className="relative h-[500px] md:h-[700px] mb-16">
                     /* Hero Background Image */
                     <div className="absolute inset-0 z-0">
-                        <img 
-                            src="/images/team.jpg" 
-                            alt="Careers at Falx Lata" 
+                        <img
+                            src="/images/team.jpg"
+                            alt="Careers at Falx Lata"
                             className="w-full h-full object-cover object-center"
                         />
                         {/* Removed the color overlay div */}
                     </div>
-                                      
+
                     {/* Hero Content */}
-                    <div className="container mx-auto px-4 h-full relative z-10 flex flex-col items-center justify-center">
+                    <div
+                        className="container mx-auto px-4 h-full relative z-10 flex flex-col items-center justify-center">
                         <div className="text-center text-white">
                             <motion.h1
                                 initial={{opacity: 0, y: -20}}
@@ -914,40 +777,44 @@ export default function CareersSection() {
                                 transition={{duration: 0.5, delay: 0.2}}
                                 className="text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto drop-shadow-lg"
                             >
-                                Discover exciting career opportunities and be part of our mission to transform HR solutions
+                                Discover exciting career opportunities and be part of our mission to transform HR
+                                solutions
                             </motion.p>
                         </div>
                     </div>
-                                        
+
                     {/* Floating decorations positioned below header but above other content */}
-                    <div className="absolute top-[270px] right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-30" 
-                        style={isMounted ? { animation: 'float 6s ease-in-out infinite' } : {}}>
-                        <img 
-                          src="/images/floating_image_03-1.png" 
-                          alt="Floating decoration" 
-                          className="w-full h-full object-contain transform translate-x-1/5" 
+                    <div
+                        className="absolute top-[270px] right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-30"
+                        style={isMounted ? {animation: 'float 6s ease-in-out infinite'} : {}}>
+                        <img
+                            src="/images/floating_image_03-1.png"
+                            alt="Floating decoration"
+                            className="w-full h-full object-contain transform translate-x-1/5"
                         />
                     </div>
-                    <div className="absolute left-0 top-[0px] left-0 w-[21rem] h-[31rem] pointer-events-none hidden md:block z-30" 
-                        style={isMounted ? { animation: 'floatReverse 6s ease-in-out infinite' } : {}}>
-                        <img 
-                          src="/images/floating_image_02.png" 
-                          alt="Floating decoration" 
-                          className="w-full h-full object-contain transform -translate-x-1/5" 
+                    <div
+                        className="absolute left-0 top-[0px] left-0 w-[21rem] h-[31rem] pointer-events-none hidden md:block z-30"
+                        style={isMounted ? {animation: 'floatReverse 6s ease-in-out infinite'} : {}}>
+                        <img
+                            src="/images/floating_image_02.png"
+                            alt="Floating decoration"
+                            className="w-full h-full object-contain transform -translate-x-1/5"
                         />
                     </div>
-                    <div className="absolute top-[520px] left-0 w-[31rem] h-[31rem] pointer-events-none hidden md:block z-30" 
-                        style={isMounted ? { animation: 'floatReverse 6s ease-in-out infinite' } : {}}>
-                        <img 
-                          src="/images/floating_image_04-1.png" 
-                          alt="Floating decoration" 
-                          className="w-full h-full object-contain transform -translate-x-1/5" 
-                        />                    </div>
-                      {/* Wave Bottom Shape */}
+                    <div
+                        className="absolute top-[520px] left-0 w-[31rem] h-[31rem] pointer-events-none hidden md:block z-30"
+                        style={isMounted ? {animation: 'floatReverse 6s ease-in-out infinite'} : {}}>
+                        <img
+                            src="/images/floating_image_04-1.png"
+                            alt="Floating decoration"
+                            className="w-full h-full object-contain transform -translate-x-1/5"
+                        /></div>
+                    {/* Wave Bottom Shape */}
                     <div className="absolute bottom-0 md:bottom-0 top-114 md:top-128 left-0 right-0 z-20 w-full">
-                        <img 
-                            src="/images/bottom_wave_02_gray.png" 
-                            alt="Wave Shape" 
+                        <img
+                            src="/images/bottom_wave_02_gray.png"
+                            alt="Wave Shape"
                             className="w-full"
                         />
                     </div>
@@ -960,11 +827,14 @@ export default function CareersSection() {
                             Grow Your Career With Falx Lata
                         </h2>
                         <p className="text-gray-600 text-lg mb-8">
-                            At Falx Lata, we're building a team of passionate HR professionals who are dedicated to transforming how organizations
-                            manage their human resources. Join us to work with diverse clients across industries and make a meaningful impact.
+                            At Falx Lata, we're building a team of passionate HR professionals who are dedicated to
+                            transforming how organizations
+                            manage their human resources. Join us to work with diverse clients across industries and
+                            make a meaningful impact.
                         </p>
                         <p className="text-gray-600 text-lg">
-                            We value innovation, excellence, and continuous learning. Our team members enjoy competitive benefits,
+                            We value innovation, excellence, and continuous learning. Our team members enjoy competitive
+                            benefits,
                             flexible work arrangements, and numerous opportunities for professional growth.
                         </p>
                     </div>
@@ -993,14 +863,15 @@ export default function CareersSection() {
                             </svg>
                         </div>
                     </div>
-                </div>                {/* Job Filters */}
+                </div>
+                {/* Job Filters */}
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="max-w-4xl mx-auto">
-                        <JobFilters 
-                            filters={filters} 
-                            onFilterChange={handleFilterChange} 
-                            locations={getUniqueLocations()} 
-                            departments={getUniqueDepartments()} 
+                        <JobFilters
+                            filters={filters}
+                            onFilterChange={handleFilterChange}
+                            locations={getUniqueLocations()}
+                            departments={getUniqueDepartments()}
                             types={getUniqueTypes()}
                         />
                     </div>
@@ -1023,7 +894,8 @@ export default function CareersSection() {
 
                         {loading ? (
                             <div className="bg-white rounded-2xl shadow-md p-8 text-center">
-                                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                                <div
+                                    className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
                                 <p className="text-gray-600">Loading job opportunities...</p>
                             </div>
                         ) : error ? (
@@ -1074,62 +946,67 @@ export default function CareersSection() {
                     <div className="relative">
                         {/* Top Wave Decoration - positioned at the top of the image */}
                         <div className="absolute top-0 left-0 right-0 z-10 w-full">
-                            <img 
-                                src="/images/top_wave_01.png" 
-                                alt="Top wave decoration" 
+                            <img
+                                src="/images/top_wave_01.png"
+                                alt="Top wave decoration"
                                 className="w-full"
                             />
                         </div>
-                        
+
                         {/* Main Image */}
                         <div className="mt-6">
-                            <img 
-                                src="/images/cop-image.jpg" 
-                                alt="Professional HR Team" 
+                            <img
+                                src="/images/cop-image.jpg"
+                                alt="Professional HR Team"
                                 className="w-full"
-                            />                        </div>
-                          {/* Bottom Wave Decoration - positioned at the bottom of the image */}
+                            /></div>
+                        {/* Bottom Wave Decoration - positioned at the bottom of the image */}
                         <div className="absolute top-203 md:bottom-0 left-0 right-0 z-10 w-full">
-                            <img 
-                                src="/images/bottom_wave_02_gray.png" 
-                                alt="Bottom wave decoration" 
+                            <img
+                                src="/images/bottom_wave_02_gray.png"
+                                alt="Bottom wave decoration"
                                 className="w-full"
                             />
                         </div>
-                         {/* Floating decorations positioned below header but above other content */}
-                    <div className="absolute top-[270px] right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-30" 
-                        style={isMounted ? { animation: 'float 10s ease-in-out infinite' } : {}}>
-                        <img 
-                          src="/images/floating_image_03-1.png" 
-                          alt="Floating decoration" 
-                          className="w-full h-full object-contain transform translate-x-1/5" 
-                        />
+                        {/* Floating decorations positioned below header but above other content */}
+                        <div
+                            className="absolute top-[270px] right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-30"
+                            style={isMounted ? {animation: 'float 10s ease-in-out infinite'} : {}}>
+                            <img
+                                src="/images/floating_image_03-1.png"
+                                alt="Floating decoration"
+                                className="w-full h-full object-contain transform translate-x-1/5"
+                            />
+                        </div>
+                        <div
+                            className="absolute left-0 top-[0px] left-0 w-[21rem] h-[31rem] pointer-events-none hidden md:block z-30"
+                            style={isMounted ? {animation: 'floatReverse 10s ease-in-out infinite'} : {}}>
+                            <img
+                                src="/images/floating_image_02.png"
+                                alt="Floating decoration"
+                                className="w-full h-full object-contain transform -translate-x-1/5"
+                            />
+                        </div>
+                        <div
+                            className="absolute top-[520px] left-0 w-[31rem] h-[31rem] pointer-events-none hidden md:block z-30"
+                            style={isMounted ? {animation: 'floatReverse 10s ease-in-out infinite'} : {}}>
+                            <img
+                                src="/images/floating_image_04-1.png"
+                                alt="Floating decoration"
+                                className="w-full h-full object-contain transform -translate-x-1/5"
+                            />
+                        </div>
                     </div>
-                    <div className="absolute left-0 top-[0px] left-0 w-[21rem] h-[31rem] pointer-events-none hidden md:block z-30" 
-                        style={isMounted ? { animation: 'floatReverse 10s ease-in-out infinite' } : {}}>
-                        <img 
-                          src="/images/floating_image_02.png" 
-                          alt="Floating decoration" 
-                          className="w-full h-full object-contain transform -translate-x-1/5" 
-                        />
-                    </div>
-                    <div className="absolute top-[520px] left-0 w-[31rem] h-[31rem] pointer-events-none hidden md:block z-30" 
-                        style={isMounted ? { animation: 'floatReverse 10s ease-in-out infinite' } : {}}>
-                        <img 
-                          src="/images/floating_image_04-1.png" 
-                          alt="Floating decoration" 
-                          className="w-full h-full object-contain transform -translate-x-1/5" 
-                        />
-                    </div>
-                    </div>
-                    
+
                     <div className="max-w-4xl mx-auto">
-                        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center mt-10">
+                        <div
+                            className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center mt-10">
                             <h2 className="text-3xl font-bold text-white mb-4">
                                 Don't See the Right Fit?
                             </h2>
                             <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-                                We're always looking for talented individuals to join our team. Send us your resume and we'll keep
+                                We're always looking for talented individuals to join our team. Send us your resume and
+                                we'll keep
                                 you in mind for future opportunities.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -1138,7 +1015,8 @@ export default function CareersSection() {
                                     className="bg-white hover:bg-gray-100 text-blue-600 font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
                                 >
                                     Submit Your Resume
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-blue-600" viewBox="0 0 20 20"
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-blue-600"
+                                         viewBox="0 0 20 20"
                                          fill="currentColor">
                                         <path fillRule="evenodd"
                                               d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414z"
@@ -1168,7 +1046,7 @@ export default function CareersSection() {
                         border-radius: 50%;
                         animation: float 15s infinite ease-in-out;
                     }
-                    
+
                     .bubble-1 {
                         width: 100px;
                         height: 100px;
@@ -1176,7 +1054,7 @@ export default function CareersSection() {
                         top: 20%;
                         animation-delay: 0s;
                     }
-                    
+
                     .bubble-2 {
                         width: 60px;
                         height: 60px;
@@ -1184,7 +1062,7 @@ export default function CareersSection() {
                         top: 50%;
                         animation-delay: 2s;
                     }
-                    
+
                     .bubble-3 {
                         width: 120px;
                         height: 120px;
@@ -1192,7 +1070,7 @@ export default function CareersSection() {
                         top: 70%;
                         animation-delay: 4s;
                     }
-                    
+
                     .bubble-4 {
                         width: 80px;
                         height: 80px;
@@ -1200,7 +1078,7 @@ export default function CareersSection() {
                         top: 10%;
                         animation-delay: 6s;
                     }
-                    
+
                     .bubble-5 {
                         width: 50px;
                         height: 50px;
@@ -1208,7 +1086,7 @@ export default function CareersSection() {
                         top: 85%;
                         animation-delay: 8s;
                     }
-                    
+
                     .bubble-6 {
                         width: 90px;
                         height: 90px;
@@ -1216,7 +1094,7 @@ export default function CareersSection() {
                         top: 50%;
                         animation-delay: 10s;
                     }
-                    
+
                     .bubble-7 {
                         width: 70px;
                         height: 70px;
@@ -1224,7 +1102,7 @@ export default function CareersSection() {
                         top: 30%;
                         animation-delay: 12s;
                     }
-                    
+
                     .bubble-8 {
                         width: 110px;
                         height: 110px;
@@ -1232,7 +1110,7 @@ export default function CareersSection() {
                         top: 60%;
                         animation-delay: 14s;
                     }
-                    
+
                     @keyframes float {
                         0%, 100% {
                             transform: translate(0, 0) rotate(0deg);
@@ -1247,7 +1125,7 @@ export default function CareersSection() {
                             transform: translate(10px, -10px) rotate(3deg);
                         }
                     }
-                    
+
                     @keyframes floatReverse {
                         0%, 100% {
                             transform: translate(0, 0) rotate(0deg);
