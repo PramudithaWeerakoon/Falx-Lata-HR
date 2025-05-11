@@ -67,10 +67,8 @@ const WhyUsSectionV2 = () => {
             icon: "M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504-1.125-1.125-1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z",
             color: "bg-gradient-to-r from-blue-500 to-purple-500 text-white"
         }
-    ];
-
-    return (
-        <section ref={sectionRef} className="relative py-20 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+    ];    return (
+        <section ref={sectionRef} className="relative py-20 overflow-hidden bg-gradient-to-b from-[#f7f7f5] to-[#f7f7f5]">
             {/* Animated background shapes */}
             <motion.div
                 style={{y: shapesY}}
@@ -137,7 +135,7 @@ const WhyUsSectionV2 = () => {
     );
 };
 
-const SectionWrapper = ({children, bgColor = 'bg-white'}) => (
+const SectionWrapper = ({children, bgColor = 'bg-[#f7f7f5]'}) => (
     <motion.section
         initial={{opacity: 0, y: 50}}
         whileInView={{opacity: 1, y: 0}}
@@ -221,7 +219,7 @@ const SectionHeader = ({title, subtitle, description}) => (
 
 export function AboutSection() {
     return (
-        <SectionWrapper bgColor="bg-gray-50">
+        <SectionWrapper bgColor="bg-[#f7f7f5]">
             <SectionHeader
                 title="About Our Company"
                 subtitle="WHO WE ARE"
@@ -494,10 +492,8 @@ function IndustriesSection() {
                 </svg>
             )
         },
-    ]);
-
-    return (
-        <div className="bg-white pt-32 pb-32 relative overflow-hidden">
+    ]);    return (
+        <div style={{ backgroundColor: "#f7f7f5" }} className="pt-32 pb-32 relative overflow-hidden">
             {/* Animated background shapes */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
@@ -615,10 +611,8 @@ function WhyChooseUsSection() {
             icon: "M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504-1.125-1.125-1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z",
             color: "from-blue-500 to-purple-500"
         }
-    ];
-
-    return (
-        <div className="py-16 bg-gray-50 relative overflow-hidden">
+    ];    return (
+        <div className="py-16 relative overflow-hidden" style={{ backgroundColor: "#f7f7f5" }}>
             {/* Animated background shapes */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
@@ -701,9 +695,8 @@ function WhyChooseUsSection() {
     );
 }
 
-export function ContactCTASection() {
-    return (
-        <SectionWrapper bgColor="bg-gray-50">
+export function ContactCTASection() {    return (
+        <SectionWrapper bgColor="bg-[#f7f7f5]">
             <div
                 className="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12 text-center relative overflow-hidden">
                 {/* Animated background shapes */}
@@ -808,14 +801,11 @@ export default function HomePage() {
     if (!isLoaded && typeof window !== 'undefined') {
         // On the client, if still loading, return null to prevent flash of unstyled content
         return null;
-    }
-
-    return (
-        <div className="overflow-hidden bg-white">
-
-            <main>
+    }    return (
+        <div className="overflow-hidden" style={{ backgroundColor: "#f7f7f5" }}>            <main>
                 <HeroSection/>
                 <ServicesSection/>
+                <div className="h-20 md:h-32"></div> {/* Added breathing space */}
                 <AnimatedDividerSection/>
                 <IndustriesSection/>
                 <StatisticsSection/>

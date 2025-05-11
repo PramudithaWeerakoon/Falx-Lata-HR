@@ -259,16 +259,16 @@ export default function IndustriesSection() {
                 </div>
 
                 {/* Hero Section with Image */}
-                <section className="relative h-[500px] md:h-[700px] mb-16">
+                <section className="relative h-[500px] md:h-[750px] mb-16">
                     {/* Hero Background Image */}
                     <div className="absolute inset-0 z-0">
                         <img 
-                            src="/images/industries-banner.jpg" 
+                            src="/images/industries serve.jpg" 
                             alt="Falx Lata Industries" 
                             className="w-full h-full object-cover object-center"
                         />
                         {/* Dark overlay with reduced opacity */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/70 to-blue-900/70"></div>
+                        <div className=""></div>
                     </div>
                   
                     {/* Hero Content */}
@@ -320,7 +320,15 @@ export default function IndustriesSection() {
                         <img 
                           src="/images/floating_image_04-1.png" 
                           alt="Floating decoration" 
-                          className="w-full h-full object-contain transform -translate-x-1/5 opacity-60" 
+                          className="w-full h-full object-contain transform -translate-x-1/5 opacity-90" 
+                        />
+                    </div>
+                    <div className="absolute left-10 top-[550px] w-[31rem] h-[31rem] pointer-events-none hidden md:block z-30" 
+                        style={isMounted ? { animation: 'floatReverse 6s ease-in-out infinite' } : {}}>
+                        <img 
+                          src="/images/floating_image_03-1.png" 
+                          alt="Floating decoration" 
+                          className="w-full h-full object-contain transform -translate-x-1/5 opacity-90" 
                         />
                     </div>
                     
@@ -426,8 +434,7 @@ export default function IndustriesSection() {
                         </motion.div>
                     </div>
                 </section>                {/* Industries Grid */}
-                <section className="container mx-auto px-4 mb-16 relative">
-                    <div className="text-center mb-12">
+                <section className="container mx-auto px-4 mb-16 relative">                    <div className="text-center mb-12">
                         <motion.h2 
                             initial={{opacity: 0, y: 20}}
                             whileInView={{opacity: 1, y: 0}}
@@ -440,7 +447,7 @@ export default function IndustriesSection() {
                         <div className="w-32 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"></div>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
                         {industries.map((industry, index) => (
                             <motion.div
                                 key={index}
@@ -472,36 +479,7 @@ export default function IndustriesSection() {
                     </div>
                 </section>
 
-                {/* Client Logos Section */}
-                <section className="container mx-auto px-4 relative mb-16">
-                    <div className="text-center mb-12 relative z-10">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Trusted By Leading Companies</h2>
-                        <div className="w-32 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-4"></div>
-                        <p className="text-gray-600 max-w-2xl mx-auto">
-                            Over 500+ companies across various industries trust Falx Lata for their HR needs
-                        </p>
-                    </div>
-
-                    <div className="relative z-10">
-                        <div className="flex flex-wrap justify-center gap-8">
-                            {clientLogos.map((client, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{opacity: 0, scale: 0.8}}
-                                    whileInView={{opacity: 1, scale: 1}}
-                                    transition={{duration: 0.3, delay: index * 0.05}}
-                                    viewport={{once: true}}
-                                    whileHover={{scale: 1.05}}
-                                    className="w-32 h-20 md:w-40 md:h-24 bg-white rounded-lg shadow-md flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all duration-300 relative overflow-hidden"
-                                >
-                                    {/* Add gradient border on hover */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-purple-500 opacity-0 hover:opacity-20 transition-opacity duration-300"/>
-                                    <span className="text-gray-600 font-semibold relative z-10">{client}</span>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
+                
 
                 {/* Statistics Section */}
                 <section className="container mx-auto px-4 mt-16 relative mb-16">
@@ -518,11 +496,11 @@ export default function IndustriesSection() {
                                 <p className="text-gray-600">Industries Served</p>
                             </div>
                             <div className="text-center">
-                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">500+</h3>
+                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">10+</h3>
                                 <p className="text-gray-600">Client Companies</p>
                             </div>
                             <div className="text-center">
-                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">3000+</h3>
+                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">30+</h3>
                                 <p className="text-gray-600">Successful Placements</p>
                             </div>
                             <div className="text-center">

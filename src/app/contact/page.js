@@ -6,15 +6,13 @@ import { motion } from 'framer-motion';
 export default function ContactSection() {
     const [activeTab, setActiveTab] = useState('contactForm');
     const [isMounted, setIsMounted] = useState(false);
-    const [floatingElements, setFloatingElements] = useState([]);
-
-    // Tab content configuration
+    const [floatingElements, setFloatingElements] = useState([]);    // Tab content configuration
     const tabContent = {
         contactForm: {
             title: 'Contact Form',
             description: 'Reach out to us using our online form and we\'ll get back to you promptly.',
             icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-white" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 sm:h-16 sm:w-16 text-white" fill="none"
                      viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                           d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -25,7 +23,7 @@ export default function ContactSection() {
             title: 'Our Locations',
             description: 'Find information about our office locations and how to reach us in person.',
             icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-white" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 sm:h-16 sm:w-16 text-white" fill="none"
                      viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                           d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -38,7 +36,7 @@ export default function ContactSection() {
             title: 'FAQ',
             description: 'Find answers to frequently asked questions about our services.',
             icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-white" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 sm:h-16 sm:w-16 text-white" fill="none"
                      viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                           d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -80,16 +78,16 @@ export default function ContactSection() {
                 </div>
 
                 {/* Hero Section with Image */}
-                <section className="relative h-[500px] md:h-[600px] mb-16">
+                <section className="relative h-[500px] md:h-[890px] mb-16">
                     {/* Hero Background Image */}
                     <div className="absolute inset-0 z-0">
                         <img 
-                            src="/images/contact-banner.jpg" 
+                            src="/images/contact.jpg" 
                             alt="Falx Lata Contact Us" 
                             className="w-full h-full object-cover object-center"
                         />
                         {/* Dark overlay with reduced opacity */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-purple-900/70"></div>
+                        <div ></div>
                     </div>
                   
                     {/* Hero Content */}
@@ -171,18 +169,16 @@ export default function ContactSection() {
                             <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
                                 We're here to provide you with more information, answer any questions you may have and create effective HR solutions for your organization.
                             </p>
-                        </motion.div>
-                        
-                        {/* Tab Navigation */}
-                        <div className="flex flex-wrap justify-center mb-12">
-                            <div className="inline-flex rounded-xl bg-white p-2 shadow-lg">
+                        </motion.div>                        {/* Tab Navigation */}
+                        <div className="flex justify-center mb-12">
+                            <div className="flex flex-col sm:flex-row rounded-xl bg-white p-2 shadow-lg w-120 max-w-md sm:max-w-xl">
                                 {Object.keys(tabContent).map((tab) => (
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
-                                        className={`px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 ${
+                                        className={`px-4 sm:px-6 py-3 sm:py-4 mb-2 sm:mb-0 mx-1 rounded-lg font-medium text-base sm:text-lg transition-all duration-300 ${
                                             activeTab === tab 
-                                            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md transform scale-105' 
+                                            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md transform scale-[1.02]' 
                                             : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                                         }`}
                                     >
@@ -191,18 +187,16 @@ export default function ContactSection() {
                                 ))}
                             </div>
                         </div>
-                        
-                        {/* Tab Content */}
+                          {/* Tab Content */}
                         <motion.div
                             key={activeTab}
                             initial={{opacity: 0, y: 20}}
                             animate={{opacity: 1, y: 0}}
                             transition={{duration: 0.5}}
-                            className="max-w-6xl mx-auto"
-                        >
-                            {/* Contact Form Tab */}
+                            className="max-w-4xl mx-auto"
+                        >                            {/* Contact Form Tab */}
                             {activeTab === 'contactForm' && (
-                                <div className="flex flex-col lg:flex-row gap-8">
+                                <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 max-w-4xl mx-auto">
                                     {/* Contact Info */}
                                     <motion.div
                                         initial={{opacity: 0, y: 30}}
@@ -211,46 +205,46 @@ export default function ContactSection() {
                                         viewport={{once: true}}
                                         className="lg:w-1/3"
                                     >
-                                        <div className="bg-white rounded-xl shadow-lg p-8 h-full">
-                                            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-6 flex items-center">
+                                        <div className="bg-white rounded-xl shadow-lg p-5 sm:p-8 h-full">
+                                            <h3 className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-4 sm:mb-6 flex items-center">
                                                 <span className="inline-block mr-2 animate-wave">
                                                     👋
                                                 </span>
                                                 Get in touch
                                             </h3>
                                             
-                                            <div className="space-y-6 mb-8">
-                                                <div className="flex items-center p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-gray-200 relative overflow-hidden hover:translate-x-1 transition-transform">
-                                                    <div className="bg-gradient-to-r from-blue-100 to-purple-100 p-3 rounded-full mr-4 z-10">
-                                                        <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
+                                            <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
+                                                <div className="flex items-center p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-gray-200 relative overflow-hidden hover:translate-x-1 transition-transform">
+                                                    <div className="bg-gradient-to-r from-blue-100 to-purple-100 p-2 sm:p-3 rounded-full mr-3 sm:mr-4 z-10">
+                                                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                                         </svg>
                                                     </div>
                                                     <div className="z-10">
-                                                        <p className="text-sm text-gray-500">Email us at</p>
-                                                        <p className="text-gray-900 font-medium">info@falxlata.com</p>
+                                                        <p className="text-xs sm:text-sm text-gray-500">Email us at</p>
+                                                        <p className="text-gray-900 font-medium text-sm sm:text-base">info@falxlata.com</p>
                                                     </div>
                                                 </div>
 
-                                                <div className="flex items-center p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-gray-200 relative overflow-hidden hover:translate-x-1 transition-transform">
-                                                    <div className="bg-gradient-to-r from-blue-100 to-purple-100 p-3 rounded-full mr-4 z-10">
-                                                        <svg className="w-6 h-6 text-purple-600" fill="none"
+                                                <div className="flex items-center p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-gray-200 relative overflow-hidden hover:translate-x-1 transition-transform">
+                                                    <div className="bg-gradient-to-r from-blue-100 to-purple-100 p-2 sm:p-3 rounded-full mr-3 sm:mr-4 z-10">
+                                                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" fill="none"
                                                             stroke="currentColor" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                                                 d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                                         </svg>
                                                     </div>
                                                     <div className="z-10">
-                                                        <p className="text-sm text-gray-500">Call/WhatsApp</p>
-                                                        <p className="text-gray-900 font-medium">+94 777 937 691</p>
+                                                        <p className="text-xs sm:text-sm text-gray-500">Call/WhatsApp</p>
+                                                        <p className="text-gray-900 font-medium text-sm sm:text-base">+94 777 937 691</p>
                                                     </div>
                                                 </div>
                                                 
-                                                <div className="flex items-center p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-gray-200 relative overflow-hidden hover:translate-x-1 transition-transform">
-                                                    <div className="bg-gradient-to-r from-blue-100 to-purple-100 p-3 rounded-full mr-4 z-10">
-                                                        <svg className="w-6 h-6 text-blue-600" fill="none"
+                                                <div className="flex items-center p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-gray-200 relative overflow-hidden hover:translate-x-1 transition-transform">
+                                                    <div className="bg-gradient-to-r from-blue-100 to-purple-100 p-2 sm:p-3 rounded-full mr-3 sm:mr-4 z-10">
+                                                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none"
                                                             stroke="currentColor" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                                                 d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -259,27 +253,27 @@ export default function ContactSection() {
                                                         </svg>
                                                     </div>
                                                     <div className="z-10">
-                                                        <p className="text-sm text-gray-500">Office Location</p>
-                                                        <p className="text-gray-900 font-medium">Colombo, Sri Lanka</p>
+                                                        <p className="text-xs sm:text-sm text-gray-500">Office Location</p>
+                                                        <p className="text-gray-900 font-medium text-sm sm:text-base">Colombo, Sri Lanka</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             
-                                            <div className="pt-6 border-t border-gray-200">
-                                                <h4 className="text-lg font-semibold text-gray-900 mb-4">Follow Us</h4>
-                                                <div className="flex space-x-4">
-                                                    <a href="#" className="bg-gradient-to-r from-blue-500 to-purple-500 p-3 rounded-full text-white hover:scale-110 transition-transform">
-                                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                            <div className="pt-4 sm:pt-6 border-t border-gray-200">
+                                                <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Follow Us</h4>
+                                                <div className="flex space-x-3 sm:space-x-4">
+                                                    <a href="#" className="bg-gradient-to-r from-blue-500 to-purple-500 p-2 sm:p-3 rounded-full text-white hover:scale-110 transition-transform">
+                                                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
                                                             <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
                                                         </svg>
                                                     </a>
-                                                    <a href="#" className="bg-gradient-to-r from-blue-500 to-purple-500 p-3 rounded-full text-white hover:scale-110 transition-transform">
-                                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                                    <a href="#" className="bg-gradient-to-r from-blue-500 to-purple-500 p-2 sm:p-3 rounded-full text-white hover:scale-110 transition-transform">
+                                                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
                                                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                                                         </svg>
                                                     </a>
-                                                    <a href="#" className="bg-gradient-to-r from-blue-500 to-purple-500 p-3 rounded-full text-white hover:scale-110 transition-transform">
-                                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                                    <a href="#" className="bg-gradient-to-r from-blue-500 to-purple-500 p-2 sm:p-3 rounded-full text-white hover:scale-110 transition-transform">
+                                                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
                                                             <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
                                                         </svg>
                                                     </a>
@@ -296,7 +290,7 @@ export default function ContactSection() {
                                         viewport={{once: true}}
                                         className="lg:w-2/3"
                                     >
-                                        <div className="bg-white rounded-xl shadow-lg p-8 relative overflow-hidden">
+                                        <div className="bg-white rounded-xl shadow-lg p-5 sm:p-8 relative overflow-hidden">
                                             <div className="absolute -bottom-20 -right-20 w-64 h-64 opacity-10">
                                                 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill="#4F46E5"
@@ -305,61 +299,61 @@ export default function ContactSection() {
                                                 </svg>
                                             </div>
                                             
-                                            <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a message</h3>
+                                            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Send us a message</h3>
                                             
                                             <form>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                                                     <div>
-                                                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
+                                                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">Your Name</label>
                                                         <input
                                                             type="text"
                                                             id="name"
-                                                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                                            className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                                             placeholder="John Doe"
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">Email Address</label>
                                                         <input
                                                             type="email"
                                                             id="email"
-                                                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                                            className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                                             placeholder="john@example.com"
                                                         />
                                                     </div>
                                                 </div>
                                                 
-                                                <div className="mb-6">
-                                                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                                                <div className="mb-4 sm:mb-6">
+                                                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">Subject</label>
                                                     <input
                                                         type="text"
                                                         id="subject"
-                                                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                                        className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                                         placeholder="How can we help you?"
                                                     />
                                                 </div>
                                                 
-                                                <div className="mb-6">
-                                                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                                                <div className="mb-4 sm:mb-6">
+                                                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">Message</label>
                                                     <textarea
                                                         id="message"
-                                                        rows="5"
-                                                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                                        rows="4"
+                                                        className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                                         placeholder="Your message here..."
                                                     ></textarea>
                                                 </div>
                                                 
-                                                <div className="mb-6">
-                                                    <label className="block text-sm font-medium text-gray-700 mb-2">I am a...</label>
-                                                    <div className="space-y-3">
+                                                <div className="mb-4 sm:mb-6">
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">I am a...</label>
+                                                    <div className="space-y-2 sm:space-y-3">
                                                         <div className="flex items-center">
                                                             <input
                                                                 type="radio"
                                                                 id="company"
                                                                 name="inquiry_type"
-                                                                className="h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                                                                className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 border-gray-300 focus:ring-blue-500"
                                                             />
-                                                            <label htmlFor="company" className="ml-3 text-gray-700">
+                                                            <label htmlFor="company" className="ml-2 sm:ml-3 text-sm sm:text-base text-gray-700">
                                                                 Company looking for recruitment/HR services
                                                             </label>
                                                         </div>
@@ -368,9 +362,9 @@ export default function ContactSection() {
                                                                 type="radio"
                                                                 id="candidate"
                                                                 name="inquiry_type"
-                                                                className="h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                                                                className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 border-gray-300 focus:ring-blue-500"
                                                             />
-                                                            <label htmlFor="candidate" className="ml-3 text-gray-700">
+                                                            <label htmlFor="candidate" className="ml-2 sm:ml-3 text-sm sm:text-base text-gray-700">
                                                                 Candidate looking for a job
                                                             </label>
                                                         </div>
@@ -379,9 +373,9 @@ export default function ContactSection() {
                                                                 type="radio"
                                                                 id="other"
                                                                 name="inquiry_type"
-                                                                className="h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                                                                className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 border-gray-300 focus:ring-blue-500"
                                                             />
-                                                            <label htmlFor="other" className="ml-3 text-gray-700">
+                                                            <label htmlFor="other" className="ml-2 sm:ml-3 text-sm sm:text-base text-gray-700">
                                                                 Just exploring / Other inquiry
                                                             </label>
                                                         </div>
@@ -390,7 +384,7 @@ export default function ContactSection() {
                                                 
                                                 <button 
                                                     type="submit"
-                                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 px-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+                                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-2 sm:py-3 px-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
                                                 >
                                                     Send Message
                                                 </button>
@@ -398,25 +392,23 @@ export default function ContactSection() {
                                         </div>
                                     </motion.div>
                                 </div>
-                            )}
-
-                            {/* Locations Tab */}
+                            )}                            {/* Locations Tab */}
                             {activeTab === 'locations' && (
                                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                                    <div className="p-8 bg-gradient-to-r from-blue-600 to-purple-600 text-center">
-                                        <div className="inline-flex items-center justify-center bg-white/20 rounded-full p-4 backdrop-blur-sm mb-6">
+                                    <div className="p-6 sm:p-8 bg-gradient-to-r from-blue-600 to-purple-600 text-center">
+                                        <div className="inline-flex items-center justify-center bg-white/20 rounded-full p-3 sm:p-4 backdrop-blur-sm mb-4 sm:mb-6">
                                             {tabContent[activeTab].icon}
                                         </div>
-                                        <h3 className="text-3xl font-bold text-white mb-4">{tabContent[activeTab].title}</h3>
-                                        <p className="text-blue-100 text-lg">{tabContent[activeTab].description}</p>
+                                        <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 sm:mb-4">{tabContent[activeTab].title}</h3>
+                                        <p className="text-blue-100 text-base sm:text-lg">{tabContent[activeTab].description}</p>
                                     </div>
                                     
-                                    <div className="p-8">
-                                        <div className="mb-12">
-                                            <h4 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-4">Headquarters</h4>
-                                            <div className="flex flex-col md:flex-row gap-8">
-                                                <div className="flex-1">
-                                                    <div className="rounded-xl overflow-hidden h-64 mb-4">
+                                    <div className="p-4 sm:p-8">
+                                        <div className="mb-8 sm:mb-12">
+                                            <h4 className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-4">Headquarters</h4>
+                                            <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
+                                                <div className="flex-1 max-w-lg mx-auto md:mx-0">
+                                                    <div className="rounded-xl overflow-hidden h-48 sm:h-64 mb-4">
                                                         <iframe 
                                                             className="w-full h-full"
                                                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63371.80394618799!2d79.82118315!3d6.9218374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae253d10f7a7003%3A0x320b2e4d32d3838d!2sColombo%2C%20Sri%20Lanka!5e0!3m2!1sen!2sus!4v1683900148345!5m2!1sen!2sus" 
@@ -424,7 +416,7 @@ export default function ContactSection() {
                                                             loading="lazy"
                                                         ></iframe>
                                                     </div>
-                                                    <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border border-gray-200">
+                                                    <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 sm:p-6 border border-gray-200">
                                                         <h5 className="font-semibold text-gray-900 mb-2">Colombo Office</h5>
                                                         <p className="text-gray-700 mb-1">123 Business Avenue</p>
                                                         <p className="text-gray-700 mb-1">Colombo 03</p>
@@ -444,9 +436,9 @@ export default function ContactSection() {
                                                     </div>
                                                 </div>
                                                 
-                                                <div className="flex-1">
-                                                    <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-                                                        <h5 className="font-semibold text-gray-900 mb-4">Office Hours</h5>
+                                                <div className="flex-1 max-w-lg mx-auto md:mx-0">
+                                                    <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 mb-4 sm:mb-6">
+                                                        <h5 className="font-semibold text-gray-900 mb-3 sm:mb-4">Office Hours</h5>
                                                         <div className="space-y-3">
                                                             <div className="flex justify-between">
                                                                 <span className="text-gray-600">Monday - Friday</span>
@@ -463,9 +455,9 @@ export default function ContactSection() {
                                                         </div>
                                                     </div>
                                                     
-                                                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white shadow-md">
-                                                        <h5 className="font-semibold mb-4">Visit Us</h5>
-                                                        <p className="mb-4">We'd love to meet you in person. Schedule an appointment with our team for personalized HR consultation.</p>
+                                                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-4 sm:p-6 text-white shadow-md">
+                                                        <h5 className="font-semibold mb-3 sm:mb-4">Visit Us</h5>
+                                                        <p className="mb-4 text-sm sm:text-base">We'd love to meet you in person. Schedule an appointment with our team for personalized HR consultation.</p>
                                                         <a 
                                                             href="#"
                                                             className="inline-flex items-center justify-center bg-white text-blue-600 font-medium px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors"
@@ -481,21 +473,19 @@ export default function ContactSection() {
                                         </div>
                                     </div>
                                 </div>
-                            )}
-                            
-                            {/* FAQ Tab */}
+                            )}                            {/* FAQ Tab */}
                             {activeTab === 'faq' && (
-                                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                                    <div className="p-8 bg-gradient-to-r from-blue-600 to-purple-600 text-center">
-                                        <div className="inline-flex items-center justify-center bg-white/20 rounded-full p-4 backdrop-blur-sm mb-6">
+                                <div className="bg-white rounded-2xl shadow-xl overflow-hidden mx-auto">
+                                    <div className="p-6 sm:p-8 bg-gradient-to-r from-blue-600 to-purple-600 text-center">
+                                        <div className="inline-flex items-center justify-center bg-white/20 rounded-full p-3 sm:p-4 backdrop-blur-sm mb-4 sm:mb-6">
                                             {tabContent[activeTab].icon}
                                         </div>
-                                        <h3 className="text-3xl font-bold text-white mb-4">{tabContent[activeTab].title}</h3>
-                                        <p className="text-blue-100 text-lg">{tabContent[activeTab].description}</p>
+                                        <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 sm:mb-4">{tabContent[activeTab].title}</h3>
+                                        <p className="text-blue-100 text-base sm:text-lg">{tabContent[activeTab].description}</p>
                                     </div>
                                     
-                                    <div className="p-8">
-                                        <div className="space-y-6">
+                                    <div className="p-4 sm:p-8">
+                                        <div className="space-y-4 sm:space-y-6 max-w-3xl mx-auto">
                                             {[
                                                 {
                                                     question: "What services does Falx Lata offer?",
@@ -527,29 +517,29 @@ export default function ContactSection() {
                                                     initial={{opacity: 0, y: 10}}
                                                     animate={{opacity: 1, y: 0}}
                                                     transition={{duration: 0.3, delay: index * 0.1}}
-                                                    className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border border-gray-200"
+                                                    className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 sm:p-6 border border-gray-200"
                                                 >
-                                                    <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-start">
-                                                        <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">
+                                                    <h4 className="text-base sm:text-lg font-bold text-gray-900 mb-2 sm:mb-3 flex items-start">
+                                                        <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0 text-sm sm:text-base">
                                                             Q
                                                         </span>
                                                         {faq.question}
                                                     </h4>
-                                                    <div className="pl-11">
-                                                        <p className="text-gray-700">{faq.answer}</p>
+                                                    <div className="pl-8 sm:pl-11">
+                                                        <p className="text-sm sm:text-base text-gray-700">{faq.answer}</p>
                                                     </div>
                                                 </motion.div>
                                             ))}
                                         </div>
                                         
-                                        <div className="mt-10 text-center">
+                                        <div className="mt-8 sm:mt-10 text-center">
                                             <p className="text-gray-700 mb-4">Don't see your question here?</p>
                                             <button 
                                                 onClick={() => setActiveTab('contactForm')}
-                                                className="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium px-6 py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors shadow-md"
+                                                className="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors shadow-md"
                                             >
                                                 Contact Us Directly
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                                                 </svg>
                                             </button>
@@ -561,41 +551,7 @@ export default function ContactSection() {
                     </div>
                 </section>
 
-                {/* Call To Action */}
-                <section className="container mx-auto px-4 py-20 relative z-10">
-                    <div className="max-w-5xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-xl overflow-hidden">
-                        <div className="p-10 md:p-16 text-white text-center">
-                            <motion.h2 
-                                initial={{opacity: 0, y: 20}}
-                                whileInView={{opacity: 1, y: 0}}
-                                transition={{duration: 0.5}}
-                                viewport={{once: true}}
-                                className="text-3xl md:text-4xl font-bold mb-4"
-                            >
-                                Ready to Transform Your HR Strategy?
-                            </motion.h2>
-                            <motion.p
-                                initial={{opacity: 0, y: 20}}
-                                whileInView={{opacity: 1, y: 0}}
-                                transition={{duration: 0.5, delay: 0.1}}
-                                viewport={{once: true}}
-                                className="text-blue-100 text-lg mb-8 max-w-3xl mx-auto"
-                            >
-                                Partner with Falx Lata for innovative HR solutions that drive organizational success and empower your workforce.
-                            </motion.p>
-                            <motion.div
-                                initial={{opacity: 0, y: 20}}
-                                whileInView={{opacity: 1, y: 0}}
-                                transition={{duration: 0.5, delay: 0.2}}
-                                viewport={{once: true}}
-                            >
-                                <button className="bg-white text-blue-600 font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-blue-50 transition-all duration-300 transform hover:scale-105">
-                                    Schedule a Consultation
-                                </button>
-                            </motion.div>
-                        </div>
-                    </div>
-                </section>
+                
             </div>
 
             {/* CSS for bubbles animation */}

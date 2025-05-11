@@ -27,9 +27,9 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-      </head>
-      <body
+      </head>      <body
         className={`${poppins.variable} ${poppins.className} antialiased`}
+        style={{ backgroundColor: "#f7f7f5" }}
       >
         {children}
         <Footer />
