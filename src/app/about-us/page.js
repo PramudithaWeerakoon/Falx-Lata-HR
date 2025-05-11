@@ -237,7 +237,7 @@ function LeadershipTeam() {
                     
                     <div className="md:flex">
                         <div className="md:w-1/3 bg-gradient-to-r from-blue-50 to-purple-50">
-                            <div className="relative h-64 md:h-full overflow-hidden">
+                            <div className="relative h-74 md:h-full overflow-hidden">
                                 <img
                                     src={leaders[0].image}
                                     alt={leaders[0].name}
