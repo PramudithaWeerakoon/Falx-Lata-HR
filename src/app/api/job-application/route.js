@@ -26,8 +26,8 @@ export async function POST(request) {
 
     // Prepare the email message
     const msg = {
-      to: email, //w.m.manurasanjula12345@gmail.com
-      from: 'falxlata@gmail.com', // Must be verified in SendGrid
+      to: 'Careers@falxlata.com',
+      from: 'falxlata@gmail.com',
       subject: `Job Application: ${jobTitle}`,
       text: `
             New job application for: ${jobTitle}
