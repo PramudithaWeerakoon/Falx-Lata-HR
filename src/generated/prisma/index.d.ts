@@ -2285,6 +2285,7 @@ export namespace Prisma {
     responsibilities: string | null
     salary: string | null
     applyLink: string | null
+    deadline: Date | null
     active: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2303,6 +2304,7 @@ export namespace Prisma {
     responsibilities: string | null
     salary: string | null
     applyLink: string | null
+    deadline: Date | null
     active: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2321,6 +2323,7 @@ export namespace Prisma {
     responsibilities: number
     salary: number
     applyLink: number
+    deadline: number
     active: number
     createdAt: number
     updatedAt: number
@@ -2341,6 +2344,7 @@ export namespace Prisma {
     responsibilities?: true
     salary?: true
     applyLink?: true
+    deadline?: true
     active?: true
     createdAt?: true
     updatedAt?: true
@@ -2359,6 +2363,7 @@ export namespace Prisma {
     responsibilities?: true
     salary?: true
     applyLink?: true
+    deadline?: true
     active?: true
     createdAt?: true
     updatedAt?: true
@@ -2377,6 +2382,7 @@ export namespace Prisma {
     responsibilities?: true
     salary?: true
     applyLink?: true
+    deadline?: true
     active?: true
     createdAt?: true
     updatedAt?: true
@@ -2468,6 +2474,7 @@ export namespace Prisma {
     responsibilities: string | null
     salary: string | null
     applyLink: string | null
+    deadline: Date | null
     active: boolean
     createdAt: Date
     updatedAt: Date
@@ -2503,6 +2510,7 @@ export namespace Prisma {
     responsibilities?: boolean
     salary?: boolean
     applyLink?: boolean
+    deadline?: boolean
     active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2523,6 +2531,7 @@ export namespace Prisma {
     responsibilities?: boolean
     salary?: boolean
     applyLink?: boolean
+    deadline?: boolean
     active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2543,6 +2552,7 @@ export namespace Prisma {
     responsibilities?: boolean
     salary?: boolean
     applyLink?: boolean
+    deadline?: boolean
     active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2563,6 +2573,7 @@ export namespace Prisma {
     responsibilities?: boolean
     salary?: boolean
     applyLink?: boolean
+    deadline?: boolean
     active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2570,7 +2581,7 @@ export namespace Prisma {
     categoryId?: boolean
   }
 
-  export type VacancyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "company" | "location" | "type" | "description" | "requirements" | "responsibilities" | "salary" | "applyLink" | "active" | "createdAt" | "updatedAt" | "userId" | "categoryId", ExtArgs["result"]["vacancy"]>
+  export type VacancyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "company" | "location" | "type" | "description" | "requirements" | "responsibilities" | "salary" | "applyLink" | "deadline" | "active" | "createdAt" | "updatedAt" | "userId" | "categoryId", ExtArgs["result"]["vacancy"]>
   export type VacancyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | Vacancy$categoryArgs<ExtArgs>
@@ -2601,6 +2612,7 @@ export namespace Prisma {
       responsibilities: string | null
       salary: string | null
       applyLink: string | null
+      deadline: Date | null
       active: boolean
       createdAt: Date
       updatedAt: Date
@@ -3041,6 +3053,7 @@ export namespace Prisma {
     readonly responsibilities: FieldRef<"Vacancy", 'String'>
     readonly salary: FieldRef<"Vacancy", 'String'>
     readonly applyLink: FieldRef<"Vacancy", 'String'>
+    readonly deadline: FieldRef<"Vacancy", 'DateTime'>
     readonly active: FieldRef<"Vacancy", 'Boolean'>
     readonly createdAt: FieldRef<"Vacancy", 'DateTime'>
     readonly updatedAt: FieldRef<"Vacancy", 'DateTime'>
@@ -4590,6 +4603,7 @@ export namespace Prisma {
     responsibilities: 'responsibilities',
     salary: 'salary',
     applyLink: 'applyLink',
+    deadline: 'deadline',
     active: 'active',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -4800,6 +4814,7 @@ export namespace Prisma {
     responsibilities?: StringNullableFilter<"Vacancy"> | string | null
     salary?: StringNullableFilter<"Vacancy"> | string | null
     applyLink?: StringNullableFilter<"Vacancy"> | string | null
+    deadline?: DateTimeNullableFilter<"Vacancy"> | Date | string | null
     active?: BoolFilter<"Vacancy"> | boolean
     createdAt?: DateTimeFilter<"Vacancy"> | Date | string
     updatedAt?: DateTimeFilter<"Vacancy"> | Date | string
@@ -4820,6 +4835,7 @@ export namespace Prisma {
     responsibilities?: SortOrderInput | SortOrder
     salary?: SortOrderInput | SortOrder
     applyLink?: SortOrderInput | SortOrder
+    deadline?: SortOrderInput | SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -4843,6 +4859,7 @@ export namespace Prisma {
     responsibilities?: StringNullableFilter<"Vacancy"> | string | null
     salary?: StringNullableFilter<"Vacancy"> | string | null
     applyLink?: StringNullableFilter<"Vacancy"> | string | null
+    deadline?: DateTimeNullableFilter<"Vacancy"> | Date | string | null
     active?: BoolFilter<"Vacancy"> | boolean
     createdAt?: DateTimeFilter<"Vacancy"> | Date | string
     updatedAt?: DateTimeFilter<"Vacancy"> | Date | string
@@ -4863,6 +4880,7 @@ export namespace Prisma {
     responsibilities?: SortOrderInput | SortOrder
     salary?: SortOrderInput | SortOrder
     applyLink?: SortOrderInput | SortOrder
+    deadline?: SortOrderInput | SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -4887,6 +4905,7 @@ export namespace Prisma {
     responsibilities?: StringNullableWithAggregatesFilter<"Vacancy"> | string | null
     salary?: StringNullableWithAggregatesFilter<"Vacancy"> | string | null
     applyLink?: StringNullableWithAggregatesFilter<"Vacancy"> | string | null
+    deadline?: DateTimeNullableWithAggregatesFilter<"Vacancy"> | Date | string | null
     active?: BoolWithAggregatesFilter<"Vacancy"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Vacancy"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Vacancy"> | Date | string
@@ -5055,6 +5074,7 @@ export namespace Prisma {
     responsibilities?: string | null
     salary?: string | null
     applyLink?: string | null
+    deadline?: Date | string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5073,6 +5093,7 @@ export namespace Prisma {
     responsibilities?: string | null
     salary?: string | null
     applyLink?: string | null
+    deadline?: Date | string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5091,6 +5112,7 @@ export namespace Prisma {
     responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     applyLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5109,6 +5131,7 @@ export namespace Prisma {
     responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     applyLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5127,6 +5150,7 @@ export namespace Prisma {
     responsibilities?: string | null
     salary?: string | null
     applyLink?: string | null
+    deadline?: Date | string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5145,6 +5169,7 @@ export namespace Prisma {
     responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     applyLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5161,6 +5186,7 @@ export namespace Prisma {
     responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     applyLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5390,6 +5416,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -5416,6 +5453,7 @@ export namespace Prisma {
     responsibilities?: SortOrder
     salary?: SortOrder
     applyLink?: SortOrder
+    deadline?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5434,6 +5472,7 @@ export namespace Prisma {
     responsibilities?: SortOrder
     salary?: SortOrder
     applyLink?: SortOrder
+    deadline?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5452,11 +5491,26 @@ export namespace Prisma {
     responsibilities?: SortOrder
     salary?: SortOrder
     applyLink?: SortOrder
+    deadline?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
     categoryId?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -5559,6 +5613,10 @@ export namespace Prisma {
     create?: XOR<CategoryCreateWithoutVacanciesInput, CategoryUncheckedCreateWithoutVacanciesInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutVacanciesInput
     connect?: CategoryWhereUniqueInput
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -5751,9 +5809,34 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -5775,6 +5858,7 @@ export namespace Prisma {
     responsibilities?: string | null
     salary?: string | null
     applyLink?: string | null
+    deadline?: Date | string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5792,6 +5876,7 @@ export namespace Prisma {
     responsibilities?: string | null
     salary?: string | null
     applyLink?: string | null
+    deadline?: Date | string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5838,6 +5923,7 @@ export namespace Prisma {
     responsibilities?: StringNullableFilter<"Vacancy"> | string | null
     salary?: StringNullableFilter<"Vacancy"> | string | null
     applyLink?: StringNullableFilter<"Vacancy"> | string | null
+    deadline?: DateTimeNullableFilter<"Vacancy"> | Date | string | null
     active?: BoolFilter<"Vacancy"> | boolean
     createdAt?: DateTimeFilter<"Vacancy"> | Date | string
     updatedAt?: DateTimeFilter<"Vacancy"> | Date | string
@@ -5972,6 +6058,7 @@ export namespace Prisma {
     responsibilities?: string | null
     salary?: string | null
     applyLink?: string | null
+    deadline?: Date | string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5989,6 +6076,7 @@ export namespace Prisma {
     responsibilities?: string | null
     salary?: string | null
     applyLink?: string | null
+    deadline?: Date | string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6032,6 +6120,7 @@ export namespace Prisma {
     responsibilities?: string | null
     salary?: string | null
     applyLink?: string | null
+    deadline?: Date | string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6049,6 +6138,7 @@ export namespace Prisma {
     responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     applyLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6066,6 +6156,7 @@ export namespace Prisma {
     responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     applyLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6083,6 +6174,7 @@ export namespace Prisma {
     responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     applyLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6100,6 +6192,7 @@ export namespace Prisma {
     responsibilities?: string | null
     salary?: string | null
     applyLink?: string | null
+    deadline?: Date | string | null
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6117,6 +6210,7 @@ export namespace Prisma {
     responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     applyLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6134,6 +6228,7 @@ export namespace Prisma {
     responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     applyLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6151,6 +6246,7 @@ export namespace Prisma {
     responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     applyLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

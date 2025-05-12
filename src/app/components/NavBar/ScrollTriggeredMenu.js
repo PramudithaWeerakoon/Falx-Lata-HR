@@ -74,10 +74,10 @@ const ScrollTriggeredMenu = () => {
 
                     <div className="flex items-center gap-3 md:gap-5 ml-auto">
                         {/* Social icons */}
-                        <a href="#" className="text-white text-sm md:text-base no-underline hover:text-gray-300">
+                        <a href="https://web.facebook.com/profile.php?id=100092400323170" className="text-white text-sm md:text-base no-underline hover:text-gray-300">
                             <i className="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" className="text-white text-sm md:text-base no-underline hover:text-gray-300">
+                        <a href="https://www.linkedin.com/company/falx-lata/?viewAsMember=true" className="text-white text-sm md:text-base no-underline hover:text-gray-300">
                             <i className="fab fa-linkedin-in"></i>
                         </a>
                         <a href="#" className="text-white text-sm md:text-base no-underline hover:text-gray-300">
@@ -297,10 +297,10 @@ const ScrollTriggeredMenu = () => {
                                 </div>
                                 
                                 {/* Social icons - mobile view */}                                <div className="flex items-center gap-5 pt-4">
-                                    <a href="#" className={`${scrolled ? 'text-gray-800' : 'text-white'} text-base no-underline`}>
+                                    <a href="https://web.facebook.com/profile.php?id=100092400323170" className={`${scrolled ? 'text-gray-800' : 'text-white'} text-base no-underline`}>
                                         <i className="fab fa-facebook-f"></i>
                                     </a>
-                                    <a href="#" className={`${scrolled ? 'text-gray-800' : 'text-white'} text-base no-underline`}>
+                                    <a href="https://www.linkedin.com/company/falx-lata/?viewAsMember=true" className={`${scrolled ? 'text-gray-800' : 'text-white'} text-base no-underline`}>
                                         <i className="fab fa-linkedin-in"></i>
                                     </a>
                                     <a href="#" className={`${scrolled ? 'text-gray-800' : 'text-white'} text-base no-underline`}>

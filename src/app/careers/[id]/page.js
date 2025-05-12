@@ -60,6 +60,53 @@ export default function VacancyDetailsPage({ params }) {
     return salary;
   };
   
+  // Format deadline
+  const formatDeadline = (deadlineField, applyLinkField) => {
+    // First, try to use the dedicated deadline field
+    if (deadlineField) {
+      const deadlineDate = new Date(deadlineField);
+      if (!isNaN(deadlineDate.getTime())) {
+        return deadlineDate.toLocaleDateString('en-US', {
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric'
+        });
+      }
+    }
+    
+    // If no deadline field, try to parse the applyLink field which might contain the date
+    if (applyLinkField) {
+      try {
+        // First, try direct date parsing
+        const applyLinkDate = new Date(applyLinkField);
+        
+        if (!isNaN(applyLinkDate.getTime())) {
+          return applyLinkDate.toLocaleDateString('en-US', {
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric'
+          });
+        }
+        
+        // If it's a string but not a parseable date, just return it as is
+        return applyLinkField;
+      } catch (e) {
+        console.error('Error parsing date from applyLink:', e);
+        // If parsing fails, return the string as is
+        return applyLinkField;
+      }
+    }
+
+    // If no deadline data available, generate a default deadline (30 days from now)
+    const defaultDate = new Date();
+    defaultDate.setDate(defaultDate.getDate() + 30);
+    return defaultDate.toLocaleDateString('en-US', {
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric'
+    });
+  };
+  
   // Format sections with line breaks
   const formatText = (text) => {
     if (!text) return null;
@@ -143,13 +190,20 @@ export default function VacancyDetailsPage({ params }) {
                     </div>
                   )}
                 </div>
-                
-                <div className="mt-6 flex flex-wrap gap-4">
+                  <div className="mt-6 flex flex-wrap gap-4">
                   {vacancy.category && (
                     <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
                       {vacancy.category.name}
                     </span>
                   )}
+                  
+                  {/* Show deadline information */}
+                  <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Deadline: {formatDeadline(vacancy.deadline, vacancy.applyLink)}
+                  </span>
                   
                   {vacancy.location && (
                     <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">

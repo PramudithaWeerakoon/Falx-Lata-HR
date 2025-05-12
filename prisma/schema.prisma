@@ -47,6 +47,7 @@ model Vacancy {
   responsibilities String?
   salary          String?
   applyLink       String?
+  deadline        DateTime?  // Added for application deadline
   active          Boolean  @default(true)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

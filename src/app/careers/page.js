@@ -5,6 +5,7 @@ import {motion} from 'framer-motion';
 import Navbar from '../components/NavBar/ScrollTriggeredMenu';
 import {useRouter} from 'next/navigation';
 import {useAuth} from '../context/AuthContext';
+import Link from 'next/link';
 
 function JobCard({job, onApplyClick}) {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -576,15 +577,19 @@ export default function CareersSection() {
         location: '',
         department: '',
         type: '',
-    });
-
+    });    
     const [selectedJob, setSelectedJob] = useState(null);
     const [showApplicationForm, setShowApplicationForm] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [isMounted, setIsMounted] = useState(false);
     const [jobs, setJobs] = useState([]);
+    const [allJobs, setAllJobs] = useState([]); // Store all jobs
+    const [totalJobCount, setTotalJobCount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [showAllJobs, setShowAllJobs] = useState(false); // State to track if we're showing all jobs
+    const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
+    const jobsPerPage = 10; // Number of jobs to show per page
     useEffect(() => {
         setIsMounted(true);
 
@@ -597,44 +602,48 @@ export default function CareersSection() {
 
                 console.log('API response:', data);
 
-                if (data.success && data.vacancies) {
-                    // Transform API data to match the expected format for display
-                    const formattedVacancies = data.vacancies.map(vacancy => ({
-                        id: vacancy.id,
+                if (data.success && data.vacancies) {                    // Transform API data to match the expected format for display
+                    const formattedVacancies = data.vacancies.map(vacancy => ({                        id: vacancy.id,
                         title: vacancy.title,
                         location: vacancy.location,
                         type: vacancy.type || 'Full-time', // Default value if not available in API
                         department: vacancy.category?.name || 'General',
                         postedDate: formatDate(vacancy.createdAt),
-                        applicationDeadline: `Deadline: ${formatDeadline(vacancy.createdAt)}`,
+                        applicationDeadline: `Deadline: ${formatDeadline(vacancy.deadline, vacancy.applyLink)}`,
                         shortDescription: vacancy.description.substring(0, 150) + '...',
                         fullDescription: vacancy.description,
                         requirements: vacancy.requirements ? vacancy.requirements.split('\n').filter(req => req.trim()) : [],
                         responsibilities: vacancy.responsibilities ? vacancy.responsibilities.split('\n').filter(resp => resp.trim()) : []
                     }));
 
-                    console.log('Formatted vacancies:', formattedVacancies);
-
-                    // Set state with formatted vacancies if there are any
+                    console.log('Formatted vacancies:', formattedVacancies);                    // Set state with formatted vacancies if there are any
                     if (formattedVacancies.length > 0) {
-                        setJobs(formattedVacancies);
-                        setLoading(false);
-                    } else {
+                        // Store total count of jobs
+                        setTotalJobCount(formattedVacancies.length);
+                        // Store all the vacancies
+                        setAllJobs(formattedVacancies);
+                        // Only display top 6 newest vacancies by default (they're already sorted by createdAt desc from the API)
+                        setJobs(formattedVacancies.slice(0, 6));
+                        setLoading(false);                    } else {
                         // Fallback to hardcoded jobs if no vacancies in the database
                         console.log('No vacancies found, using fallback data');
-                        setJobs(jobListings);
+                        setTotalJobCount(jobListings.length);
+                        setAllJobs(jobListings);
+                        setJobs(jobListings.slice(0, 6));
                         setLoading(false);
                     }
                 } else {
                     // Fallback to hardcoded jobs if API fails
                     console.log('API response unsuccessful, using fallback data');
-                    setJobs(jobListings);
+                    setTotalJobCount(jobListings.length);
+                    setJobs(jobListings.slice(0, 6));
                     setLoading(false);
-                }
-            } catch (error) {
+                }            } catch (error) {
                 console.error('Error fetching vacancies:', error);
                 // Fallback to hardcoded jobs on error
-                setJobs(jobListings);
+                setTotalJobCount(jobListings.length);
+                setAllJobs(jobListings);
+                setJobs(jobListings.slice(0, 6));
                 setLoading(false);
             }
         };
@@ -655,20 +664,55 @@ export default function CareersSection() {
         if (diffDays < 7) return `${diffDays} days ago`;
         if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
         return `${Math.floor(diffDays / 30)} months ago`;
-    };
-
-    // Helper function to generate a deadline 30 days from posting date
-    const formatDeadline = (dateString) => {
-        if (!dateString) {
-            // Default deadline if no date provided
-            const defaultDate = new Date();
-            defaultDate.setDate(defaultDate.getDate() + 30);
-            return defaultDate.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
+    };    // Helper function to format the deadline date from database
+    const formatDeadline = (deadlineField, applyLinkField) => {
+        // First, try to use the dedicated deadline field
+        if (deadlineField) {
+            const deadlineDate = new Date(deadlineField);
+            if (!isNaN(deadlineDate.getTime())) {
+                return deadlineDate.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
+            }
+        }
+        
+        // If no deadline field, try to parse the applyLink field which might contain the date
+        if (applyLinkField) {
+            try {
+                // First, try direct date parsing
+                const applyLinkDate = new Date(applyLinkField);
+                
+                if (!isNaN(applyLinkDate.getTime())) {
+                    return applyLinkDate.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
+                }
+                
+                // Next, try various date formats (DD/MM/YYYY, MM/DD/YYYY, etc.)
+                const dateParts = applyLinkField.split(/[\/\-\.]/);
+                if (dateParts.length === 3) {
+                    // Try different combinations of the parts
+                    const possibleDates = [
+                        new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`), // DD-MM-YYYY
+                        new Date(`${dateParts[2]}-${dateParts[0]}-${dateParts[1]}`), // MM-DD-YYYY
+                    ];
+                    
+                    // Find the first valid date
+                    const validDate = possibleDates.find(d => !isNaN(d.getTime()));
+                    if (validDate) {
+                        return validDate.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
+                    }
+                }
+                
+                // If it's a string but not a parseable date, just return it as is
+                return applyLinkField;
+            } catch (e) {
+                console.error('Error parsing date from applyLink:', e);
+                // If parsing fails, return the string as is
+                return applyLinkField;
+            }
         }
 
-        const date = new Date(dateString);
-        date.setDate(date.getDate() + 30); // Set deadline 30 days from posting
-        return date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
+        // If no deadline data available, generate a default deadline (30 days from now)
+        const defaultDate = new Date();
+        defaultDate.setDate(defaultDate.getDate() + 30);
+        return defaultDate.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
     };
 
     // Get unique values for filters
@@ -688,12 +732,11 @@ export default function CareersSection() {
         return [...new Set(jobs.map(job => job.type))]
             .filter(type => type) // Filter out undefined/null
             .sort();
-    };
-
-    // Handle filter change
+    };    // Handle filter change
     const handleFilterChange = (e) => {
         const {name, value} = e.target;
         setFilters(prev => ({...prev, [name]: value}));
+        setCurrentPage(1); // Reset to first page when filters change
     };
 
     // Handle job application
@@ -705,8 +748,25 @@ export default function CareersSection() {
     // Handle search input
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
+        setCurrentPage(1); // Reset to first page when search changes
+    };
+
+    // Handle "View All Jobs" button click
+    const handleViewAllJobs = () => {
+        setShowAllJobs(true);
+        setCurrentPage(1); // Start from the first page
+    };
+
+    // Handle pagination
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        // Scroll to top of job listings when page changes
+        window.scrollTo({
+            top: document.getElementById('job-listings').offsetTop - 100,
+            behavior: 'smooth'
+        });
     };    // Filter jobs based on search and filters
-    const filteredJobs = jobs.filter(job => {
+    const filteredJobs = (showAllJobs ? allJobs : jobs).filter(job => {
         // Filter by search query
         if (searchQuery && !job.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
             !job.shortDescription.toLowerCase().includes(searchQuery.toLowerCase())) {
@@ -730,6 +790,14 @@ export default function CareersSection() {
 
         return true;
     });
+
+    // Get current jobs for pagination
+    const indexOfLastJob = currentPage * jobsPerPage;
+    const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+    const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
+    
+    // Calculate total pages
+    const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
 
     return (
         <>
@@ -875,24 +943,19 @@ export default function CareersSection() {
                             types={getUniqueTypes()}
                         />
                     </div>
-                </div>
-
-                {/* Job Listings */}
-                <div className="container mx-auto px-4 mb-16 relative z-10">
+                </div>                {/* Job Listings */}
+                <div id="job-listings" className="container mx-auto px-4 mb-16 relative z-10">
                     <div className="max-w-4xl mx-auto">
                         <h2 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
                             <motion.span
                                 animate={{scale: [1, 1.1, 1]}}
                                 transition={{duration: 2, repeat: Infinity}}
-                                className="mr-3"
-                            >
+                                className="mr-3"                            >
                                 💼
                             </motion.span>
                             Available Positions
                             <span className="ml-3 text-lg font-medium text-gray-500">({filteredJobs.length} jobs)</span>
-                        </h2>
-
-                        {loading ? (
+                        </h2>                        {loading ? (
                             <div className="bg-white rounded-2xl shadow-md p-8 text-center">
                                 <div
                                     className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
@@ -914,11 +977,97 @@ export default function CareersSection() {
                                 <p className="text-gray-500">
                                     {error}. Please try again later.
                                 </p>
-                            </div>
-                        ) : filteredJobs.length > 0 ? (
-                            filteredJobs.map(job => (
-                                <JobCard key={job.id} job={job} onApplyClick={handleApplyClick}/>
-                            ))
+                            </div>                        ) : filteredJobs.length > 0 ? (
+                            <>
+                                {currentJobs.map(job => (
+                                    <JobCard key={job.id} job={job} onApplyClick={handleApplyClick}/>
+                                ))}
+                                
+                                {/* Pagination Controls */}
+                                {totalPages > 1 && (
+                                    <div className="flex justify-center mt-8">
+                                        <div className="inline-flex rounded-md shadow-sm">
+                                            <button
+                                                onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                                                disabled={currentPage === 1}
+                                                className={`relative inline-flex items-center px-4 py-2 rounded-l-md border ${
+                                                    currentPage === 1 
+                                                        ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed' 
+                                                        : 'border-blue-300 bg-white text-blue-700 hover:bg-blue-50'
+                                                }`}
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                </svg>
+                                                <span className="ml-1">Previous</span>
+                                            </button>
+                                            
+                                            {/* Page Numbers */}
+                                            {Array.from({ length: Math.min(5, totalPages) }).map((_, index) => {
+                                                let pageNum;
+                                                
+                                                if (totalPages <= 5) {
+                                                    // If 5 or fewer pages, show all page numbers
+                                                    pageNum = index + 1;
+                                                } else if (currentPage <= 3) {
+                                                    // If on pages 1-3, show pages 1-5
+                                                    pageNum = index + 1;
+                                                } else if (currentPage >= totalPages - 2) {
+                                                    // If on last 3 pages, show last 5 pages
+                                                    pageNum = totalPages - 4 + index;
+                                                } else {
+                                                    // Otherwise show currentPage and 2 pages on either side
+                                                    pageNum = currentPage - 2 + index;
+                                                }
+                                                
+                                                return (
+                                                    <button
+                                                        key={pageNum}
+                                                        onClick={() => handlePageChange(pageNum)}
+                                                        className={`relative inline-flex items-center px-4 py-2 border ${
+                                                            currentPage === pageNum
+                                                                ? 'z-10 bg-blue-600 border-blue-600 text-white' 
+                                                                : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                                                        }`}
+                                                    >
+                                                        {pageNum}
+                                                    </button>
+                                                );
+                                            })}
+                                            
+                                            <button
+                                                onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                                                disabled={currentPage === totalPages}
+                                                className={`relative inline-flex items-center px-4 py-2 rounded-r-md border ${
+                                                    currentPage === totalPages 
+                                                        ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed' 
+                                                        : 'border-blue-300 bg-white text-blue-700 hover:bg-blue-50'
+                                                }`}
+                                            >
+                                                <span className="mr-1">Next</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                                
+                                {/* Show "View All Jobs" button if we have more than 6 jobs total and not already showing all */}
+                                {totalJobCount > 6 && !showAllJobs && !searchQuery && !filters.location && !filters.department && !filters.type && (
+                                    <div className="text-center mt-8">
+                                        <button
+                                            onClick={handleViewAllJobs}
+                                            className="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                        >
+                                            View All {totalJobCount} Jobs
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                )}
+                            </>
                         ) : (
                             <div className="bg-white rounded-2xl shadow-md p-8 text-center">
                                 <svg
@@ -1139,6 +1288,23 @@ export default function CareersSection() {
                         75% {
                             transform: translate(-10px, 10px) rotate(-2deg);
                         }
+                    }                `}</style>
+                
+                {/* Additional CSS for pagination */}
+                <style jsx global>{`
+                    /* Pagination hover effects */
+                    .pagination-button:hover {
+                        transform: translateY(-1px);
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    }
+                    
+                    .pagination-button:active {
+                        transform: translateY(0);
+                    }
+                    
+                    /* Smooth transitions for pagination */
+                    .pagination-button {
+                        transition: all 0.2s ease-in-out;
                     }
                 `}</style>
             </div>

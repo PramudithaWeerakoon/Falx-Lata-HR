@@ -144,6 +144,7 @@ exports.Prisma.VacancyScalarFieldEnum = {
   responsibilities: 'responsibilities',
   salary: 'salary',
   applyLink: 'applyLink',
+  deadline: 'deadline',
   active: 'active',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',

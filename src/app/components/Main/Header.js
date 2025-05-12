@@ -45,10 +45,10 @@ function Header() {
 
             <div className="flex items-center gap-3 md:gap-5 ml-auto">
               {/* Social icons */}
-              <a href="#" className="text-white text-sm md:text-base no-underline hover:text-gray-300">
+              <a href="https://web.facebook.com/profile.php?id=100092400323170" className="text-white text-sm md:text-base no-underline hover:text-gray-300">
                 <i className="fab fa-facebook-f"></i>
               </a>
-              <a href="#" className="text-white text-sm md:text-base no-underline hover:text-gray-300">
+              <a href="https://www.linkedin.com/company/falx-lata/?viewAsMember=true" className="text-white text-sm md:text-base no-underline hover:text-gray-300">
                 <i className="fab fa-linkedin-in"></i>
               </a>
               <a href="#" className="text-white text-sm md:text-base no-underline hover:text-gray-300">

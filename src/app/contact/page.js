@@ -92,7 +92,7 @@ export default function ContactSection() {
                   
                     {/* Hero Content */}
                     <div className="container mx-auto px-4 h-full relative z-10 flex flex-col items-center justify-center">
-                        <div className="text-center text-white">
+                        <div className="text-center text-black">
                             <motion.span
                                 initial={{opacity: 0, y: -15}}
                                 animate={{opacity: 1, y: 0}}
@@ -114,12 +114,11 @@ export default function ContactSection() {
                                 animate={{width: "120px"}}
                                 transition={{duration: 0.8, delay: 0.3}}
                                 className="w-32 h-1 bg-gradient-to-r from-blue-300 to-purple-300 mx-auto mb-6"
-                            />
-                            <motion.p
+                            />                            <motion.p
                                 initial={{opacity: 0}}
                                 animate={{opacity: 1}}
                                 transition={{duration: 0.5, delay: 0.2}}
-                                className="text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto drop-shadow-lg mb-8"
+                                className="text-xl md:text-2xl text-black max-w-3xl mx-auto drop-shadow-lg mb-8"
                             >
                                 Work with the best HR services and recruitment in the region
                             </motion.p>
@@ -418,8 +417,8 @@ export default function ContactSection() {
                                                     </div>
                                                     <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 sm:p-6 border border-gray-200">
                                                         <h5 className="font-semibold text-gray-900 mb-2">Colombo Office</h5>
-                                                        <p className="text-gray-700 mb-1">123 Business Avenue</p>
-                                                        <p className="text-gray-700 mb-1">Colombo 03</p>
+                                                        <p className="text-gray-700 mb-1">dehiwala, Colombo, Sri Lanka</p>
+    
                                                         <p className="text-gray-700 mb-3">Sri Lanka</p>
                                                         <div className="flex items-center text-gray-600 mb-1">
                                                             <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -446,7 +445,7 @@ export default function ContactSection() {
                                                             </div>
                                                             <div className="flex justify-between">
                                                                 <span className="text-gray-600">Saturday</span>
-                                                                <span className="font-medium text-gray-800">10:00 AM - 4:00 PM</span>
+                                                                <span className="font-medium text-gray-800">9:00 AM - 6:00 PM</span>
                                                             </div>
                                                             <div className="flex justify-between">
                                                                 <span className="text-gray-600">Sunday</span>

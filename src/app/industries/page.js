@@ -496,15 +496,15 @@ export default function IndustriesSection() {
                                 <p className="text-gray-600">Industries Served</p>
                             </div>
                             <div className="text-center">
-                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">10+</h3>
+                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">30+</h3>
                                 <p className="text-gray-600">Client Companies</p>
                             </div>
                             <div className="text-center">
-                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">30+</h3>
+                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">100+</h3>
                                 <p className="text-gray-600">Successful Placements</p>
                             </div>
                             <div className="text-center">
-                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">95%</h3>
+                                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">99%</h3>
                                 <p className="text-gray-600">Client Satisfaction</p>
                             </div>
                         </div>

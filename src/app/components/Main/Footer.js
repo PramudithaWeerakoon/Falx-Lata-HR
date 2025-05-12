@@ -28,13 +28,13 @@ const Footer = () => {
               <span className="text-xl font-bold">Falx Lata</span>
             </div>
             <p className="text-gray-400 mb-4">
-              Empowering organizations with innovative HR solutions and talent acquisition strategies since 2020.
+              Empowering organizations with innovative HR solutions and talent acquisition strategies since 2021.
             </p>
             <div className="flex gap-4 mb-6">
-              <a href="#" className="text-white hover:text-blue-400 transition-colors">
+              <a href="https://web.facebook.com/profile.php?id=100092400323170" className="text-white hover:text-blue-400 transition-colors">
                 <i className="fab fa-facebook-f"></i>
               </a>
-              <a href="#" className="text-white hover:text-blue-400 transition-colors">
+              <a href="https://www.linkedin.com/company/falx-lata/?viewAsMember=true" className="text-white hover:text-blue-400 transition-colors">
                 <i className="fab fa-linkedin-in"></i>
               </a>
               <a href="#" className="text-white hover:text-blue-400 transition-colors">
@@ -135,7 +135,7 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <i className="fas fa-map-marker-alt mt-1 text-[#3a79ff]"></i>
                 <span className="text-gray-400">
-                  123 Business Park, Colombo 03,<br />Sri Lanka
+                  Dehiwala, Colombo,<br />Sri Lanka
                 </span>
               </li>
               <li className="flex items-center gap-3">
