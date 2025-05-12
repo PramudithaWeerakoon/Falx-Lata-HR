@@ -426,7 +426,7 @@ function IndustriesSection() {
             )
         },        {
             name: "Engineering", 
-            image: "https://images.unsplash.com/photo-1581094794329-c8112c4e25a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+            image: "https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
             description: "Tailored HR services for engineering firms, manufacturing companies, and technical service providers.",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
@@ -436,7 +436,7 @@ function IndustriesSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008Z"/>
                 </svg>
             )
-        },        {
+        },{
             name: "Auto Mobile", 
             image: "https://images.unsplash.com/photo-1552559789-c57c0a79a8cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
             description: "HR solutions for automotive manufacturers, dealerships, and service centers.",
@@ -482,7 +482,7 @@ function IndustriesSection() {
             )
         },        {
             name: "Printing", 
-            image: "https://images.unsplash.com/photo-1603201810469-1f2757437459?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+            image: "/images/printing.jpeg",
             description: "HR solutions for printing companies, publication houses, and commercial printing services.",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
