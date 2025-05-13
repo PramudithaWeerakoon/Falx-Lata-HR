@@ -465,9 +465,10 @@ export default function ContactSection() {
                                                     
                                                     <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white shadow-md">
                                                         <h5 className="font-semibold mb-4">Visit Us</h5>
-                                                        <p className="mb-4">We'd love to meet you in person. Schedule an appointment with our team for personalized HR consultation.</p>
-                                                        <a 
-                                                            href="#"
+                                                        <p className="mb-4">We'd love to meet you in person. Schedule an appointment with our team for personalized HR consultation.</p>                                                        <a 
+                                                            href="https://api.whatsapp.com/send/?phone=%2B94777937691&text&type=phone_number&app_absent=0"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
                                                             className="inline-flex items-center justify-center bg-white text-blue-600 font-medium px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors"
                                                         >
                                                             Schedule Appointment
