@@ -1110,13 +1110,7 @@ export default function CareersSection() {
                                 className="w-full"
                             /></div>
                         {/* Bottom Wave Decoration - positioned at the bottom of the image */}
-                        <div className="absolute top-203 md:bottom-0 left-0 right-0 z-10 w-full">
-                            <img
-                                src="/images/bottom_wave_02_gray.png"
-                                alt="Bottom wave decoration"
-                                className="w-full"
-                            />
-                        </div>
+                       
                         {/* Floating decorations positioned below header but above other content */}
                         <div
                             className="absolute top-[270px] right-0 w-[36rem] h-[36rem] pointer-events-none hidden md:block z-30"

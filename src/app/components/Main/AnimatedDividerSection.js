@@ -67,7 +67,7 @@ const AnimatedDividerSection = () => {
 
       {/* Floating blob right */}
       <motion.div 
-        className="absolute bottom-70 right-0 w-64 h-74 md:w-120 md:h-140 z-30 opacity-100 hidden md:block"
+        className="absolute bottom-70 right-0 w-64 h-74 md:w-120 md:h-140 z-100 opacity-100 hidden md:block"
         animate={{ y: [0, 20, 0], rotate: [0, -7, 0], scale: [1, 1.08, 1] }}
         transition={{ repeat: Infinity, repeatType: "reverse", duration: 10, ease: "easeInOut" }}
       >
@@ -91,16 +91,14 @@ const AnimatedDividerSection = () => {
       {/* Top wave */}
       <div className={`absolute ${isMobile ? '-top-62' : '-top-51'} left-0 right-0 w-full z-50`}>
         <img src="/images/top_wave_01.png" alt="Top wave" className="w-full object-cover" />
-      </div>
-
-      {/* Main content */}
-      <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center" style={{ transform: "translateY(-3rem)" }}>
-        <motion.div style={{ y: textY }} className="max-w-3xl mx-10 text-left">
+      </div>      {/* Main content */}
+      <div className="container mx-auto px-4 relative z-200 h-full flex flex-col justify-center" style={{ transform: "translateY(-3rem)" }}>
+        <motion.div style={{ y: textY }} className="max-w-3xl mx-10 text-left relative z-200">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold mb-6 text-black"
+            className="text-4xl md:text-5xl font-bold mb-6 text-black z-200 relative"
           >
             Unlocking Human Potential, Driving Business Forward
           </motion.h2>
