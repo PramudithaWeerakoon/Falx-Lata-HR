@@ -426,35 +426,32 @@ export default function ServicesPage() {
                     </div>
                     </div>
                     
-                    <div className="max-w-4xl mx-auto">
-                        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center mt-10">
-                            <h2 className="text-3xl font-bold text-white mb-4">
-                                Don't See the Right Fit?
-                            </h2>
-                            <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-                                We're always looking for talented individuals to join our team. Send us your resume and we'll keep
-                                you in mind for future opportunities.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <a
-                                    href="/contact"
-                                    className="bg-white hover:bg-gray-100 text-blue-600 font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
-                                >
-                                    Submit Your Resume
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-blue-600" viewBox="0 0 20 20"
-                                         fill="currentColor">
-                                        <path fillRule="evenodd"
-                                              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414z"
-                                              clipRule="evenodd"/>
-                                    </svg>
-                                </a>
-                                <a
-                                    href="/about"
-                                    className="bg-transparent hover:bg-blue-700 hover:bg-opacity-40 text-white border-2 border-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
-                                >
-                                    Learn About Us
-                                </a>
-                            </div>
+                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center">
+                        <h2 className="text-3xl font-bold text-white mb-4">
+                            Ready to Transform Your HR Operations?
+                        </h2>
+                        <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
+                            Partner with Falx Lata for comprehensive HR solutions that drive business growth and success.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a
+                                href="/contact"
+                                className="bg-white hover:bg-gray-100 text-blue-600 font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
+                            >
+                                Contact Us
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-blue-600" viewBox="0 0 20 20"
+                                     fill="currentColor">
+                                    <path fillRule="evenodd"
+                                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                          clipRule="evenodd"/>
+                                </svg>
+                            </a>
+                            <a
+                                href="/services"
+                                className="bg-transparent hover:bg-blue-700 hover:bg-opacity-40 text-white border-2 border-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
+                            >
+                                Explore Our Services
+                            </a>
                         </div>
                     </div>
                 </div>
