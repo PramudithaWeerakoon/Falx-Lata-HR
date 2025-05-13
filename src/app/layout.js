@@ -14,12 +14,12 @@ const poppins = Poppins({
 export const metadata = {
   title: "Falx Lata HR Solutions",
   description: "Professional HR services and recruitment solutions",
+  viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
+    <html lang="en">      <head>
         {/* Font Awesome */}
         <link
           rel="stylesheet"
@@ -28,9 +28,37 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-      </head>      <body
-        className={`${poppins.variable} ${poppins.className} antialiased`}
-        style={{ backgroundColor: "#f7f7f5" }}
+        
+        {/* Fix for mobile viewport issues causing horizontal scroll */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              // Fix viewport issues on mobile
+              function updateViewportWidth() {
+                const viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                  viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0';
+                }
+                
+                // Fix for iOS devices
+                document.documentElement.style.setProperty('overflow-x', 'hidden');
+                document.body.style.setProperty('overflow-x', 'hidden');
+                document.body.style.setProperty('width', '100%');
+                document.body.style.setProperty('max-width', '100%');
+                document.body.style.setProperty('position', 'relative');
+              }
+              
+              // Run on page load
+              updateViewportWidth();
+              
+              // Run on resize
+              window.addEventListener('resize', updateViewportWidth);
+            })();
+          `
+        }} />
+      </head><body
+        className={`${poppins.variable} ${poppins.className} antialiased overflow-x-hidden`}
+        style={{ backgroundColor: "#f7f7f5", width: "100vw", maxWidth: "100%" }}
       >
         <AuthProvider>
           {children}
