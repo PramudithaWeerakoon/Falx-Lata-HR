@@ -555,10 +555,11 @@ function IndustriesSection() {
 export function StatisticsSection() {    const stats = [
         {value: "30+", label: "Happy Clients"},
         {value: "100+", label: "Successful Placements"},
-        {value: "4+", label: "Years of Experience"}
-    ];    return (
+        {value: "4+", label: "Years of Experience"},
+        {value: "35", label: "Dedicated Professionals"}
+    ];   return (
         <SectionWrapper bgColor="bg-gradient-to-r from-blue-600 to-purple-600">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 {stats.map((stat, index) => (
                     <motion.div
                         key={index}

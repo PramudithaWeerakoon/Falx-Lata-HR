@@ -268,7 +268,7 @@ const ScrollTriggeredMenu = () => {
                                 {/* Dashboard link - only shown when logged in */}
                                 {isAuthenticated && (
                                   <a href="/admin/dashboard" onClick={closeMobileMenu}
-                                     className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline text-lg font-medium`}>
+                                     className={`${scrolled ? 'text-gray-800' : 'text-white'} no-underline text-lg font-medium block py-3 px-4 hover:bg-indigo-100 hover:text-indigo-700 rounded-md transition-colors duration-200 my-2`}>
                                     Dashboard
                                   </a>
                                 )}
@@ -279,7 +279,7 @@ const ScrollTriggeredMenu = () => {
                                     logout();
                                     closeMobileMenu();
                                   }}
-                                    className={`${scrolled ? 'text-gray-800' : 'text-white'} text-left no-underline text-lg font-medium`}>
+                                    className={`${scrolled ? 'text-gray-800' : 'text-white'} text-left no-underline text-lg font-medium block w-full py-3 px-4 hover:bg-indigo-100 hover:text-indigo-700 rounded-md transition-colors duration-200`}>
                                     Logout
                                   </button>
                                 )}

@@ -2,9 +2,11 @@
 
 import { useAuth } from '../../context/AuthContext';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const UserMenuButton = () => {
   const { user, isAuthenticated, logout } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
   
   // If user is not authenticated, don't render anything
   if (!isAuthenticated) {
@@ -12,8 +14,15 @@ const UserMenuButton = () => {
   }
   
   return (
-    <div className="relative group">
-      <button className="flex items-center gap-2 bg-indigo-50 px-4 py-2 rounded-full text-indigo-700 hover:bg-indigo-100 transition-colors">
+    <div 
+      className="relative" 
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setTimeout(() => setIsOpen(false), 300)} // Add delay to give time to click
+    >
+      <button 
+        className="flex items-center gap-2 bg-indigo-50 px-4 py-2 rounded-full text-indigo-700 hover:bg-indigo-100 transition-colors"
+        onClick={() => setIsOpen(!isOpen)} // Toggle dropdown on click too
+      >
         <span className="hidden sm:inline">
           {user?.name || user?.fullName || 'User'}
         </span>
@@ -23,7 +32,11 @@ const UserMenuButton = () => {
       </button>
       
       {/* Dropdown menu */}
-      <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block z-50">
+      <div 
+        className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50 transition-opacity duration-300 ease-in-out ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+        onMouseEnter={() => setIsOpen(true)} // Keep it open when hovering
+        onMouseLeave={() => setTimeout(() => setIsOpen(false), 300)} // Add delay to give time to click
+      >
         <Link href="admin/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
           Dashboard
         </Link>
@@ -39,3 +52,6 @@ const UserMenuButton = () => {
 };
 
 export default UserMenuButton;
+
+
+
