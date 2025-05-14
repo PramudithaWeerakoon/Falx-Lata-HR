@@ -62,9 +62,9 @@ const ScrollTriggeredMenu = () => {
             {!scrolled && (<div className="bg-[#111] transition-all duration-300">
                 <div className="container mx-auto flex justify-between items-center px-4 md:px-12 py-2">
                     <div className="hidden md:flex items-center gap-5">
-                        <a href="mailto:info@falxlata.com"
+                        <a href="mailto:Hr@falxlata.com"
                            className="text-white no-underline flex items-center gap-1 text-sm">
-                            <i className="far fa-envelope"></i> info@falxlata.com
+                            <i className="far fa-envelope"></i> Hr@falxlata.com
                         </a>
                         <a href="tel:+94 777 937 691"
                            className="text-white no-underline flex items-center gap-1 text-sm">
