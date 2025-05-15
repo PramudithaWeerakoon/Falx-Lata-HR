@@ -167,7 +167,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/manurasanjula/Vertex/Falx-Lata-HR/src/generated/prisma",
+      "value": "C:\\Users\\pramuditha.weerakoon\\Downloads\\Falx-Lata-HR\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -176,16 +176,17 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/manurasanjula/Vertex/Falx-Lata-HR/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\pramuditha.weerakoon\\Downloads\\Falx-Lata-HR\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.7.0",
@@ -194,11 +195,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://neondb_owner:npg_h2VQxCoyD7Rq@ep-dry-block-a1o9ycy0-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
+        "value": null
       }
     }
   },
