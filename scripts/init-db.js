@@ -38,8 +38,7 @@ async function main() {
     });
     
     console.log(`Admin user created: ${admin.email}`);
-    
-    // Seed categories
+      // Seed categories
     console.log('Seeding categories...');
     const categories = [
       { name: 'Engineering', description: 'Software engineering roles' },
@@ -56,6 +55,13 @@ async function main() {
     }
     console.log(`${categories.length} categories created`);
     
+    // Fetch created categories to get their IDs
+    const createdCategories = await prisma.category.findMany();
+    const categoryMap = createdCategories.reduce((acc, cat) => {
+      acc[cat.name] = cat.id;
+      return acc;
+    }, {});
+    
     // Seed sample vacancies
     console.log('Seeding sample vacancies...');
     const vacancies = [
@@ -69,10 +75,9 @@ async function main() {
         salary: 'Rs. 200,000 - 300,000 per month',
         active: true,
         userId: admin.id,
-        categoryId: '1',
+        categoryId: categoryMap['Engineering'],
       },
-      {
-        title: 'UI/UX Designer',
+      {        title: 'UI/UX Designer',
         company: 'Falx Lata HR',
         location: 'Remote',
         description: 'Join our design team to create beautiful and functional user interfaces.',
@@ -81,7 +86,7 @@ async function main() {
         salary: 'Rs. 150,000 - 250,000 per month',
         active: true,
         userId: admin.id,
-        categoryId: '2',
+        categoryId: categoryMap['Design'],
       },
       {
         title: 'Marketing Manager',
@@ -93,7 +98,7 @@ async function main() {
         salary: 'Rs. 180,000 - 280,000 per month',
         active: true,
         userId: admin.id,
-        categoryId: '3',
+        categoryId: categoryMap['Marketing'],
       },
     ];
     
