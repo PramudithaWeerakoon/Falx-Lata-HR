@@ -97,13 +97,12 @@ const ScrollTriggeredMenu = () => {
                                 <option>English</option>
                             </select>
                             <i className="fas fa-chevron-down text-white text-xs absolute right-2 top-1/2 transform -translate-y-1/2"></i>
-                        </div>
-
-                        <button
+                        </div>                       
+                         <a
                             href="/contact"
-                            className="bg-gradient-to-r from-[#5C5EFF] to-[#8B5EFF] text-white border-none px-3 md:px-5 py-1 md:py-2 rounded-full text-sm font-bold cursor-pointer hover:bg-[#2a69ff] transition-all">
+                            className="bg-gradient-to-r from-[#5C5EFF] to-[#8B5EFF] text-white border-none px-3 md:px-5 py-1 md:py-2 rounded-full text-sm font-bold cursor-pointer hover:bg-[#2a69ff] transition-all inline-block text-center no-underline">
                             Connect With Us
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>)}
