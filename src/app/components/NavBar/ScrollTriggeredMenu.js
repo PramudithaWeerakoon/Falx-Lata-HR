@@ -100,7 +100,8 @@ const ScrollTriggeredMenu = () => {
                         </div>
 
                         <button
-                            class="bg-gradient-to-r from-[#5C5EFF] to-[#8B5EFF] text-white border-none px-3 md:px-5 py-1 md:py-2 rounded-full text-sm font-bold cursor-pointer hover:bg-[#2a69ff] transition-all">
+                            href="/contact"
+                            className="bg-gradient-to-r from-[#5C5EFF] to-[#8B5EFF] text-white border-none px-3 md:px-5 py-1 md:py-2 rounded-full text-sm font-bold cursor-pointer hover:bg-[#2a69ff] transition-all">
                             Connect With Us
                         </button>
                     </div>

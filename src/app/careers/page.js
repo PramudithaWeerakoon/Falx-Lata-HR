@@ -1461,7 +1461,7 @@ export default function CareersSection() {
                                     </svg>
                                 </button>
                                 <a
-                                    href="/about"
+                                    href="/about-us"
                                     className="bg-transparent hover:bg-blue-700 hover:bg-opacity-40 text-white border-2 border-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-flex items-center justify-center"
                                 >
                                     Learn About Us

@@ -116,7 +116,7 @@ const AnimatedDividerSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <a
-              href="#contact"
+              href="/contact"
               className="inline-block bg-[#3a79ff] hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition-all duration-300"
             >
               Contact Us
