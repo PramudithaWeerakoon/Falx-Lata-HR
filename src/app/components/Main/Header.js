@@ -128,41 +128,8 @@ function Header() {
         </div>
       </nav>
 
-      {/* Chat widget */}
-      <div
-        className="fixed bottom-5 right-5 w-[60px] h-[60px] bg-[#25D366] rounded-full flex items-center justify-center text-white text-2xl cursor-pointer shadow-md z-50 hover:scale-105 transition-transform"
-        onClick={toggleChat}
-      >
-        <i className="far fa-comment"></i>
-        <div className="absolute top-0 right-0 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-xs">
-          1
-        </div>
-      </div>
 
-      {/* Chat options popup */}
-      {isChatOpen && (
-        <div className="fixed bottom-[90px] right-5 w-[300px] bg-white rounded-lg p-5 shadow-lg text-gray-800 z-50 animate-fadeIn">
-          <h3 className="text-base mb-4 text-gray-800">
-            To help you better, could you please share your name, email, and contact number?
-          </h3>
-
-          <div className="py-3 border-b border-gray-200 mb-3">
-            <p className="mb-1 text-sm">You can also reach us anytime at:</p>
-            <p className="mb-1 text-sm">Email: info@falxlata.com</p>
-            <p className="mb-1 text-sm">Call/WhatsApp: +94 777 937 691</p>
-          </div>
-
-          <a href="#" className="block w-full p-3 mb-3 rounded border border-gray-300 bg-gray-50 text-center text-gray-800 no-underline transition-all duration-300 hover:bg-gray-200">
-            I'm a Company looking for recruitment/HR services
-          </a>
-          <a href="#" className="block w-full p-3 mb-3 rounded border border-gray-300 bg-gray-50 text-center text-gray-800 no-underline transition-all duration-300 hover:bg-gray-200">
-            I'm a Candidate looking for a job
-          </a>
-          <a href="#" className="block w-full p-3 mb-3 rounded border border-gray-300 bg-gray-50 text-center text-gray-800 no-underline transition-all duration-300 hover:bg-gray-200">
-            I'm just exploring / Other inquiry
-          </a>
-        </div>
-      )}
+      
     </header>
   );
 }
