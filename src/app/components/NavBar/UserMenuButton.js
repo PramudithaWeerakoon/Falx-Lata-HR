@@ -8,6 +8,9 @@ const UserMenuButton = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   
+  // Detect if device is mobile
+  const isMobile = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+
   // If user is not authenticated, don't render anything
   if (!isAuthenticated) {
     return null;
@@ -15,9 +18,11 @@ const UserMenuButton = () => {
   
   return (
     <div 
-      className="relative" 
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setTimeout(() => setIsOpen(false), 300)} // Add delay to give time to click
+      className="relative"
+      {...(!isMobile && {
+        onMouseEnter: () => setIsOpen(true),
+        onMouseLeave: () => setTimeout(() => setIsOpen(false), 300),
+      })}
     >
       <button 
         className="flex items-center gap-2 bg-indigo-50 px-4 py-2 rounded-full text-indigo-700 hover:bg-indigo-100 transition-colors"
@@ -30,23 +35,22 @@ const UserMenuButton = () => {
           <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
         </svg>
       </button>
-      
       {/* Dropdown menu */}
-      <div 
-        className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50 transition-opacity duration-300 ease-in-out ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
-        onMouseEnter={() => setIsOpen(true)} // Keep it open when hovering
-        onMouseLeave={() => setTimeout(() => setIsOpen(false), 300)} // Add delay to give time to click
-      >
-        <Link href="admin/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-          Dashboard
-        </Link>
-        <button 
-          onClick={logout} 
-          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+      {isOpen && (
+        <div 
+          className="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50"
         >
-          Sign out
-        </button>
-      </div>
+          <Link href="admin/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            Dashboard
+          </Link>
+          <button 
+            onClick={logout} 
+            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          >
+            Sign out
+          </button>
+        </div>
+      )}
     </div>
   );
 };
