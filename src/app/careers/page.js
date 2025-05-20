@@ -57,8 +57,6 @@ function JobCard({job, onApplyClick}) {
                                 {job.department}
                             </motion.span>
                         </div>
-
-                        <p className="text-gray-600 text-sm md:text-base mb-5 md:mb-6">{job.shortDescription}</p>
                     </div>
 
                     <motion.button
@@ -904,7 +902,6 @@ export default function CareersSection() {
                         department: vacancy.category?.name || 'General',
                         postedDate: formatDate(vacancy.createdAt),
                         applicationDeadline: `Deadline: ${formatDeadline(vacancy.deadline, vacancy.applyLink)}`,
-                        shortDescription: vacancy.description.substring(0, 150) + '...',
                         fullDescription: vacancy.description,
                         requirements: vacancy.requirements ? vacancy.requirements.split('\n').filter(req => req.trim()) : [],
                         responsibilities: vacancy.responsibilities ? vacancy.responsibilities.split('\n').filter(resp => resp.trim()) : []
