@@ -54,7 +54,7 @@ export default function AdminSidebar() {
       <div className="md:hidden fixed top-0 left-0 z-40 w-full bg-white shadow-md">
         <div className="px-4 py-3 flex items-center justify-between">
           <div className="flex items-center">
-            <img src="/images/logo.jpeg" alt="Falx Lata Logo" className="h-8" />
+            <img src="/hero.png" alt="Falx Lata Logo" className="h-8" />
             <span className="ml-2 text-lg font-semibold">Admin</span>
           </div>
           <button
@@ -163,7 +163,7 @@ export default function AdminSidebar() {
         <div className="flex flex-col w-64">
           <div className="flex flex-col h-0 flex-1 bg-indigo-800">
             <div className="flex items-center h-16 flex-shrink-0 px-4 bg-indigo-900">
-              <img src="/images/logo.jpeg" alt="Falx Lata Logo" className="h-8" />
+              <img src="/hero.png" alt="Falx Lata Logo" className="h-8" />
               <span className="ml-2 text-white font-semibold">Admin Panel</span>
             </div>
             <div className="flex-1 flex flex-col overflow-y-auto">

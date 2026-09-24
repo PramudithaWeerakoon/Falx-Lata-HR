@@ -178,7 +178,7 @@ const ScrollTriggeredMenu = () => {
                             <a href="/"
                                className="flex items-center gap-2 text-xl font-bold text-gray-900 no-underline">
                                 <img
-                                    src="https://media.licdn.com/dms/image/v2/D560BAQG7k5OHifw4wA/company-logo_200_200/company-logo_200_200/0/1683994128523/falx_lata_logo?e=2147483647&v=beta&t=H_feU7_TuKwnkGeqf8CdxmyADKIqvlmjbsQu7tXeC0U"
+                                    src="/hero.png"
                                     alt="Falx LataLogo"
                                     className="h-8"
                                 />

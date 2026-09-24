@@ -107,7 +107,7 @@ export default function AdminDashboard() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                     <div className="flex items-center">
                         <Link href="/" className="flex items-center">
-                            <img src="/images/logo.jpeg" alt="Falx Lata Logo" className="h-10 mr-3"/>
+                            <img src="/hero.png" alt="Falx Lata Logo" className="h-10 mr-3"/>
                             <span className="text-xl font-semibold text-gray-900">Admin Dashboard</span>
                         </Link>
                     </div>

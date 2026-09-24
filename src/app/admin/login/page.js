@@ -79,7 +79,7 @@ export default function AdminLogin() {
         <Link href="/">
           <div className="flex justify-center mb-6 cursor-pointer">
             <img
-              src="/images/logo.jpeg"
+              src="/hero.png"
               alt="Falx Lata Logo"
               className="h-16"
             />

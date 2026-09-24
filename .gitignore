@@ -22,7 +22,15 @@
 
 # misc
 .DS_Store
+Thumbs.db
 *.pem
+*.tmp
+*.tmp*
+
+# IDE
+.idea/
+.vscode/
+*.iml
 
 # debug
 npm-debug.log*
@@ -42,3 +50,9 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# Temporary / source logo assets (use public/hero.png)
+public/newfalxlata.jpeg
+
+# Prisma engine temp copies
+src/generated/prisma/*.tmp*
